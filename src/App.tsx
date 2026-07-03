@@ -1,13 +1,8 @@
-// import './App.css';
-
 import { useState } from 'react';
 import type { Answers } from './types';
 import { Invite } from './components/Invite';
 import { Food } from './components/Food';
-
-// export default function App() {
-//   return <div className="App">DateApp</div>;
-// }
+import { DatePage } from './components/DatePage';
 
 export default function App() {
   const [step, setStep] = useState(0);
@@ -36,7 +31,10 @@ export default function App() {
 
     <Food onNext={nextStep} onSelect={(food) => updateAnswer('food', food)} />,
 
-    // <Date onNext={nextStep} onSelect={(date) => updateAnswer('date', date)} />,
+    <DatePage
+      onNext={nextStep}
+      onSelect={(date) => updateAnswer('date', date)}
+    />,
 
     // <Outfit
     //   onNext={nextStep}
