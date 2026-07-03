@@ -1,30 +1,6 @@
 @import 'tailwindcss';
 
 @font-face {
-  font-family: 'Nunito';
-  src: url('./assets/fonts/Nunito-Regular.ttf') format('truetype');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'Nunito';
-  src: url('./assets/fonts/Nunito-Medium.ttf') format('truetype');
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: 'Nunito';
-  src: url('./assets/fonts/Nunito-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: 'Nunito';
-  src: url('./assets/fonts/Nunito-Bold.ttf') format('truetype');
-  font-weight: 700;
-}
-
-@font-face {
   font-family: 'Goosberry';
   src: url('./assets/fonts/goosberry_version_02.otf') format('opentype');
   font-weight: 400;
@@ -61,15 +37,14 @@ html,
 body,
 #root {
   min-height: 100vh;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'ZnikomitNo25', sans-serif;
   line-height: 1.5;
-  /* color: #44ccaa; */
   -webkit-font-smoothing: antialiased;
 }
 
 ::placeholder {
   color: #383333;
-  font-size: 12px;
+  /* font-size: 12px; */
 }
 
 img,
@@ -85,13 +60,10 @@ button,
 textarea,
 select {
   font: inherit;
-  font-size: 14px;
 }
 
 button {
   cursor: pointer;
-  background-color: var(--card-bg-color);
-  color: #fcfbe3;
 }
 
 a {
@@ -106,13 +78,7 @@ ol {
 input:focus::placeholder {
   opacity: 0;
 }
-.font-goosberry {
-  font-family: 'Goosberry', sans-serif;
-}
-.font-znikomit {
-  font-family: 'ZnikomitNo25', sans-serif;
-}
-
+/* 
 @media (width: 1680px) {
   html {
     font-size: 24px;
@@ -122,4 +88,4 @@ input:focus::placeholder {
   p {
     font-size: 24px;
   }
-}
+} */
