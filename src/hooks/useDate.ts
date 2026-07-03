@@ -1,3 +1,31 @@
+// import { useState } from 'react';
+
+// type Props = {
+//   onNext: (date: Date) => void;
+//   onSelect: (date: Date) => void;
+// };
+
+// export const useDate = ({ onNext, onSelect }: Props) => {
+//   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+//   const handleSelect = (value: Date | null) => {
+//     if (!value) return;
+//     setSelectedDate(value);
+//     onSelect?.(value);
+//     const hasTime = value.getHours() !== 0 || value.getMinutes() !== 0;
+
+//     if (!hasTime) return;
+
+//     setTimeout(() => {
+//       onNext(value);
+//     }, 600);
+//   };
+
+//   return {
+//     selectedDate,
+//     handleSelect,
+//   };
+// };
 import { useState } from 'react';
 
 type Props = {
@@ -7,22 +35,33 @@ type Props = {
 
 export const useDate = ({ onNext, onSelect }: Props) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<Date | null>(null);
 
-  const handleSelect = (value: Date | null) => {
-    if (!value) return;
-    setSelectedDate(value);
-    onSelect?.(value);
-    const hasTime = value.getHours() !== 0 || value.getMinutes() !== 0;
+  const handleDateChange = (date: Date | null) => {
+    if (date) setSelectedDate(date);
+  };
 
-    if (!hasTime) return;
+  const handleTimeChange = (time: Date | null) => {
+    if (time) setSelectedTime(time);
+  };
 
-    setTimeout(() => {
-      onNext(value);
-    }, 600);
+  const handleContinue = () => {
+    if (!selectedDate || !selectedTime) return;
+
+    const result = new Date(selectedDate);
+
+    result.setHours(selectedTime.getHours(), selectedTime.getMinutes(), 0, 0);
+
+    onSelect?.(result);
+    onNext(result);
   };
 
   return {
     selectedDate,
-    handleSelect,
+    selectedTime,
+    handleDateChange,
+    handleTimeChange,
+    handleContinue,
+    canContinue: !!selectedDate && !!selectedTime,
   };
 };

@@ -3,6 +3,7 @@ import type { FoodProps } from '../types';
 import { FoodCard } from './FoodCard';
 import { useFood } from '../hooks/useFood';
 import { foodOptions } from '../mockData';
+import FloatingHearts from '../ui/FloatingHearts';
 
 export const Food = ({ onNext, onSelect }: FoodProps) => {
   const { selectedFood, handleSelect } = useFood({
@@ -12,11 +13,12 @@ export const Food = ({ onNext, onSelect }: FoodProps) => {
 
   return (
     <section className="flex min-h-screen items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6 py-14">
+      <FloatingHearts />
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className=" w-full max-w-6xl rounded-3xl bg-white/70 p-8 shadow-2xl backdrop-blur-xl"
+        className=" w-full max-w-6xl rounded-3xl bg-pink-100 p-8 shadow-2xl backdrop-blur-xl"
       >
         <div className="flex flex-col items-center gap-4 p-4 pt-0">
           <motion.div

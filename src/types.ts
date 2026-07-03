@@ -1,7 +1,6 @@
 export type Answers = {
   food: string;
-  date: Date | null;
-  outfit: string;
+  date: Date;
   question: string;
 };
 
@@ -30,9 +29,9 @@ export type FoodCardProps = {
   onSelect: (food: FoodOption) => void;
 };
 
-// export type FinalProps = {
-//   answers: Answers;
-// };
+export type FinalProps = {
+  answers: Answers;
+};
 
 export type FoodOption = {
   id: number;

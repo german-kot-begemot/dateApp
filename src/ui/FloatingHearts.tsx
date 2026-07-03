@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 export default function FloatingHearts() {
-  // Генерируем массив из 15 случайных сердечек один раз при монтировании
   const backgroundHearts = useMemo(() => {
     return Array.from({ length: 30 }).map((_, index) => ({
       id: index,
