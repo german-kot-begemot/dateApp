@@ -19,11 +19,6 @@ export type DateProps = {
   onSelect: (date: Date | null) => void;
 };
 
-export type OutfitProps = {
-  onNext: () => void;
-  onSelect: (outfit: string) => void;
-};
-
 export type QuestionProps = {
   onNext: () => void;
   onSelect: (answer: string) => void;

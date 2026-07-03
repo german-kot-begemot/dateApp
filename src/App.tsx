@@ -36,11 +36,6 @@ export default function App() {
       onSelect={(date) => updateAnswer('date', date)}
     />,
 
-    // <Outfit
-    //   onNext={nextStep}
-    //   onSelect={(outfit) => updateAnswer('outfit', outfit)}
-    // />,
-
     // <Question
     //   onNext={nextStep}
     //   onSelect={(answer) => updateAnswer('question', answer)}
