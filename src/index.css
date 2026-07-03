@@ -42,6 +42,11 @@ body,
   -webkit-font-smoothing: antialiased;
 }
 
+p {
+  font-family: 'Goosberry', sans-serif;
+  color: #5f6b85;
+}
+
 ::placeholder {
   color: #383333;
   /* font-size: 12px; */
