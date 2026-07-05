@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion';
-import { Heart } from '../ui/Heart';
-import FloatingHearts from '../ui/FloatingHearts';
-import { useAnswerNoButton } from '../hooks/useAnswerNoButton';
-import type { InviteProps } from '../types';
-import { useConfettiBlast } from '../hooks/useConfettiBlast';
-import { ConfettiBlast } from '../ui/ConfettiBlast';
+import { Heart } from '../../shared/ui/Heart';
+import FloatingHearts from '../../shared/ui/FloatingHearts';
+import { ConfettiBlast } from '../../shared/ui/ConfettiBlast';
+import { useAnswerNoButton } from '../../shared/hooks/useAnswerNoButton';
+import { useConfettiBlast } from '../../shared/hooks/useConfettiBlast';
+
+export type InviteProps = {
+  onNext: () => void;
+};
 
 export const Invite = ({ onNext }: InviteProps) => {
   const {

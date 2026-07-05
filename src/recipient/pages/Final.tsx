@@ -1,5 +1,9 @@
-import type { FinalProps } from '../types';
-import FloatingHearts from '../ui/FloatingHearts';
+import type { Answers } from '../../shared/types';
+import FloatingHearts from '../../shared/ui/FloatingHearts';
+
+export type FinalProps = {
+  answers: Answers;
+};
 
 export const Final = ({ answers }: FinalProps) => {
   return (

@@ -1,9 +1,13 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CalendarDays, Clock3 } from 'lucide-react';
-import type { DateProps } from '../types';
-import { useDate } from '../hooks/useDate';
-import FloatingHearts from '../ui/FloatingHearts';
+import FloatingHearts from '../../shared/ui/FloatingHearts';
+import { useDate } from '../../shared/hooks/useDate';
+
+export type DateProps = {
+  onNext: () => void;
+  onSelect: (date: Date | null) => void;
+};
 
 export const DatePage = ({ onNext, onSelect }: DateProps) => {
   const {

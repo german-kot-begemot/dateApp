@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import type { QuestionProps } from '../types';
-import FloatingHearts from '../ui/FloatingHearts';
+import FloatingHearts from '../../shared/ui/FloatingHearts';
+
+export type QuestionProps = {
+  onNext: () => void;
+  onSelect: (answer: string) => void;
+};
 
 export const Question = ({ onNext, onSelect }: QuestionProps) => {
   const [hoveredNo, setHoveredNo] = useState(false);

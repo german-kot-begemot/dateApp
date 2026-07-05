@@ -1,9 +1,13 @@
 import { motion } from 'framer-motion';
-import type { FoodProps } from '../types';
 import { FoodCard } from './FoodCard';
-import { useFood } from '../hooks/useFood';
-import { foodOptions } from '../mockData';
-import FloatingHearts from '../ui/FloatingHearts';
+import { foodOptions } from '../../shared/mockData';
+import FloatingHearts from '../../shared/ui/FloatingHearts';
+import { useFood } from '../../shared/hooks/useFood';
+
+export type FoodProps = {
+  onNext: () => void;
+  onSelect: (food: string) => void;
+};
 
 export const Food = ({ onNext, onSelect }: FoodProps) => {
   const { selectedFood, handleSelect } = useFood({

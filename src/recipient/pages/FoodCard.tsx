@@ -1,5 +1,11 @@
 import { motion } from 'framer-motion';
-import type { FoodCardProps } from '../types';
+import type { FoodOption } from '../../shared/types';
+
+export type FoodCardProps = {
+  food: FoodOption;
+  selected: boolean;
+  onSelect: (food: FoodOption) => void;
+};
 
 export const FoodCard = ({ food, selected, onSelect }: FoodCardProps) => {
   return (
