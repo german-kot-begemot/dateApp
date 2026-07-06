@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/create',
-    element: <CreateConfig />,
+    element: <CreateConfig onNext={(data) => console.log(data)} />,
   },
   {
     path: '/create/preview',

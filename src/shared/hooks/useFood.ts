@@ -2,8 +2,8 @@ import { useState } from 'react';
 import type { FoodOption } from '../types';
 
 type UseFoodProps = {
-  onSelect: (food: string) => void;
-  onNext: (food: FoodOption) => void;
+  onSelect?: (food: string) => void;
+  onNext?: (food: FoodOption) => void;
 };
 
 export const useFood = ({ onNext, onSelect }: UseFoodProps) => {
@@ -12,10 +12,10 @@ export const useFood = ({ onNext, onSelect }: UseFoodProps) => {
   const handleSelect = (food: FoodOption) => {
     setSelectedFood(food);
 
-    onSelect(food.title);
+    onSelect?.(food.title);
 
     setTimeout(() => {
-      onNext(food);
+      onNext?.(food);
     }, 600);
   };
 

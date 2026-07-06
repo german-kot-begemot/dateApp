@@ -6,7 +6,7 @@ const Y_OFFSET = 180;
 
 type Origin = { x: number; y: number };
 
-export const useConfettiBlast = (onNext: () => void) => {
+export const useConfettiBlast = (onNext?: () => void) => {
   const buttonYesRef = useRef<HTMLButtonElement>(null);
   const [active, setActive] = useState(false);
   const [origin, setOrigin] = useState<Origin>({
@@ -26,7 +26,7 @@ export const useConfettiBlast = (onNext: () => void) => {
     });
 
     setTimeout(() => {
-      onNext();
+      onNext?.();
     }, CONFETTI_DURATION);
   };
 

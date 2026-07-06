@@ -14,7 +14,7 @@ export const Home = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
           <button
             onClick={() => navigate('/create')}
-            className="px-8 py-4 rounded-2xl bg-white text-pink-600 !text-2xl font-semibold shadow-lg hover:bg-pink-100 transition"
+            className="px-8 py-4 rounded-2xl bg-white text-pink-600 text-2xl! font-semibold shadow-lg hover:bg-pink-100 transition"
           >
             Создать открытку
           </button>
@@ -23,7 +23,7 @@ export const Home = () => {
               const id = prompt('Вставь код открытки');
               if (id) navigate(`/card/${id}`);
             }}
-            className="px-8 py-4 rounded-2xl bg-white text-pink-600 !text-2xl font-semibold shadow-lg hover:bg-pink-100 transition"
+            className="px-8 py-4 rounded-2xl bg-white text-pink-600 text-2xl! font-semibold shadow-lg hover:bg-pink-100 transition"
           >
             Открыть приглашение
           </button>

@@ -10,9 +10,9 @@ const PHRASES = [
   'Сдавайся ❤️',
 ] as const;
 
-const SAFE_DISTANCE = 130; // с какого расстояния курсора кнопка начинает бояться
-const PADDING = 12; // отступ от краёв контейнера
-const CANDIDATES = 12; // сколько случайных точек перебрать, выбирая самую дальнюю от курсора
+const SAFE_DISTANCE = 130;
+const PADDING = 12;
+const CANDIDATES = 12;
 
 type Position = {
   left: number;

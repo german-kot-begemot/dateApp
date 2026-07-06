@@ -6,7 +6,7 @@ import { useAnswerNoButton } from '../../shared/hooks/useAnswerNoButton';
 import { useConfettiBlast } from '../../shared/hooks/useConfettiBlast';
 
 export type InviteProps = {
-  onNext: () => void;
+  onNext?: () => void;
 };
 
 export const Invite = ({ onNext }: InviteProps) => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 type Props = {
-  onNext: (date: Date) => void;
+  onNext?: (date: Date) => void;
   onSelect?: (date: Date) => void;
 };
 
@@ -25,7 +25,7 @@ export const useDate = ({ onNext, onSelect }: Props) => {
     result.setHours(selectedTime.getHours(), selectedTime.getMinutes(), 0, 0);
 
     onSelect?.(result);
-    onNext(result);
+    onNext?.(result);
   };
 
   return {

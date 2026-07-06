@@ -5,8 +5,8 @@ import FloatingHearts from '../../shared/ui/FloatingHearts';
 import { useFood } from '../../shared/hooks/useFood';
 
 export type FoodProps = {
-  onNext: () => void;
-  onSelect: (food: string) => void;
+  onNext?: () => void;
+  onSelect?: (food: string) => void;
 };
 
 export const Food = ({ onNext, onSelect }: FoodProps) => {

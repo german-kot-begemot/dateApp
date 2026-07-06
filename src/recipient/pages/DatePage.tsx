@@ -5,8 +5,8 @@ import FloatingHearts from '../../shared/ui/FloatingHearts';
 import { useDate } from '../../shared/hooks/useDate';
 
 export type DateProps = {
-  onNext: () => void;
-  onSelect: (date: Date | null) => void;
+  onNext?: () => void;
+  onSelect?: (date: Date | null) => void;
 };
 
 export const DatePage = ({ onNext, onSelect }: DateProps) => {
