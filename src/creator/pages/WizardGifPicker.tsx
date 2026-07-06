@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { inviteGifs } from '../../shared/types';
+import { inviteGifOptions } from '../../data/inviteGifOptions';
 
 type gifProps = {
   selected: string;
@@ -9,7 +9,7 @@ type gifProps = {
 export const WizardGifPicker = ({ selected, onSelect }: gifProps) => {
   return (
     <div className="grid grid-cols-3 gap-5 sm:grid-cols-4 lg:grid-cols-5">
-      {inviteGifs.map((gif) => (
+      {inviteGifOptions.map((gif) => (
         <motion.button
           key={gif.id}
           whileHover={{ y: -6, scale: 1.03 }}

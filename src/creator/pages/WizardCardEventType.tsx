@@ -1,20 +1,15 @@
 import { motion } from 'framer-motion';
+import { wizardOptions } from '../../data/wizardOptions';
 
 type Props = {
   selected: string | null;
   onSelect: (v: string) => void;
 };
 
-const options = [
-  { id: 'invite', title: 'Приглашение' },
-  { id: 'birthday', title: 'Поздравление с Днем рождения' },
-  { id: 'custom', title: 'Свой вариант' },
-];
-
 export const WizardCardEventType = ({ selected, onSelect }: Props) => {
   return (
     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {options.map((opt) => (
+      {wizardOptions.map((opt) => (
         <motion.button
           whileHover={{
             scale: 1.05,

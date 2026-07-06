@@ -10,6 +10,7 @@ export type WizardData = {
   foodTitle: string;
   dateTitle: string;
   questionTitle: string;
+  link?: string;
 };
 
 const initial: WizardData = {
@@ -19,6 +20,7 @@ const initial: WizardData = {
   foodTitle: '',
   dateTitle: '',
   questionTitle: '',
+  link: '',
 };
 
 export const useWizard = () => {
