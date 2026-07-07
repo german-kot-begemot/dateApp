@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
+import { motion } from 'framer-motion';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -12,23 +13,48 @@ export const Home = () => {
           Создавай интерактивные открытки и отправляй их как ссылку.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-          <button
-            onClick={() => navigate('/create')}
-            className="px-8 py-4 rounded-2xl bg-white text-pink-600 text-2xl! font-semibold shadow-lg hover:bg-pink-100 transition"
+          <motion.button
+          whileHover={{
+            scale: 1.05,
+            y: -6,
+          }}
+          whileTap={{
+            scale: 0.97,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 350,
+          }}
+          onClick={() => navigate('/create')}
+          className="px-8 py-4 rounded-2xl bg-white text-pink-600 text-2xl! font-semibold shadow-lg hover:bg-pink-100 transition"
           >
             Создать открытку
-          </button>
-          <button
-            onClick={() => {
-              const id = prompt('Вставь код открытки');
-              if (id) navigate(`/card/${id}`);
-            }}
-            className="px-8 py-4 rounded-2xl bg-white text-pink-600 text-2xl! font-semibold shadow-lg hover:bg-pink-100 transition"
+          </motion.button>
+
+          <motion.button
+          whileHover={{
+            scale: 1.05,
+            y: -6,
+          }}
+          whileTap={{
+            scale: 0.97,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 350,
+          }}
+          onClick={() => {
+            const id = prompt('Вставь код открытки');
+            if (id) navigate(`/card/${id}`);
+          }}
+          className="px-8 py-4 rounded-2xl bg-white text-pink-600 text-2xl! font-semibold shadow-lg hover:bg-pink-100 transition"
           >
             Открыть приглашение
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>
   );
 };
+
+

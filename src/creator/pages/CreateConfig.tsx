@@ -9,6 +9,7 @@ import { Food } from '../../recipient/pages/Food';
 import { DatePage } from '../../recipient/pages/DatePage';
 import { Question } from '../../recipient/pages/Question';
 import { useNavigate } from 'react-router-dom';
+import { FoodSelector } from '../components/FoodSelector';
 
 export const CreateConfig = () => {
   const { step, data, update, next, back } = useWizard();
@@ -16,7 +17,7 @@ export const CreateConfig = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6">
-      <div className="w-full max-w-2xl bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl flex flex-col gap-8">
+      <div className="w-full max-w-2xl bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl flex flex-col gap-8 max-h-150 overflow-auto">
         <ProgressBar step={step} total={8} />
 
         <WizardStep step={step}>
@@ -64,6 +65,10 @@ export const CreateConfig = () => {
               <p className="text-3xl ">
                 Выбери, из каких опций будет выбирать получатель
               </p>
+              <FoodSelector
+                selected={data.foodOptions}
+                onChange={(foodOptions) => update({ foodOptions })}
+              />
             </div>
           )}
 
@@ -108,7 +113,7 @@ export const CreateConfig = () => {
               <input
                 className="w-full rounded-2xl border border-pink-200 p-4 text-lg
                  focus:border-pink-400 focus:outline-none"
-                placeholder="Напиши что-то, что получатель увидит перед выбором даты и времени"
+                placeholder="Напиши что-то приятное или задай вопрос, на который хочешь получить ответ"
                 value={data.questionTitle}
                 onChange={(e) =>
                   update({
@@ -204,18 +209,18 @@ export const CreateConfig = () => {
         </WizardStep>
 
         <div className="flex justify-between mt-6">
-          {step > 0 && step < 7 && (
-            <button onClick={back} className="px-4 py-2 rounded-xl bg-gray-100">
-              Назад
-            </button>
-          )}
-
           {step < 6 && (
             <button
               onClick={next}
               className="px-4 py-2 rounded-xl bg-pink-500 text-white"
             >
               Далее
+            </button>
+          )}
+
+          {step > 0 && step < 7 && (
+            <button onClick={back} className="px-4 py-2 rounded-xl bg-gray-100">
+              Назад
             </button>
           )}
 

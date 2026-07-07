@@ -8,6 +8,7 @@ export type WizardData = {
   inviteGif: string;
   inviteTitle: string;
   foodTitle: string;
+  foodOptions: string[];
   dateTitle: string;
   questionTitle: string;
   link?: string;
@@ -18,6 +19,7 @@ const initial: WizardData = {
   inviteGif: '',
   inviteTitle: '',
   foodTitle: '',
+  foodOptions: [],
   dateTitle: '',
   questionTitle: '',
   link: '',

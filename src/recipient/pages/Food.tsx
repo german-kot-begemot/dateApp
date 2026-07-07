@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { FoodCard } from './FoodCard';
-import { foodOptions } from '../../shared/mockData';
 import FloatingHearts from '../../shared/ui/FloatingHearts';
+import { foodOptions } from '../../data/foodOptions';
 import { useFood } from '../../shared/hooks/useFood';
 
 export type FoodProps = {
