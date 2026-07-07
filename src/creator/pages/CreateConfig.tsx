@@ -1,6 +1,6 @@
 import { WizardStep } from './WizardStep';
 import { WizardCardEventType } from './WizardCardEventType';
-import { useWizard, type WizardData } from '../../shared/hooks/useWizard';
+import { useWizard } from '../../shared/hooks/useWizard';
 import { ProgressBar } from '../../shared/ui/ProgressBar';
 import { WizardGifPicker } from './WizardGifPicker';
 import { PhoneFrame } from './PhoneFrame';
@@ -10,10 +10,48 @@ import { DatePage } from '../../recipient/pages/DatePage';
 import { Question } from '../../recipient/pages/Question';
 import { useNavigate } from 'react-router-dom';
 import { FoodSelector } from '../components/FoodSelector';
+import type { WizardData } from '../../shared/types';
+import { createCard } from '../../api/cardApi';
+// import { wizardStorage } from '../../store/wizardStorage';
 
 export const CreateConfig = () => {
   const { step, data, update, next, back } = useWizard();
   const navigate = useNavigate();
+
+  console.log('CreateConfig render, step:', step, 'data:', data);
+
+  // const handleCreate = async () => {
+  //   console.log('Creating card with data:', data);
+  //   const result = await createCard(data);
+  //   console.log('Card created:', result);
+
+  //   update({
+  //     link: result.link,
+  //   });
+
+  //   wizardStorage.clear();
+  //   console.log(result);
+
+  //   next();
+  // };
+  const handleCreate = async () => {
+    console.log('🖱 handleCreate fired');
+    try {
+      console.log('📝 Wizard data before create:', data);
+
+      const result = await createCard(data); // это уже готовый объект
+
+      console.log('✅ Created card:', result);
+
+      update({
+        link: result.link,
+      });
+
+      next();
+    } catch (error) {
+      console.error('❌ Handle create error:', error);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6">
@@ -207,6 +245,7 @@ export const CreateConfig = () => {
             </div>
           )}
         </WizardStep>
+        <p>Current step: {step}</p>
 
         <div className="flex justify-between mt-6">
           {step < 6 && (
@@ -226,12 +265,9 @@ export const CreateConfig = () => {
 
           {step === 6 && (
             <button
-              onClick={async () => {
-                const fakeId = crypto.randomUUID();
-                const link = `${window.location.origin}/card/${fakeId}`;
-
-                update({ link });
-                next();
+              onClick={() => {
+                console.log('CLICK');
+                handleCreate();
               }}
               className="px-4 py-2 rounded-xl bg-green-500 text-white"
             >

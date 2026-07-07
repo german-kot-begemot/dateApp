@@ -1,18 +1,6 @@
 import { useEffect, useState } from 'react';
 import { wizardStorage } from '../../store/wizardStorage';
-
-export type CardType = 'invite' | 'birthday' | 'custom';
-
-export type WizardData = {
-  type: CardType | null;
-  inviteGif: string;
-  inviteTitle: string;
-  foodTitle: string;
-  foodOptions: string[];
-  dateTitle: string;
-  questionTitle: string;
-  link?: string;
-};
+import type { WizardData } from '../types';
 
 const initial: WizardData = {
   type: null,

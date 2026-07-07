@@ -1,9 +1,9 @@
-import type { CardConfig } from '../../shared/types';
+import type { WizardData } from '../../shared/types';
 
 export const CreatePreview = () => {
   const data = localStorage.getItem('card-config');
 
-  const config: CardConfig | null = data ? JSON.parse(data) : null;
+  const config: WizardData | null = data ? JSON.parse(data) : null;
 
   if (!config) return null;
 
@@ -11,7 +11,7 @@ export const CreatePreview = () => {
     <div className="min-h-screen flex flex-col items-center justify-center gap-6">
       <h1 className="text-3xl font-bold">Preview</h1>
 
-      <p>{config.question}</p>
+      <p>{config.questionTitle}</p>
 
       <a
         href={`/card/${config.id}`}

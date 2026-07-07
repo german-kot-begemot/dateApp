@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { connectDB } from './db.js';
+
 import cardRoutes from './routes/card.routes.js';
+import { connectDB } from './db.js';
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 connectDB();
 
 app.use('/api/cards', cardRoutes);
+console.log('Routes loaded');
 
 app.listen(3001, () => {
   console.log('Server running on http://localhost:3001');
