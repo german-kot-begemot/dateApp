@@ -3,23 +3,25 @@ import type { FoodOption } from '../../shared/types';
 import { foodOptions } from '../../data/foodOptions';
 
 type FoodSelectorProps = {
-  selected: string[];
-  onChange: (value: string[]) => void;
+  selected: FoodOption[];
+  onChange: (value: FoodOption[]) => void;
 };
 
 export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
   const handleToggle = (food: FoodOption) => {
-    if (selected.includes(food.id.toString())) {
-      onChange(selected.filter((id) => id !== food.id.toString()));
+    const exists = selected.some((item) => item.id === food.id);
+
+    if (exists) {
+      onChange(selected.filter((item) => item.id !== food.id));
     } else {
-      onChange([...selected, food.id.toString()]);
+      onChange([...selected, food]);
     }
   };
 
   return (
     <div className="flex gap-4 flex-wrap justify-between">
       {foodOptions.map((food) => {
-        const isSelected = selected.includes(food.id.toString());
+        const isSelected = selected.some((item) => item.id === food.id);
 
         return (
           <motion.button
@@ -36,7 +38,9 @@ export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
               }`}
           >
             <span className="text-3xl">{food.emoji}</span>
+
             <h3 className="text-xl font-bold">{food.title}</h3>
+
             <p className="text-[#5F6B85]">{food.description}</p>
           </motion.button>
         );

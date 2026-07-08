@@ -1,29 +1,16 @@
-import type { WizardData } from '../shared/types';
-
-// export const createCard = async (cardData: WizardData) => {
-//   const response = await fetch(`${API}/cards`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(cardData),
-//   });
-
-//   if (!response.ok) {
-//     throw new Error('Не удалось создать открытку');
-//   }
-
-//   return response.json();
-// };
+import type { Card, WizardData } from '../shared/types';
+import type { RecipientAnswers } from '../shared/types';
 
 const API = import.meta.env.VITE_API_URL;
 
+/////////////////////////////////////////////////////////////////////
+//for creating a card (creator side)
 export const createCard = async (cardData: WizardData) => {
-  console.log('🔧 API URL from env:', API); // если undefined — вот и причина
-
   const url = `${API}/cards`;
-  console.log('🌍 Request URL:', url);
-  console.log(`${API}/cards`);
+
+  console.log('📡 [cardApi.ts] Попытка отправки запроса...');
+  console.log('🔗 URL:', url);
+  console.log('📦 Data:', cardData);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -31,19 +18,55 @@ export const createCard = async (cardData: WizardData) => {
     body: JSON.stringify(cardData),
   });
 
-  console.log('📥 Status:', response.status);
-  console.log('📥 Headers:', [...response.headers.entries()]);
+  const rawText = await response.text();
 
-  const rawText = await response.text(); // читаем как текст, не как json
-  console.log('📦 Raw response body:', JSON.stringify(rawText));
+  console.log('📥 [cardApi.ts] Ответ сервера (сырой текст):', rawText);
+  console.log('🚦 Статус ответа:', response.status);
 
   if (!response.ok) {
     throw new Error(rawText || `Request failed with status ${response.status}`);
   }
-
   if (!rawText) {
     throw new Error('Сервер вернул пустой ответ');
   }
+  return JSON.parse(rawText);
+};
 
+/////////////////////////////////////////////////////////////////////
+//for getting a card by id (recipiennt side)
+export const getCard = async (cardId: string): Promise<Card> => {
+  const response = await fetch(`${API}/cards/${cardId}`);
+  const rawText = await response.text();
+
+  if (!response.ok) {
+    throw new Error(rawText || `Request failed with status ${response.status}`);
+  }
+  if (!rawText) {
+    throw new Error('Сервер вернул пустой ответ');
+  }
+  return JSON.parse(rawText);
+};
+
+/////////////////////////////////////////////////////////////////////
+//for sending recipient's answers to backend
+export const sendAnswersResponse = async (
+  cardId: string,
+  answers: RecipientAnswers,
+) => {
+  const url = `${API}/cards/${cardId}/answers`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(answers),
+  });
+
+  const rawText = await response.text();
+  if (!response.ok) {
+    throw new Error(rawText || `Request failed with status ${response.status}`);
+  }
+  if (!rawText) {
+    throw new Error('Сервер вернул пустой ответ');
+  }
   return JSON.parse(rawText);
 };

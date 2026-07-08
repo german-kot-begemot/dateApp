@@ -4,12 +4,14 @@ import FloatingHearts from '../../shared/ui/FloatingHearts';
 import { ConfettiBlast } from '../../shared/ui/ConfettiBlast';
 import { useAnswerNoButton } from '../../shared/hooks/useAnswerNoButton';
 import { useConfettiBlast } from '../../shared/hooks/useConfettiBlast';
+import type { Card } from '../../shared/types';
 
 export type InviteProps = {
+  card: Card;
   onNext?: () => void;
 };
 
-export const Invite = ({ onNext }: InviteProps) => {
+export const Invite = ({ card, onNext }: InviteProps) => {
   const {
     containerRef,
     position,
@@ -30,8 +32,10 @@ export const Invite = ({ onNext }: InviteProps) => {
 
         <ConfettiBlast active={confetti.active} origin={confetti.origin} />
 
+        <div className="">{card.inviteGif}</div>
+
         <h1 className="text-center text-5xl font-bold text-pink-600">
-          Пойдешь со мной на свидание?
+          {card.inviteTitle}
         </h1>
 
         <p className="text-center text-3xl">

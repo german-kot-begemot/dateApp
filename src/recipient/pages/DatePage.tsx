@@ -2,25 +2,42 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CalendarDays, Clock3 } from 'lucide-react';
 import FloatingHearts from '../../shared/ui/FloatingHearts';
-import { useDate } from '../../shared/hooks/useDate';
+import type { Card } from '../../shared/types';
+import { useState } from 'react';
 
 export type DateProps = {
+  card: Card;
+  selectedDate: Date | null;
+  selectedTime: Date | null;
+  onDateSelect?: (date: Date) => void;
+  onTimeSelect?: (time: Date) => void;
   onNext?: () => void;
-  onSelect?: (date: Date | null) => void;
 };
 
-export const DatePage = ({ onNext, onSelect }: DateProps) => {
-  const {
-    selectedDate,
+export const DatePage = ({
+  card,
+  selectedDate,
+  selectedTime,
+  onNext,
+  onDateSelect: onSelect,
+  onTimeSelect,
+}: DateProps) => {
+  const [selectedTimeState, setSelectedTimeState] = useState<Date | null>(
     selectedTime,
-    handleDateChange,
-    handleTimeChange,
-    handleContinue,
-    canContinue,
-  } = useDate({
-    onNext,
-    onSelect,
-  });
+  );
+
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      onSelect?.(date);
+    }
+  };
+
+  const handleTimeChange = (time: Date | null) => {
+    if (time) {
+      setSelectedTimeState(time);
+      onTimeSelect?.(time);
+    }
+  };
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6">
@@ -29,15 +46,12 @@ export const DatePage = ({ onNext, onSelect }: DateProps) => {
         <div className="flex flex-col items-center gap-4 p-4 pt-0 ">
           <div className="text-6xl ">📅</div>
 
-          <h2 className="text-4xl font-bold text-pink-600">
-            Выбери дату кутежа
-          </h2>
+          <h2 className="text-4xl font-bold text-pink-600">{card.dateTitle}</h2>
         </div>
 
         <div className="flex justify-center gap-8">
           <DatePicker
             selected={selectedDate}
-            // onChange={handleSelect}
             onChange={handleDateChange}
             minDate={new Date()}
             dateFormat="dd.MM.yyyy"
@@ -61,8 +75,7 @@ export const DatePage = ({ onNext, onSelect }: DateProps) => {
             }
           />
           <DatePicker
-            selected={selectedTime}
-            // onChange={handleSelect}
+            selected={selectedTimeState}
             onChange={handleTimeChange}
             showTimeSelect
             showTimeSelectOnly
@@ -118,8 +131,7 @@ export const DatePage = ({ onNext, onSelect }: DateProps) => {
           )}
           <button
             type="button"
-            disabled={!canContinue}
-            onClick={handleContinue}
+            onClick={onNext}
             className="rounded-2xl bg-pink-500 px-8 py-4 text-2xl font-semibold 
             text-white shadow-lg transition hover:scale-105 disabled:cursor-not-allowed 
             disabled:bg-pink-200 disabled:hover:scale-100"

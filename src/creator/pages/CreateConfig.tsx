@@ -12,49 +12,37 @@ import { useNavigate } from 'react-router-dom';
 import { FoodSelector } from '../components/FoodSelector';
 import type { WizardData } from '../../shared/types';
 import { createCard } from '../../api/cardApi';
-// import { wizardStorage } from '../../store/wizardStorage';
+import { Final } from '../../recipient/pages/Final';
 
 export const CreateConfig = () => {
   const { step, data, update, next, back } = useWizard();
   const navigate = useNavigate();
 
-  console.log('CreateConfig render, step:', step, 'data:', data);
-
-  // const handleCreate = async () => {
-  //   console.log('Creating card with data:', data);
-  //   const result = await createCard(data);
-  //   console.log('Card created:', result);
-
-  //   update({
-  //     link: result.link,
-  //   });
-
-  //   wizardStorage.clear();
-  //   console.log(result);
-
-  //   next();
-  // };
   const handleCreate = async () => {
-    console.log('🖱 handleCreate fired');
     try {
-      console.log('📝 Wizard data before create:', data);
-
-      const result = await createCard(data); // это уже готовый объект
-
-      console.log('✅ Created card:', result);
-
+      const result = await createCard(data);
       update({
         link: result.link,
       });
-
       next();
     } catch (error) {
       console.error('❌ Handle create error:', error);
     }
   };
 
+  const previewCard = {
+    _id: 'preview',
+    type: data.type ?? '',
+    inviteGif: data.inviteGif,
+    inviteTitle: data.inviteTitle,
+    foodTitle: data.foodTitle,
+    foodOptions: data.foodOptions,
+    dateTitle: data.dateTitle,
+    questionTitle: data.questionTitle,
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6">
+    <div className="creator-wrapper min-h-screen flex items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6">
       <div className="w-full max-w-2xl bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl flex flex-col gap-8 max-h-150 overflow-auto">
         <ProgressBar step={step} total={8} />
 
@@ -70,7 +58,7 @@ export const CreateConfig = () => {
             </div>
           )}
 
-          {step === 1 && (
+          {/* {step === 1 && (
             <div className="flex flex-col gap-4">
               <h1 className="text-3xl text-pink-500">Экран 1 — приглашение</h1>
               <div className="flex flex-col gap-4">
@@ -86,6 +74,38 @@ export const CreateConfig = () => {
                 placeholder="Ты пойдешь со мной на свидание?"
                 value={data.inviteTitle}
                 onChange={(e) => update({ inviteTitle: e.target.value })}
+              />
+            </div>
+          )} */}
+
+          {step === 1 && (
+            <div className="flex flex-col gap-4">
+              <h1 className="text-3xl text-pink-500">Экран 1 — приглашение</h1>
+
+              <div className="flex flex-col gap-4">
+                <p className="text-3xl">Выбери картинку для приглашения</p>
+
+                <WizardGifPicker
+                  selected={data.inviteGif}
+                  onSelect={(gif) =>
+                    update({
+                      inviteGif: gif,
+                    })
+                  }
+                />
+              </div>
+
+              <p className="text-3xl">Напиши заголовок</p>
+
+              <input
+                className="w-full p-3 border rounded-xl"
+                placeholder="Ты пойдешь со мной на свидание?"
+                value={data.inviteTitle}
+                onChange={(e) =>
+                  update({
+                    inviteTitle: e.target.value,
+                  })
+                }
               />
             </div>
           )}
@@ -166,24 +186,23 @@ export const CreateConfig = () => {
             <>
               <h2 className="text-3xl text-pink-500 ">Превью</h2>
               <PhoneFrame>
-                <Invite />
-                <Food />
-                <DatePage />
-                <Question />
+                <Invite card={previewCard} />
+                <Food card={previewCard} selectedFood={data.foodOptions} />
+                <DatePage
+                  card={previewCard}
+                  selectedDate={null}
+                  selectedTime={null}
+                />
+                <Question card={previewCard} />
+                <Final
+                  answers={{
+                    selectedFood: [],
+                    selectedDate: null,
+                    selectedTime: null,
+                    answer: '',
+                  }}
+                />
               </PhoneFrame>
-
-              {/* <div className="p-4 rounded-xl bg-pink-50">
-                {data.inviteGif && (
-                  <img
-                    src={data.inviteGif}
-                    alt="Invite"
-                    className="rounded-xl"
-                  />
-                )}
-                <p className="text-3xl">{data.inviteTitle}</p>
-                <p className="text-3xl">{data.foodTitle}</p>
-                <p className="text-3xl">{data.dateTitle}</p>
-              </div> */}
             </>
           )}
 
@@ -245,7 +264,6 @@ export const CreateConfig = () => {
             </div>
           )}
         </WizardStep>
-        <p>Current step: {step}</p>
 
         <div className="flex justify-between mt-6">
           {step < 6 && (
@@ -265,10 +283,7 @@ export const CreateConfig = () => {
 
           {step === 6 && (
             <button
-              onClick={() => {
-                console.log('CLICK');
-                handleCreate();
-              }}
+              onClick={handleCreate}
               className="px-4 py-2 rounded-xl bg-green-500 text-white"
             >
               Создать

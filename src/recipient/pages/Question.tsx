@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import FloatingHearts from '../../shared/ui/FloatingHearts';
+import type { Card } from '../../shared/types';
 
 export type QuestionProps = {
+  card: Card;
+  value?: string;
   onNext?: () => void;
   onSelect?: (answer: string) => void;
 };
 
-export const Question = ({ onNext, onSelect }: QuestionProps) => {
+export const Question = ({ card, onNext, onSelect }: QuestionProps) => {
   const [hoveredNo, setHoveredNo] = useState(false);
 
   const handleYes = () => {
@@ -18,7 +21,9 @@ export const Question = ({ onNext, onSelect }: QuestionProps) => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6 gap-8">
       <FloatingHearts />
-      <h1 className="text-8xl text-center text-pink-600">Ты меня любишь?</h1>
+      <h1 className="text-8xl text-center text-pink-600">
+        {card.questionTitle}
+      </h1>
 
       <div className="relative flex h-52 w-full items-center justify-center gap-4 overflow-hidden rounded-2xl bg-pink-100 max-w-xl p-8 shadow-lg">
         {/* YES */}

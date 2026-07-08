@@ -1,19 +1,26 @@
 import { motion } from 'framer-motion';
 import { FoodCard } from './FoodCard';
 import FloatingHearts from '../../shared/ui/FloatingHearts';
-import { foodOptions } from '../../data/foodOptions';
-import { useFood } from '../../shared/hooks/useFood';
+import type { Card, FoodOption } from '../../shared/types';
 
 export type FoodProps = {
+  card: Card;
+  selectedFood: FoodOption[];
+  onSelect?: (foods: FoodOption[]) => void;
   onNext?: () => void;
-  onSelect?: (food: string) => void;
 };
 
-export const Food = ({ onNext, onSelect }: FoodProps) => {
-  const { selectedFood, handleSelect } = useFood({
-    onNext,
-    onSelect,
-  });
+export const Food = ({ card, selectedFood, onNext, onSelect }: FoodProps) => {
+  const handleSelect = (food: FoodOption) => {
+    const exists = selectedFood.some((item) => item.id === food.id);
+    if (exists) {
+      onSelect?.(selectedFood.filter((item) => item.id !== food.id));
+    } else {
+      onSelect?.([...selectedFood, food]);
+    }
+  };
+
+  const foodsToShow = selectedFood ?? card.foodOptions;
 
   return (
     <section className="flex min-h-screen items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6 py-14">
@@ -26,9 +33,7 @@ export const Food = ({ onNext, onSelect }: FoodProps) => {
       >
         <div className="flex flex-col items-center gap-4 p-4 pt-0">
           <motion.div
-            animate={{
-              rotate: [-3, 3, -3],
-            }}
+            animate={{ rotate: [-3, 3, -3] }}
             transition={{
               repeat: Infinity,
               duration: 2,
@@ -38,21 +43,26 @@ export const Food = ({ onNext, onSelect }: FoodProps) => {
             🍽️
           </motion.div>
 
-          <h2 className="text-4xl font-bold text-pink-600">
-            Самый важный вопрос вечера
-          </h2>
+          <h2 className="text-4xl font-bold text-pink-600">{card.foodTitle}</h2>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {foodOptions.map((food) => (
+          {foodsToShow.map((food) => (
             <FoodCard
               key={food.id}
               food={food}
-              selected={selectedFood?.id === food.id}
-              onSelect={() => handleSelect(food)}
+              selected={selectedFood.some((item) => item.id === food.id)}
+              onSelect={handleSelect}
             />
           ))}
         </div>
+        <button
+          disabled={selectedFood.length === 0}
+          onClick={onNext}
+          className="mt-8 rounded-xl bg-pink-500 px-6 py-3 text-white disabled:opacity-50"
+        >
+          Далее
+        </button>
       </motion.div>
     </section>
   );

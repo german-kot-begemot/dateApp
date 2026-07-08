@@ -15,7 +15,6 @@ app.use(express.json());
 connectDB();
 
 app.use('/api/cards', cardRoutes);
-console.log('Routes loaded');
 
 app.listen(3001, () => {
   console.log('Server running on http://localhost:3001');

@@ -6,27 +6,27 @@ import invite5 from '../assets/gif/invite5.gif';
 
 export const inviteGifOptions = [
   {
-    id: '1',
+    id: 'invite1',
     src: invite1,
     title: 'Милый котик',
   },
   {
-    id: '2',
+    id: 'invite2',
     src: invite2,
     title: 'Сердечки',
   },
   {
-    id: '3',
+    id: 'invite3',
     src: invite3,
     title: 'Романтика',
   },
   {
-    id: '4',
+    id: 'invite4',
     src: invite4,
     title: 'Цветы',
   },
   {
-    id: '5',
+    id: 'invite5',
     src: invite5,
     title: 'Подарок',
   },
