@@ -28,6 +28,7 @@ export type WizardData = {
 //type for the card object received from backend by ID (recipient side)
 export type Card = {
   _id: string;
+  telegramChatId?: string | null;
   type: string;
   inviteGif: string;
   inviteTitle: string;
@@ -39,6 +40,7 @@ export type Card = {
 
 //type for the recipient's response to be sent to backend
 export type RecipientAnswers = {
+  cardId: string;
   selectedFood: FoodOption[];
   selectedDate: Date | null;
   selectedTime: Date | null;

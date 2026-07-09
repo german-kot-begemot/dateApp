@@ -8,6 +8,7 @@ export interface FoodOption {
 }
 
 export interface CardDocument extends mongoose.Document {
+  telegramChatId: string | null;
   type: string;
   inviteGif: string;
   inviteTitle: string;
@@ -19,6 +20,7 @@ export interface CardDocument extends mongoose.Document {
 
 const cardSchema = new mongoose.Schema(
   {
+    telegramChatId: { type: String, default: null },
     type: { type: String, required: true },
     inviteGif: { type: String, required: true },
     inviteTitle: { type: String, required: true },

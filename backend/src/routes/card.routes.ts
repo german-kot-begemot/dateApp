@@ -1,6 +1,5 @@
 import express from 'express';
 import { Card } from '../models/Card.js';
-import { AnswerModel } from '../models/Answer.js';
 
 // создать открытку
 
@@ -39,35 +38,23 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// save recipient's answers for a card
-router.post('/:id/answers', async (req, res) => {
+// PATCH  /api/cards/:id/telegram
+router.patch('/:id/telegram', async (req, res) => {
   try {
+    const { telegramChatId } = req.body;
+
     const card = await Card.findById(req.params.id);
     if (!card) {
       return res.status(404).json({ message: 'Card not found' });
     }
 
-    const { selectedFood, selectedDate, selectedTime, answer } = req.body;
+    card.telegramChatId = telegramChatId;
+    await card.save();
 
-    if (!selectedFood?.length || !selectedDate || !selectedTime || !answer) {
-      return res.status(400).json({ message: 'Не все поля заполнены' });
-    }
-
-    const savedAnswer = await AnswerModel.create({
-      cardId: req.params.id,
-      selectedFood,
-      selectedDate,
-      selectedTime,
-      answer,
-    });
-
-    res.status(201).json({
-      id: savedAnswer._id,
-      message: 'Ответы сохранены',
-    });
+    res.json({ message: 'Telegram chat ID updated' });
   } catch (error) {
-    console.error('ERROR saving answers:', error);
-    res.status(500).json({ message: 'Save answers error' });
+    console.error('ERROR:', error);
+    res.status(500).json({ message: 'Update telegram chat ID error' });
   }
 });
 

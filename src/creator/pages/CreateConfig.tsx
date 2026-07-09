@@ -13,6 +13,7 @@ import { FoodSelector } from '../components/FoodSelector';
 import type { WizardData } from '../../shared/types';
 import { createCard } from '../../api/cardApi';
 import { Final } from '../../recipient/pages/Final';
+import { motion } from 'framer-motion';
 
 export const CreateConfig = () => {
   const { step, data, update, next, back } = useWizard();
@@ -22,6 +23,7 @@ export const CreateConfig = () => {
     try {
       const result = await createCard(data);
       update({
+        id: result.id,
         link: result.link,
       });
       next();
@@ -197,6 +199,7 @@ export const CreateConfig = () => {
                   <Question card={previewCard} />
                   <Final
                     answers={{
+                      cardId: '',
                       selectedFood: [],
                       selectedDate: null,
                       selectedTime: null,
@@ -246,23 +249,38 @@ export const CreateConfig = () => {
               <p className="text-gray-600">
                 Ссылка готова и доступна для отправки
               </p>
-              <button
+              <motion.button
                 onClick={() => navigator.clipboard.writeText(data.link || '')}
                 className="px-6 py-3 rounded-xl bg-gray-100"
               >
                 Копировать ссылку
-              </button>
+              </motion.button>
 
               <div className="w-full p-4 rounded-xl bg-pink-50 break-all">
                 {data.link}
               </div>
 
-              <button
-                onClick={() => navigate('/')}
-                className="px-6 py-3 rounded-xl bg-pink-500 text-white"
-              >
-                Главное меню
-              </button>
+              <div className="flex justify-center gap-4 w-full items-center">
+                <motion.button
+                  className="btn-telegram px-6 py-3 rounded-xl bg-pink-500 text-white"
+                  onClick={() => {
+                    console.log('CARD ID:', data.id);
+                    window.open(
+                      `https://t.me/myappdating_bot?start=${data.id}`,
+                      '_blank',
+                    );
+                  }}
+                >
+                  Получить ответ в telegram
+                </motion.button>
+
+                <motion.button
+                  onClick={() => navigate('/')}
+                  className="px-6 py-3 rounded-xl bg-pink-500 text-white"
+                >
+                  Главное меню
+                </motion.button>
+              </div>
             </div>
           )}
         </WizardStep>

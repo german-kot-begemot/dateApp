@@ -18,6 +18,7 @@ export const CardPage = () => {
   const [card, setCard] = useState<Card | null>(null);
   const [error, setError] = useState<string | undefined>(undefined);
   const [response, setResponse] = useState<RecipientAnswers>({
+    cardId: '',
     selectedFood: [],
     selectedDate: null,
     selectedTime: null,

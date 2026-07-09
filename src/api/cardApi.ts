@@ -8,10 +8,6 @@ const API = import.meta.env.VITE_API_URL;
 export const createCard = async (cardData: WizardData) => {
   const url = `${API}/cards`;
 
-  console.log('📡 [cardApi.ts] Попытка отправки запроса...');
-  console.log('🔗 URL:', url);
-  console.log('📦 Data:', cardData);
-
   const response = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -19,9 +15,6 @@ export const createCard = async (cardData: WizardData) => {
   });
 
   const rawText = await response.text();
-
-  console.log('📥 [cardApi.ts] Ответ сервера (сырой текст):', rawText);
-  console.log('🚦 Статус ответа:', response.status);
 
   if (!response.ok) {
     throw new Error(rawText || `Request failed with status ${response.status}`);
@@ -53,20 +46,26 @@ export const sendAnswersResponse = async (
   cardId: string,
   answers: RecipientAnswers,
 ) => {
-  const url = `${API}/cards/${cardId}/answers`;
+  const url = `${API}/answers`;
 
   const response = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(answers),
+    body: JSON.stringify({
+      ...answers,
+      cardId,
+    }),
   });
 
   const rawText = await response.text();
+
   if (!response.ok) {
     throw new Error(rawText || `Request failed with status ${response.status}`);
   }
+
   if (!rawText) {
     throw new Error('Сервер вернул пустой ответ');
   }
+
   return JSON.parse(rawText);
 };
