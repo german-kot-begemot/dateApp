@@ -183,27 +183,29 @@ export const CreateConfig = () => {
           )}
 
           {step === 5 && (
-            <>
+            <div className="flex flex-col gap-4 text-[14px]">
               <h2 className="text-3xl text-pink-500 ">Превью</h2>
               <PhoneFrame>
-                <Invite card={previewCard} />
-                <Food card={previewCard} selectedFood={data.foodOptions} />
-                <DatePage
-                  card={previewCard}
-                  selectedDate={null}
-                  selectedTime={null}
-                />
-                <Question card={previewCard} />
-                <Final
-                  answers={{
-                    selectedFood: [],
-                    selectedDate: null,
-                    selectedTime: null,
-                    answer: '',
-                  }}
-                />
+                <div className="is-preview h-full w-full">
+                  <Invite card={previewCard} />
+                  <Food card={previewCard} selectedFood={data.foodOptions} />
+                  <DatePage
+                    card={previewCard}
+                    selectedDate={null}
+                    selectedTime={null}
+                  />
+                  <Question card={previewCard} />
+                  <Final
+                    answers={{
+                      selectedFood: [],
+                      selectedDate: null,
+                      selectedTime: null,
+                      answer: '',
+                    }}
+                  />
+                </div>
               </PhoneFrame>
-            </>
+            </div>
           )}
 
           {step === 6 && (

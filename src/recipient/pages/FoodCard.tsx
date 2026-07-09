@@ -23,7 +23,7 @@ export const FoodCard = ({ food, selected, onSelect }: FoodCardProps) => {
       }}
       onClick={() => onSelect(food)}
       className={`relative flex flex-col items-center gap-3 rounded-3xl p-6
-      text-center shadow-lg  bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100
+      text-center shadow-lg  bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 in-[.is-preview]:gap-1 in-[.is-preview]:p-2
         ${selected ? 'ring-pink-500 scale-105 border border-pink-500' : 'hover:shadow-lg'}
       `}
     >
@@ -39,9 +39,13 @@ export const FoodCard = ({ food, selected, onSelect }: FoodCardProps) => {
         </motion.div>
       )}
 
-      <span className="text-6xl">{food.emoji}</span>
-      <h3 className="text-2xl font-bold text-gray-800">{food.title}</h3>
-      <p className=" text-2xl leading-6 text-[#5F6B85]">{food.description}</p>
+      <span className="text-6xl in-[.is-preview]:text-4xl">{food.emoji}</span>
+      <h3 className="text-2xl font-bold text-gray-800 in-[.is-preview]:text-sm">
+        {food.title}
+      </h3>
+      <p className=" text-2xl leading-6 text-[#5F6B85] in-[.is-preview]:text-sm">
+        {food.description}
+      </p>
     </motion.button>
   );
 };

@@ -115,14 +115,14 @@ export const DatePage = ({
             Хочу пойти &nbsp;
             {selectedDate
               ? selectedDate.toLocaleDateString('ru-RU')
-              : 'Дата не выбрана'}{' '}
+              : '-----'}{' '}
             &nbsp; в &nbsp;
             {selectedTime
               ? selectedTime.toLocaleTimeString('ru-RU', {
                   hour: '2-digit',
                   minute: '2-digit',
                 })
-              : 'Время не выбрано'}
+              : '-----'}
           </p>
           {selectedDate && (
             <p className="text-center text-2xl text-pink-600 font-semibold">

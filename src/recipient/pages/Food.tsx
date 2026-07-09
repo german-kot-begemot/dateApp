@@ -8,6 +8,7 @@ export type FoodProps = {
   selectedFood: FoodOption[];
   onSelect?: (foods: FoodOption[]) => void;
   onNext?: () => void;
+  className?: string;
 };
 
 export const Food = ({ card, selectedFood, onNext, onSelect }: FoodProps) => {
@@ -20,7 +21,7 @@ export const Food = ({ card, selectedFood, onNext, onSelect }: FoodProps) => {
     }
   };
 
-  const foodsToShow = selectedFood ?? card.foodOptions;
+  const foodsToShow = selectedFood.length > 0 ? selectedFood : card.foodOptions;
 
   return (
     <section className="flex min-h-screen items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6 py-14">
@@ -29,7 +30,7 @@ export const Food = ({ card, selectedFood, onNext, onSelect }: FoodProps) => {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className=" w-full max-w-6xl rounded-3xl bg-pink-100 p-8 shadow-2xl backdrop-blur-xl"
+        className=" flex flex-col gap-6 max-w-6xl rounded-3xl bg-pink-100 p-8 shadow-2xl backdrop-blur-xl"
       >
         <div className="flex flex-col items-center gap-4 p-4 pt-0">
           <motion.div
@@ -46,7 +47,7 @@ export const Food = ({ card, selectedFood, onNext, onSelect }: FoodProps) => {
           <h2 className="text-4xl font-bold text-pink-600">{card.foodTitle}</h2>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 ">
           {foodsToShow.map((food) => (
             <FoodCard
               key={food.id}
@@ -59,7 +60,7 @@ export const Food = ({ card, selectedFood, onNext, onSelect }: FoodProps) => {
         <button
           disabled={selectedFood.length === 0}
           onClick={onNext}
-          className="mt-8 rounded-xl bg-pink-500 px-6 py-3 text-white disabled:opacity-50"
+          className="max-w-max rounded-xl bg-pink-500 px-6 py-3 text-white disabled:opacity-50"
         >
           Далее
         </button>

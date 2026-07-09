@@ -6,7 +6,7 @@ export type FinalProps = {
 };
 
 export const Final = ({ answers }: FinalProps) => {
-  if (!answers.selectedDate) {
+  if (!answers.selectedDate || !answers.selectedTime) {
     return null;
   }
   return (
@@ -22,7 +22,7 @@ export const Final = ({ answers }: FinalProps) => {
           .toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })
           .replace(/^./, (str) => str.toUpperCase())}{' '}
         в &nbsp;
-        {answers.selectedDate.toLocaleTimeString('ru-RU', {
+        {answers.selectedTime.toLocaleTimeString('ru-RU', {
           hour: '2-digit',
           minute: '2-digit',
         })}

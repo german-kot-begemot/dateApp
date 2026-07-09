@@ -10,6 +10,7 @@ import { DatePage } from './DatePage';
 import { Question } from './Question';
 import { getCard, sendAnswersResponse } from '../../api/cardApi';
 import { Final } from './Final';
+import { motion } from 'framer-motion';
 
 export const CardPage = () => {
   const { id } = useParams();
@@ -42,9 +43,15 @@ export const CardPage = () => {
   }, [id]);
 
   const handleSubmit = async () => {
+    console.log('Submitting response:', response);
+    console.log('selectedFood:', response.selectedFood);
+    console.log('selectedDate:', response.selectedDate);
+    console.log('selectedTime:', response.selectedTime);
+    console.log('answer:', response.answer);
     if (
       !response.selectedFood.length ||
       !response.selectedDate ||
+      !response.selectedTime ||
       !response.answer
     ) {
       alert('Пожалуйста, заполните все поля.');
@@ -75,9 +82,9 @@ export const CardPage = () => {
   if (!card) return <div>Loading...</div>;
 
   return (
-    <div className="recipient-wrapper min-h-screen flex items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6">
-      <div className="w-full max-w-2xl bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl flex flex-col gap-8 max-h-150 overflow-auto">
-        <ProgressBar step={step} total={5} />
+    <>
+      <ProgressBar step={step} total={5} />
+      <div className="recipient-wrapper min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6 gap-8">
         <WizardStep step={step}>
           {step === 0 && <Invite card={card} onNext={next} />}
           {step === 1 && (
@@ -112,19 +119,40 @@ export const CardPage = () => {
               card={card}
               value={response.answer}
               onSelect={(answer) =>
-                setResponse((prev) => ({ ...prev, answer }))
+                setResponse((prev) => ({
+                  ...prev,
+                  answer,
+                }))
               }
-              onNext={handleSubmit}
             />
           )}
           {step === 4 && <Final answers={response} />}
         </WizardStep>
-        {step > 0 && step < 4 && (
-          <button onClick={back} className="rounded-xl bg-gray-100 px-4 py-2">
-            Назад
-          </button>
-        )}
+        <div className="btn-hol relative flex w-full max-w-xl justify-center gap-4">
+          {step > 0 && step < 4 && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              onClick={back}
+              className="send-btn rounded-xl bg-gray-100 px-4 py-2"
+            >
+              Назад
+            </motion.button>
+          )}
+          {step === 3 && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              onClick={handleSubmit}
+              className="rounded-xl bg-pink-500 px-4 py-2 text-white"
+            >
+              Отправить ответ
+            </motion.button>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
