@@ -2,12 +2,12 @@ import { useCallback, useRef, useState } from 'react';
 import type React from 'react';
 
 const PHRASES = [
-  'Нет 😢',
-  'Нет 🙈',
-  'Точно нет? 😅',
-  'Попробуй 😎',
-  'Не поймаешь 😂',
-  'Сдавайся ❤️',
+  'No 😢',
+  'No 🙈',
+  'Are you sure? 😅',
+  'Try it 😎',
+  "You won't catch me 😂",
+  'Give up ❤️',
 ] as const;
 
 const SAFE_DISTANCE = 130;
@@ -21,14 +21,14 @@ type Position = {
 
 export const useAnswerNoButton = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const noBtnRef = useRef<HTMLButtonElement>(null);
 
   const [attempts, setAttempts] = useState(0);
   const [position, setPosition] = useState<Position | null>(null);
 
   const dodge = useCallback((clientX: number, clientY: number) => {
     const container = containerRef.current;
-    const button = buttonRef.current;
+    const button = noBtnRef.current;
     if (!container || !button) return;
 
     const containerRect = container.getBoundingClientRect();
@@ -96,7 +96,7 @@ export const useAnswerNoButton = () => {
 
   return {
     containerRef,
-    buttonRef,
+    noBtnRef: noBtnRef,
     position,
     isDodging: position !== null,
     text: PHRASES[attempts % PHRASES.length],

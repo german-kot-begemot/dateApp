@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function FloatingHearts() {
   const backgroundHearts = useMemo(() => {
-    return Array.from({ length: 20 }).map((_, index) => ({
+    return Array.from({ length: 30 }).map((_, index) => ({
       id: index,
       top: `${Math.random() * 90}%`,
       left: `${Math.random() * 95}%`,

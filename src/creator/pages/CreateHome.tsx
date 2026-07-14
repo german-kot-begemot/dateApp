@@ -5,7 +5,7 @@ export const CreateHome = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-pink-50">
-      <h1 className="text-4xl font-bold text-pink-600">Create your card 💌</h1>
+      <h1 className="text-4xl font-bold text-[#F93C96]">Create your card 💌</h1>
 
       <button
         onClick={() => navigate('/create/config')}

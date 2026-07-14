@@ -6,47 +6,38 @@ import type { Card } from '../../shared/types';
 export type QuestionProps = {
   card: Card;
   value?: string;
-  // onNext?: () => void;
   onSelect?: (answer: string) => void;
 };
 
-export const Question = ({ card, onSelect }: QuestionProps) => {
+export const Question = ({ card, value, onSelect }: QuestionProps) => {
   const [hoveredNo, setHoveredNo] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleYes = () => {
-    if (isSubmitted) return;
-    setIsSubmitted(true);
     onSelect?.('yes');
   };
 
   return (
-    <div
-      className="question-wrapper flex flex-col items-center justify-center bg-linear-to-br
-     from-pink-100 via-rose-50 to-fuchsia-100 px-6 gap-8"
-    >
+    <section className="content-block flex flex-col items-center justify-center gap-8 rounded-4xl p-8 shadow-2xl backdrop-blur-xl">
       <FloatingHearts />
-      <h1 className="text-6xl text-center text-pink-600 in-[.is-preview]:text-4xl">
+      <h1 className="text-center text-5xl in-[.is-preview]:text-4xl">
         {card.questionTitle}
       </h1>
+      <p className="text-2xl text-[#531A2A]">Choose your answer ❤️</p>
 
-      <div
-        className="relative flex h-52 w-full items-center justify-center gap-4 overflow-hidden 
-      rounded-2xl bg-pink-100 max-w-xl p-8 shadow-lg"
-      >
-        {/* YES */}
+      <div className="flex max-w-xl items-center justify-center gap-6 rounded-3xl">
         <motion.button
           onClick={handleYes}
+          disabled={value === 'yes'}
+          animate={value === 'yes' ? { scale: [1, 1.1, 1] } : {}}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="rounded-xl bg-pink-500 px-8 py-4 text-2xl text-white shadow-lg"
+          className="flex h-15 w-40 items-center justify-center rounded-2xl bg-pink-500 text-2xl text-white shadow-lg disabled:opacity-70 disabled:cursor-default! disabled:hover:scale-100 transition"
         >
-          Да ❤️
+          {value === 'yes' ? 'Yes ❤️' : 'Yes 💕'}
         </motion.button>
 
-        {/* NO AREA */}
         <div
-          className="relative"
+          className="flex h-15 w-40 items-center justify-center"
           onMouseEnter={() => setHoveredNo(true)}
           onMouseLeave={() => setHoveredNo(false)}
         >
@@ -54,32 +45,36 @@ export const Question = ({ card, onSelect }: QuestionProps) => {
             {!hoveredNo ? (
               <motion.button
                 key="no"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="rounded-xl bg-gray-300 px-8 py-4 text-2xl font-semibold text-gray-700 shadow-lg"
+                className="h-full w-full rounded-2xl bg-gray-200 text-2xl font-semibold text-gray-600 shadow-lg"
               >
-                Нет
+                No 😢
               </motion.button>
             ) : (
               <motion.div
                 key="kiss"
-                initial={{ opacity: 0, scale: 0.3, rotate: -10 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                initial={{ opacity: 0, scale: 0.3 }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.3 }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 500,
-                  damping: 18,
-                }}
-                className="flex h-16 w-30 items-center justify-center "
+                className="flex h-full w-full items-center justify-center text-6xl"
               >
-                <span className="text-8xl">💋</span>
+                💋
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       </div>
-    </div>
+
+      <AnimatePresence>
+        {value === 'yes' && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-3xl "
+          >
+            Great! 💖
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
   );
 };

@@ -11,14 +11,12 @@ export type DateProps = {
   selectedTime: Date | null;
   onDateSelect?: (date: Date) => void;
   onTimeSelect?: (time: Date) => void;
-  onNext?: () => void;
 };
 
 export const DatePage = ({
   card,
   selectedDate,
   selectedTime,
-  onNext,
   onDateSelect: onSelect,
   onTimeSelect,
 }: DateProps) => {
@@ -40,105 +38,96 @@ export const DatePage = ({
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6">
+    <section className="content-block flex rounded-4xl flex-col items-center justify-center gap-8 shadow-2xl backdrop-blur-xl">
       <FloatingHearts />
-      <div className="w-full max-w-xl rounded-3xl bg-pink-100 p-8 shadow-2xl backdrop-blur-xl flex flex-col gap-8">
-        <div className="flex flex-col items-center gap-4 p-4 pt-0 ">
-          <div className="text-6xl ">📅</div>
+      <div className="flex flex-col items-center gap-4 p-4 pt-0 ">
+        <h2 className="text-center text-5xl font-bold">{card.dateTitle}</h2>
+      </div>
 
-          <h2 className="text-4xl font-bold text-pink-600">{card.dateTitle}</h2>
-        </div>
+      <div className="flex justify-center gap-8">
+        <DatePicker
+          selected={selectedDate}
+          onChange={handleDateChange}
+          minDate={new Date()}
+          dateFormat="dd.MM.yyyy"
+          placeholderText="Выбери дату"
+          portalId="datepicker-portal"
+          filterDate={(date) => ![0, 1, 2, 3].includes(date.getDay())}
+          customInput={
+            <button
+              type="button"
+              className=" flex w-full items-center justify-between rounded-2xl 
+              border-2 border-pink-200 bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-5 py-4
+              text-[#531A2A] shadow-lg transition-all duration-300 hover:border-pink-400 hover:shadow-pink-200/50 
+              active:scale-95 focus:outline-none "
+            >
+              <span className="flex items-center gap-3 text-2xl font-semibold">
+                <CalendarDays size={28} className="text-[#BC2860]" />
 
-        <div className="flex justify-center gap-8">
-          <DatePicker
-            selected={selectedDate}
-            onChange={handleDateChange}
-            minDate={new Date()}
-            dateFormat="dd.MM.yyyy"
-            placeholderText="Выбери дату"
-            portalId="datepicker-portal"
-            filterDate={(date) => ![0, 1, 2, 3].includes(date.getDay())}
-            customInput={
-              <button
-                type="button"
-                className="flex w-full items-center justify-between rounded-2xl border border-pink-200
-                 bg-white px-5 py-4 transition hover:border-pink-400 shadow-lg  bg-linear-to-br
-                  from-pink-100 via-rose-50 to-fuchsia-100 active:scale-100 focus:outline-none"
-              >
-                <span className=" text-3xl flex items-center gap-3">
-                  <CalendarDays size={22} className="text-pink-500" />
-                  {selectedDate
-                    ? selectedDate.toLocaleDateString('ru-RU')
-                    : 'Дата'}
-                </span>
-              </button>
-            }
-          />
-          <DatePicker
-            selected={selectedTimeState}
-            onChange={handleTimeChange}
-            showTimeSelect
-            showTimeSelectOnly
-            timeIntervals={30}
-            timeCaption="Время"
-            timeFormat="HH:mm"
-            dateFormat="HH:mm"
-            placeholderText="Выбери время"
-            portalId="datepicker-portal"
-            filterTime={(time) => {
-              const hours = time.getHours();
-              return hours >= 17 && hours <= 23;
-            }}
-            customInput={
-              <button
-                type="button"
-                className="flex w-full items-center justify-between rounded-2xl border 
-                border-pink-200 bg-white px-5 py-4 transition hover:border-pink-400
-                shadow-lg bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100"
-              >
-                <span className="text-3xl flex items-center gap-3">
-                  <Clock3 size={22} className="text-pink-500" />
-                  {selectedTime
-                    ? selectedTime.toLocaleTimeString('ru-RU', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })
-                    : 'Время'}
-                </span>
-              </button>
-            }
-          />
-        </div>
+                {selectedDate
+                  ? selectedDate.toLocaleDateString('ru-RU')
+                  : 'Date'}
+              </span>
+            </button>
+          }
+        />
+        <DatePicker
+          selected={selectedTimeState}
+          onChange={handleTimeChange}
+          showTimeSelect
+          showTimeSelectOnly
+          timeIntervals={30}
+          timeCaption="Время"
+          timeFormat="HH:mm"
+          dateFormat="HH:mm"
+          placeholderText="Выбери время"
+          portalId="datepicker-portal"
+          filterTime={(time) => {
+            const hours = time.getHours();
+            return hours >= 17 && hours <= 23;
+          }}
+          customInput={
+            <button
+              type="button"
+              className=" flex w-full items-center justify-between rounded-2xl 
+              border-2 border-pink-200 bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-5 py-4
+              text-[#531A2A] shadow-lg transition-all duration-300 hover:border-pink-400 hover:shadow-pink-200/50 
+              active:scale-95 focus:outline-none "
+            >
+              <span className="flex items-center gap-3 text-2xl font-semibold">
+                <Clock3 size={28} className="text-[#BC2860]" />
 
-        <div className="mt-8 flex flex-col justify-center items-center gap-4">
-          <p className="text-3xl text-pink-600">
-            Хочу пойти &nbsp;
-            {selectedDate
-              ? selectedDate.toLocaleDateString('ru-RU')
-              : '-----'}{' '}
-            &nbsp; в &nbsp;
-            {selectedTime
-              ? selectedTime.toLocaleTimeString('ru-RU', {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })
-              : '-----'}
+                {selectedTime
+                  ? selectedTime.toLocaleTimeString('ru-RU', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })
+                  : 'Time'}
+              </span>
+            </button>
+          }
+        />
+      </div>
+
+      <div className="mt-8 flex flex-col justify-center items-center gap-4">
+        <p className="text-3xl text-[#F93C96] in-[.is-preview]:text-[#F93C96]!">
+          I want to go &nbsp;
+          {selectedDate
+            ? selectedDate.toLocaleDateString('ru-RU')
+            : '-----'}{' '}
+          &nbsp; at &nbsp;
+          {selectedTime
+            ? selectedTime.toLocaleTimeString('ru-RU', {
+                hour: '2-digit',
+                minute: '2-digit',
+              })
+            : '-----'}
+        </p>
+        {selectedDate && selectedTime && (
+          <p className="text-center text-2xl text-[#F93C96] font-semibold in-[.is-preview]:text-[#F93C96]!">
+            Great choice ❤️
           </p>
-          {selectedDate && (
-            <p className="text-center text-2xl text-pink-600 font-semibold">
-              Отличный выбор ❤️
-            </p>
-          )}
-          <button
-            type="button"
-            onClick={onNext}
-            className="rounded-2xl bg-pink-500 px-8 py-4 text-2xl font-semibold 
-            text-white shadow-lg transition hover:scale-105 disabled:cursor-not-allowed 
-            disabled:bg-pink-200 disabled:hover:scale-100"
-          >
-            Далее ❤️
-          </button>
-        </div>
+        )}
       </div>
     </section>
   );

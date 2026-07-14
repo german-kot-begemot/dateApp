@@ -62,8 +62,6 @@ ${data.selectedFood.map((f) => `${f.emoji} ${f.title}`).join(', ')}
 
       throw new Error(`Telegram API error: ${errorText}`);
     }
-
-    console.log('✅ Telegram notification sent');
   } catch (error) {
     console.error('❌ Failed to send Telegram notification:', error);
   }

@@ -13,7 +13,7 @@ import { FoodSelector } from '../components/FoodSelector';
 import type { WizardData } from '../../shared/types';
 import { createCard } from '../../api/cardApi';
 import { Final } from '../../recipient/pages/Final';
-import { motion } from 'framer-motion';
+import { AppBtn } from '../../shared/ui/AppBtn';
 
 export const CreateConfig = () => {
   const { step, data, update, next, back } = useWizard();
@@ -44,62 +44,43 @@ export const CreateConfig = () => {
   };
 
   return (
-    <div className="creator-wrapper min-h-screen flex items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6">
-      <div className="w-full max-w-2xl bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl flex flex-col gap-8 max-h-150 overflow-auto">
+    <div className="creator-wrapper bg-love-gradient min-h-screen flex items-center justify-center px-6">
+      <div className="content-block w-full max-w-2xl rounded-3xl p-8 shadow-xl flex flex-col gap-8 max-h-150 overflow-auto">
         <ProgressBar step={step} total={8} />
 
         <WizardStep step={step}>
           {step === 0 && (
-            <div className="flex flex-col gap-10">
-              <h2 className="text-4xl">Выбери, что хотел бы создать</h2>
-
+            <section className="flex flex-col gap-10">
+              <h2
+                id="step-0-title"
+                className="step-header text-center text-4xl"
+              >
+                Choose the type of card
+              </h2>
               <WizardCardEventType
                 selected={data.type}
                 onSelect={(v) => update({ type: v as WizardData['type'] })}
               />
-            </div>
+            </section>
           )}
 
-          {/* {step === 1 && (
-            <div className="flex flex-col gap-4">
-              <h1 className="text-3xl text-pink-500">Экран 1 — приглашение</h1>
-              <div className="flex flex-col gap-4">
-                <p className="text-3xl">Выбери картинку для приглашения</p>
-                <WizardGifPicker
-                  selected={data.inviteGif}
-                  onSelect={(gif) => update({ inviteGif: gif })}
-                />
-              </div>
-              <p className="text-3xl">Напиши заголовок</p>
-              <input
-                className="w-full p-3 border rounded-xl"
-                placeholder="Ты пойдешь со мной на свидание?"
-                value={data.inviteTitle}
-                onChange={(e) => update({ inviteTitle: e.target.value })}
-              />
-            </div>
-          )} */}
-
           {step === 1 && (
-            <div className="flex flex-col gap-4">
-              <h1 className="text-3xl text-pink-500">Экран 1 — приглашение</h1>
-
-              <div className="flex flex-col gap-4">
-                <p className="text-3xl">Выбери картинку для приглашения</p>
-
-                <WizardGifPicker
-                  selected={data.inviteGif}
-                  onSelect={(gif) =>
-                    update({
-                      inviteGif: gif,
-                    })
-                  }
-                />
-              </div>
-
-              <p className="text-3xl">Напиши заголовок</p>
-
+            <section className="flex flex-col gap-4">
+              <h2 className="text-4xl text-center">Step 1 - Invitation</h2>
+              <p className="text-2xl">Choose a GIF for the invitation</p>
+              <WizardGifPicker
+                selected={data.inviteGif}
+                onSelect={(gif) =>
+                  update({
+                    inviteGif: gif,
+                  })
+                }
+              />
+              <label htmlFor="inviteTitle" className="text-2xl">
+                Write a title
+              </label>
               <input
+                id="inviteTitle"
                 className="w-full p-3 border rounded-xl"
                 placeholder="Ты пойдешь со мной на свидание?"
                 value={data.inviteTitle}
@@ -109,71 +90,68 @@ export const CreateConfig = () => {
                   })
                 }
               />
-            </div>
+            </section>
           )}
 
           {step === 2 && (
-            <div className="flex flex-col gap-4">
-              <h1 className="text-3xl text-pink-500">Экран 2 — Еда</h1>
-              <p className="text-3xl ">Заголовок</p>
+            <section className="flex flex-col gap-4">
+              <h2 className="text-4xl text-center">Step 2 - Food</h2>
+              <label htmlFor="foodTitle" className="text-2xl">
+                Title
+              </label>
               <input
+                id="foodTitle"
                 className="w-full p-3 border rounded-xl"
-                placeholder="Чего тебе хочется? "
+                placeholder="What do you want?"
                 value={data.foodTitle}
                 onChange={(e) => update({ foodTitle: e.target.value })}
               />
-              <p className="text-3xl ">
-                Выбери, из каких опций будет выбирать получатель
+              <p className="text-2xl">
+                Choose from which options the recipient will choose
               </p>
               <FoodSelector
                 selected={data.foodOptions}
                 onChange={(foodOptions) => update({ foodOptions })}
               />
-            </div>
+            </section>
           )}
 
           {step === 3 && (
-            <div className="flex flex-col gap-5">
-              <h1 className="text-3xl font-bold text-pink-500">
-                Экран 3 — дата и время
-              </h1>
-
-              <div className="flex flex-col gap-2">
-                <label>
-                  <p className="text-3xl ">Заголовок</p>
-                </label>
-
-                <input
-                  className="w-full rounded-2xl border border-pink-200 p-4 text-lg
-                   focus:border-pink-400 focus:outline-none"
-                  placeholder="Когда тебе будет удобно встретиться? ❤️"
-                  value={data.dateTitle}
-                  onChange={(e) =>
-                    update({
-                      dateTitle: e.target.value,
-                    })
-                  }
-                />
-
-                <p className="text-xl">
-                  Этот текст увидит получатель над выбором даты и времени.
-                </p>
-              </div>
-            </div>
+            <section className="flex flex-col gap-5">
+              <h2 className="text-4xl text-center">Step 3 - Date and Time</h2>
+              <label htmlFor="dateTitle" className="text-2xl">
+                Title
+              </label>
+              <input
+                id="dateTitle"
+                className="w-full rounded-2xl border border-pink-200 p-4 text-lg focus:border-pink-400 focus:outline-none"
+                placeholder="When would it be convenient for you to meet? ❤️"
+                value={data.dateTitle}
+                onChange={(e) =>
+                  update({
+                    dateTitle: e.target.value,
+                  })
+                }
+              />
+              <p className="text-2xl">
+                This text will be seen by the recipient above the date and time
+                selection.
+              </p>
+            </section>
           )}
 
           {step === 4 && (
-            <div className="flex flex-col gap-4">
-              <h1 className="text-3xl font-bold text-pink-500">
-                Экран 4 — Дополнительный вопрос
-              </h1>
-              <label>
-                <p className="text-3xl ">Введи свой вопрос или пожелание</p>
+            <section className="flex flex-col gap-4">
+              <h2 className="text-4xl text-center">
+                Step 4 - Additional Question
+              </h2>
+              <label htmlFor="questionTitle" className="text-2xl">
+                Enter your question or wish
               </label>
               <input
-                className="w-full rounded-2xl border border-pink-200 p-4 text-lg
-                 focus:border-pink-400 focus:outline-none"
-                placeholder="Напиши что-то приятное или задай вопрос, на который хочешь получить ответ"
+                id="questionTitle"
+                className="w-full rounded-2xl border border-pink-200 p-4 text-lg focus:border-pink-400 focus:outline-none"
+                placeholder="Write something nice or ask a question you want an answer to"
                 value={data.questionTitle}
                 onChange={(e) =>
                   update({
@@ -181,12 +159,12 @@ export const CreateConfig = () => {
                   })
                 }
               />
-            </div>
+            </section>
           )}
 
           {step === 5 && (
-            <div className="flex flex-col gap-4 text-[14px]">
-              <h2 className="text-3xl text-pink-500 ">Превью</h2>
+            <section className="flex flex-col gap-4 text-[14px]">
+              <h2 className="text-4xl text-center">Preview</h2>
               <PhoneFrame>
                 <div className="is-preview h-full w-full">
                   <Invite card={previewCard} />
@@ -208,16 +186,13 @@ export const CreateConfig = () => {
                   />
                 </div>
               </PhoneFrame>
-            </div>
+            </section>
           )}
 
           {step === 6 && (
-            <div className="flex flex-col gap-4">
-              <h1 className="text-3xl font-bold text-pink-500">
-                Экран 6 — Финальные штрихи
-              </h1>
-
-              <p className="text-3xl ">Проверь введенные данные</p>
+            <section className="flex flex-col gap-4">
+              <h2 className="text-4xl text-center"> Step 6 - Final Touches </h2>
+              <p className="text-2xl ">Check the entered data</p>
               <div className="p-4 rounded-xl bg-pink-50">
                 {data.inviteGif && (
                   <img
@@ -226,89 +201,64 @@ export const CreateConfig = () => {
                     className="rounded-xl"
                   />
                 )}
-                <p className="text-3xl">{data.inviteTitle}</p>
-                <p className="text-3xl">{data.foodTitle}</p>
-                <p className="text-3xl">{data.dateTitle}</p>
-                <p className="text-3xl">{data.questionTitle}</p>
+                <p className="text-2xl text-[#531A2A]!">{data.inviteTitle}</p>
+                <p className="text-2xl text-[#531A2A]!">{data.foodTitle}</p>
+                <p className="text-2xl text-[#531A2A]!">{data.dateTitle}</p>
+                <p className="text-2xl text-[#531A2A]!">{data.questionTitle}</p>
               </div>
-              <p className="text-3xl ">
-                Если всё верно, нажми "Создать", чтобы сгенерировать ссылку на
-                открытку.
+              <p className="text-2xl text-[#fdf1e8]!">
+                If everything is correct, click "Create" to generate a link to
+                the card.
               </p>
-            </div>
+            </section>
           )}
 
           {step === 7 && (
-            <div className="flex flex-col items-center gap-6 text-center">
+            <section className="flex flex-col items-center gap-6 text-center">
               <div className="text-7xl">🎉</div>
-
-              <h1 className="text-4xl font-bold text-pink-500">
-                Открытка создана!
-              </h1>
-
-              <p className="text-gray-600">
-                Ссылка готова и доступна для отправки
+              <h2 className="text-4xl font-bold">The card has been created!</h2>
+              <p className="text-[#fdf1e8]! text-2xl">
+                The link is ready and available for sharing
               </p>
-              <motion.button
+              <AppBtn
                 onClick={() => navigator.clipboard.writeText(data.link || '')}
-                className="px-6 py-3 rounded-xl bg-gray-100"
               >
-                Копировать ссылку
-              </motion.button>
+                Copy link
+              </AppBtn>
 
-              <div className="w-full p-4 rounded-xl bg-pink-50 break-all">
+              <div className="w-full p-4 rounded-xl bg-pink-50 break-all text-[#531A2A] text-2xl">
                 {data.link}
               </div>
 
               <div className="flex justify-center gap-4 w-full items-center">
-                <motion.button
-                  className="btn-telegram px-6 py-3 rounded-xl bg-pink-500 text-white"
+                <AppBtn
                   onClick={() => {
-                    console.log('CARD ID:', data.id);
                     window.open(
                       `https://t.me/myappdating_bot?start=${data.id}`,
                       '_blank',
                     );
                   }}
                 >
-                  Получить ответ в telegram
-                </motion.button>
-
-                <motion.button
-                  onClick={() => navigate('/')}
-                  className="px-6 py-3 rounded-xl bg-pink-500 text-white"
-                >
-                  Главное меню
-                </motion.button>
+                  Get a response in Telegram
+                </AppBtn>
+                <AppBtn onClick={() => navigate('/')}>Main menu</AppBtn>
               </div>
-            </div>
+            </section>
           )}
         </WizardStep>
 
-        <div className="flex justify-between mt-6">
-          {step < 6 && (
-            <button
-              onClick={next}
-              className="px-4 py-2 rounded-xl bg-pink-500 text-white"
-            >
-              Далее
-            </button>
+        <div className="flex items-center justify-between mt-6 w-full">
+          {step > 0 && step < 7 ? (
+            <AppBtn onClick={back} active={false}>
+              Back
+            </AppBtn>
+          ) : (
+            <div />
           )}
 
-          {step > 0 && step < 7 && (
-            <button onClick={back} className="px-4 py-2 rounded-xl bg-gray-100">
-              Назад
-            </button>
-          )}
+          {step < 6 && <AppBtn onClick={next}>Next</AppBtn>}
 
-          {step === 6 && (
-            <button
-              onClick={handleCreate}
-              className="px-4 py-2 rounded-xl bg-green-500 text-white"
-            >
-              Создать
-            </button>
-          )}
+          {step === 6 && <AppBtn onClick={handleCreate}>Create</AppBtn>}
         </div>
       </div>
     </div>

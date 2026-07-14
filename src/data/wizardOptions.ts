@@ -1,5 +1,5 @@
 export const wizardOptions = [
-  { id: 'invite', title: 'Приглашение на свидание ❤️' },
-  { id: 'birthday', title: 'Поздравление с Днем рождения 🎂' },
-  { id: 'custom', title: 'Своя открытка	🎉' },
+  { id: 'invite', title: 'Date invitation ❤️' },
+  { id: 'birthday', title: 'Birthday greeting' },
+  { id: 'custom', title: 'Custom card' },
 ];

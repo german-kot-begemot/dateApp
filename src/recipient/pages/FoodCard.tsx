@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { FoodOption } from '../../shared/types';
 
-export type FoodCardProps = {
+type FoodCardProps = {
   food: FoodOption;
   selected: boolean;
   onSelect: (food: FoodOption) => void;
@@ -10,42 +10,52 @@ export type FoodCardProps = {
 export const FoodCard = ({ food, selected, onSelect }: FoodCardProps) => {
   return (
     <motion.button
-      whileHover={{
-        scale: 1.05,
-        y: -6,
-      }}
-      whileTap={{
-        scale: 0.97,
-      }}
-      transition={{
-        type: 'spring',
-        stiffness: 350,
-      }}
+      whileHover={{ scale: 1.03, y: -4 }}
+      whileTap={{ scale: 0.98 }}
       onClick={() => onSelect(food)}
-      className={`relative flex flex-col items-center gap-3 rounded-3xl p-6
-      text-center shadow-lg  bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 in-[.is-preview]:gap-1 in-[.is-preview]:p-2
-        ${selected ? 'ring-pink-500 scale-105 border border-pink-500' : 'hover:shadow-lg'}
+      style={{
+        boxShadow: selected
+          ? '0 0 15px rgba(189,40,97,0.9), 0 0 45px rgba(189,40,97,0.6)'
+          : '0 10px 25px rgba(0,0,0,0.15)',
+      }}
+      className={`
+        relative flex flex-col items-center gap-3 rounded-3xl 
+        text-center transition-all max-w-75 p-6 cursor-pointer
+        
+        ${
+          selected
+            ? 'border-2 border-[#bd2861] bg-white ring-4 ring-pink-500/10 scale-105'
+            : 'border border-gray-200/60 bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 '
+        }
       `}
     >
-      {selected && (
-        <motion.div
-          initial={{ scale: 0, rotate: -20 }}
-          animate={{ scale: 1, rotate: 0 }}
-          exit={{ scale: 0 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 20 }}
-          className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow"
-        >
-          ❤️
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            className="
+              absolute -top-1.5 -right-1.5 
+              flex h-6 w-6 items-center justify-center 
+              rounded-full bg-[#bd2861] text-white 
+              text-xs font-bold shadow-md
+            "
+          >
+            ✓
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      <span className="text-6xl in-[.is-preview]:text-4xl">{food.emoji}</span>
-      <h3 className="text-2xl font-bold text-gray-800 in-[.is-preview]:text-sm">
-        {food.title}
-      </h3>
-      <p className=" text-2xl leading-6 text-[#5F6B85] in-[.is-preview]:text-sm">
-        {food.description}
-      </p>
+      <span
+        className={`text-4xl transition-transform duration-300 ${selected ? 'scale-110' : ''}`}
+      >
+        {food.emoji}
+      </span>
+
+      <h3 className="text-2xl font-bold text-[#531A2A]">{food.title}</h3>
+
+      <p className="text-xl text-[#531A2A]!">{food.description}</p>
     </motion.button>
   );
 };

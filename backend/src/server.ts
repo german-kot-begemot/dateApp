@@ -17,9 +17,6 @@ setTelegramWebhook();
 
 app.use('/api', apiRoutes);
 
-console.log('BOT TOKEN EXISTS:', !!process.env.TELEGRAM_BOT_TOKEN);
-console.log('TOKEN:', process.env.TELEGRAM_BOT_TOKEN);
-
 app.listen(3001, () => {
   console.log('Server running on http://localhost:3001');
 });

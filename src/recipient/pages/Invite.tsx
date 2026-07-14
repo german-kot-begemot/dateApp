@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Heart } from '../../shared/ui/Heart';
-import FloatingHearts from '../../shared/ui/FloatingHearts';
 import { ConfettiBlast } from '../../shared/ui/ConfettiBlast';
 import { useAnswerNoButton } from '../../shared/hooks/useAnswerNoButton';
 import { useConfettiBlast } from '../../shared/hooks/useConfettiBlast';
@@ -16,50 +15,44 @@ export const Invite = ({ card, onNext }: InviteProps) => {
     containerRef,
     position,
     text,
-    buttonRef,
+    noBtnRef,
     handleMouseMove,
     handleTouchStart,
   } = useAnswerNoButton();
 
-  const { trigger, confetti } = useConfettiBlast(onNext);
+  const { trigger, confetti, yesBtnRef } = useConfettiBlast(onNext);
 
   return (
-    <section className="page-container flex min-h-screen flex-col items-center justify-center gap-8 bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100">
-      <FloatingHearts />
-
-      <div className="invite-container flex flex-col items-center gap-8 rounded-3xl bg-pink-100 p-8 shadow-lg">
+    <section className="content-block flex rounded-4xl flex-col items-center justify-center gap-8 ">
+      <div className="flex flex-col items-center gap-8 rounded-3xl ">
         <Heart />
-
         <ConfettiBlast active={confetti.active} origin={confetti.origin} />
-
         <div className="">{card.inviteGif}</div>
-
-        <h1 className="text-center text-5xl font-bold text-pink-600">
-          {card.inviteTitle}
-        </h1>
-
-        <p className="text-center text-3xl">
-          Обещаю, будет вкусно, весело и без скучных разговоров 😌
+        <h2 className="text-center text-5xl">{card.inviteTitle}</h2>
+        <p className="text-center text-2xl text-[#531A2A] in-[.is-preview]:text-[#531A2A]!">
+          I promise it will be delicious, fun, and free of boring conversations
+          😌
         </p>
 
         <div
           ref={containerRef}
           onMouseMove={handleMouseMove}
-          className="relative flex h-52 w-full items-center justify-center rounded-2xl bg-pink-50 gap-6"
+          className="relative block-content flex h-52 w-full items-center justify-center rounded-2xl gap-6"
         >
           {/* YES BUTTON */}
           <motion.button
             onClick={trigger}
+            ref={yesBtnRef}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="rounded-xl bg-pink-500 px-8 py-4 text-2xl text-white shadow-lg"
           >
-            Да ❤️
+            Yes ❤️
           </motion.button>
 
           {/* NO BUTTON */}
           <motion.button
-            ref={buttonRef}
+            ref={noBtnRef}
             onTouchStart={handleTouchStart}
             style={
               position ? { position: 'absolute', left: 0, top: 0 } : undefined

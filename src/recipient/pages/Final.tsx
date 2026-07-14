@@ -10,23 +10,23 @@ export const Final = ({ answers }: FinalProps) => {
     return null;
   }
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6 gap-8">
+    <section className="content-block flex rounded-4xl flex-col items-center justify-center gap-8 ">
       <FloatingHearts />
-      <h1 className="text-8xl font-bold text-pink-600">
-        Вот и чудненько!
-        <br /> Свиданию быть!!
+      <h1 className="text-8xl text-center">
+        That's just great!
+        <br /> The date is on!
       </h1>
       <p className="text-6xl">
-        Увидимся: &nbsp;
+        See you: &nbsp;
         {answers.selectedDate
-          .toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })
+          .toLocaleDateString('en-En', { day: 'numeric', month: 'long' })
           .replace(/^./, (str) => str.toUpperCase())}{' '}
-        в &nbsp;
+        at &nbsp;
         {answers.selectedTime.toLocaleTimeString('ru-RU', {
           hour: '2-digit',
           minute: '2-digit',
         })}
       </p>
-    </div>
+    </section>
   );
 };

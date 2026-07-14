@@ -1,58 +1,52 @@
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
+import { AppBtn } from '../shared/ui/AppBtn';
 import { motion } from 'framer-motion';
+import { fadeInContainer, fadeInUp } from '../shared/animations/variants';
 
 export const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className=" wrapper min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6">
-      <div className="flex flex-col items-center gap-6 text-center min-w-100">
-        <h1 className="text-7xl font-bold text-pink-600">Love Cards</h1>
-        <p className="text-[#5F6B85] text-3xl max-w-md w-full">
-          Создавай интерактивные открытки и отправляй их как ссылку.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-              y: -6,
-            }}
-            whileTap={{
-              scale: 0.97,
-            }}
-            transition={{
-              type: 'spring',
-              stiffness: 350,
-            }}
-            onClick={() => navigate('/create')}
-            className="px-8 py-4 rounded-2xl bg-white text-pink-600 text-2xl! font-semibold shadow-lg hover:bg-pink-100 transition"
-          >
-            Создать открытку
-          </motion.button>
+    <main
+      className="wrapper min-h-screen flex flex-col items-center justify-center bg-linear-to-br
+     from-pink-100 via-rose-50 to-fuchsia-100 px-6"
+    >
+      <motion.div
+        variants={fadeInContainer()}
+        initial="hidden"
+        animate="visible"
+        className="flex flex-col items-center gap-6 text-center min-w-100"
+      >
+        <motion.h1
+          variants={fadeInUp}
+          className="text-8xl font-bold text-[#F93C96]"
+        >
+          Moment Cards
+        </motion.h1>
 
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-              y: -6,
-            }}
-            whileTap={{
-              scale: 0.97,
-            }}
-            transition={{
-              type: 'spring',
-              stiffness: 350,
-            }}
+        <motion.p
+          variants={fadeInUp}
+          className="text-[#F76D6D] text-3xl! max-w-md w-full"
+        >
+          Create personalized interactive cards for every special moment.
+        </motion.p>
+
+        <motion.div
+          variants={fadeInUp}
+          className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
+        >
+          <AppBtn onClick={() => navigate('/create')}>Create Card</AppBtn>
+          <AppBtn
             onClick={() => {
               const id = prompt('Вставь код открытки');
               if (id) navigate(`/card/${id}`);
             }}
-            className="px-8 py-4 rounded-2xl bg-white text-pink-600 text-2xl! font-semibold shadow-lg hover:bg-pink-100 transition"
           >
-            Открыть приглашение
-          </motion.button>
-        </div>
-      </div>
-    </div>
+            Open Card
+          </AppBtn>
+        </motion.div>
+      </motion.div>
+    </main>
   );
 };

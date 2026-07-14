@@ -10,7 +10,8 @@ import { DatePage } from './DatePage';
 import { Question } from './Question';
 import { getCard, sendAnswersResponse } from '../../api/cardApi';
 import { Final } from './Final';
-import { motion } from 'framer-motion';
+import FloatingHearts from '../../shared/ui/FloatingHearts';
+import { AppBtn } from '../../shared/ui/AppBtn';
 
 export const CardPage = () => {
   const { id } = useParams();
@@ -44,11 +45,6 @@ export const CardPage = () => {
   }, [id]);
 
   const handleSubmit = async () => {
-    console.log('Submitting response:', response);
-    console.log('selectedFood:', response.selectedFood);
-    console.log('selectedDate:', response.selectedDate);
-    console.log('selectedTime:', response.selectedTime);
-    console.log('answer:', response.answer);
     if (
       !response.selectedFood.length ||
       !response.selectedDate ||
@@ -85,7 +81,8 @@ export const CardPage = () => {
   return (
     <>
       <ProgressBar step={step} total={5} />
-      <div className="recipient-wrapper min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6 gap-8">
+      <div className="recipient-wrapper bg-love-gradient min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6 gap-8">
+        <FloatingHearts />
         <WizardStep step={step}>
           {step === 0 && <Invite card={card} onNext={next} />}
           {step === 1 && (
@@ -98,7 +95,6 @@ export const CardPage = () => {
                   selectedFood: foods,
                 }))
               }
-              onNext={next}
             />
           )}
           {step === 2 && (
@@ -112,7 +108,6 @@ export const CardPage = () => {
               onTimeSelect={(time) =>
                 setResponse((prev) => ({ ...prev, selectedTime: time }))
               }
-              onNext={next}
             />
           )}
           {step === 3 && (
@@ -130,27 +125,30 @@ export const CardPage = () => {
           {step === 4 && <Final answers={response} />}
         </WizardStep>
         <div className="btn-hol relative flex w-full max-w-xl justify-center gap-4">
-          {step > 0 && step < 4 && (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              onClick={back}
-              className="send-btn rounded-xl bg-gray-100 px-4 py-2"
+          {step > 0 && step < 4 && <AppBtn onClick={back}>Back</AppBtn>}
+
+          {step === 1 && (
+            <AppBtn
+              onClick={next}
+              disabled={response.selectedFood.length === 0}
             >
-              Назад
-            </motion.button>
+              Next
+            </AppBtn>
           )}
-          {step === 3 && (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              onClick={handleSubmit}
-              className="rounded-xl bg-pink-500 px-4 py-2 text-white"
+
+          {step === 2 && (
+            <AppBtn
+              onClick={next}
+              disabled={!response.selectedDate || !response.selectedTime}
             >
-              Отправить ответ
-            </motion.button>
+              Next
+            </AppBtn>
+          )}
+
+          {step === 3 && (
+            <AppBtn onClick={handleSubmit} disabled={!response.answer}>
+              Send answers
+            </AppBtn>
           )}
         </div>
       </div>
