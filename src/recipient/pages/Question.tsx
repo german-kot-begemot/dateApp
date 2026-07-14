@@ -19,10 +19,12 @@ export const Question = ({ card, value, onSelect }: QuestionProps) => {
   return (
     <section className="content-block flex flex-col items-center justify-center gap-8 rounded-4xl p-8 shadow-2xl backdrop-blur-xl">
       <FloatingHearts />
-      <h1 className="text-center text-5xl in-[.is-preview]:text-4xl">
+      <h1 className="text-center text-5xl in-[.is-preview]:text-4xl in-[.is-preview]:text-[#531A2A]">
         {card.questionTitle}
       </h1>
-      <p className="text-2xl text-[#531A2A]">Choose your answer ❤️</p>
+      <p className="text-2xl text-[#531A2A] in-[.is-preview]:text-[#531A2A]!">
+        Choose your answer ❤️
+      </p>
 
       <div className="flex max-w-xl items-center justify-center gap-6 rounded-3xl">
         <motion.button

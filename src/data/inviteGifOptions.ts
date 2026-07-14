@@ -30,4 +30,4 @@ export const inviteGifOptions = [
     src: invite5,
     title: 'Подарок',
   },
-];
+] as const;

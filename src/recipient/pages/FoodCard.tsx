@@ -20,7 +20,7 @@ export const FoodCard = ({ food, selected, onSelect }: FoodCardProps) => {
       }}
       className={`
         relative flex flex-col items-center gap-3 rounded-3xl 
-        text-center transition-all max-w-75 p-6 cursor-pointer
+        text-center transition-all max-w-75 p-6 cursor-pointer in-[.is-preview]:max-w-37.5 in-[.is-preview]:p-2 in-[.is-preview]:gap-2
         
         ${
           selected
@@ -48,14 +48,18 @@ export const FoodCard = ({ food, selected, onSelect }: FoodCardProps) => {
       </AnimatePresence>
 
       <span
-        className={`text-4xl transition-transform duration-300 ${selected ? 'scale-110' : ''}`}
+        className={`text-4xl transition-transform in-[.is-preview]:text-2xl duration-300 ${selected ? 'scale-110' : ''}`}
       >
         {food.emoji}
       </span>
 
-      <h3 className="text-2xl font-bold text-[#531A2A]">{food.title}</h3>
+      <h3 className="text-2xl font-bold text-[#531A2A] in-[.is-preview]:text-[#531A2A]! in-[.is-preview]:text-[14px]!">
+        {food.title}
+      </h3>
 
-      <p className="text-xl text-[#531A2A]!">{food.description}</p>
+      <p className="text-xl text-[#531A2A]! in-[.is-preview]:text-[#531A2A]! in-[.is-preview]:text-[12px]!">
+        {food.description}
+      </p>
     </motion.button>
   );
 };

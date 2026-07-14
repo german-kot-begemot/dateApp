@@ -58,7 +58,7 @@ export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
             <h3 className="text-xl font-bold text-[#531A2A] in-[.is-preview]:text-[#531A2A]">
               {food.title}
             </h3>
-            <p className="text-sm text-[#531A2A]! in-[.is-preview]:text-[#531A2A]!">
+            <p className="text-sm text-[#531A2A]! in-[.is-preview]:text-[#531A2A]! in-[.is-preview]:text-[10px]!">
               {food.description}
             </p>
           </motion.button>

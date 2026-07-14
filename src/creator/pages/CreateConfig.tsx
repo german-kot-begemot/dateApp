@@ -14,6 +14,7 @@ import type { WizardData } from '../../shared/types';
 import { createCard } from '../../api/cardApi';
 import { Final } from '../../recipient/pages/Final';
 import { AppBtn } from '../../shared/ui/AppBtn';
+import { getInviteGif } from '../../shared/lib/getInviteGif';
 
 export const CreateConfig = () => {
   const { step, data, update, next, back } = useWizard();
@@ -81,7 +82,7 @@ export const CreateConfig = () => {
               </label>
               <input
                 id="inviteTitle"
-                className="w-full p-3 border rounded-xl"
+                className="w-full p-3 border rounded-xl border-pink-200 placeholder:text-[#fdf1e8]!"
                 placeholder="Ты пойдешь со мной на свидание?"
                 value={data.inviteTitle}
                 onChange={(e) =>
@@ -101,7 +102,7 @@ export const CreateConfig = () => {
               </label>
               <input
                 id="foodTitle"
-                className="w-full p-3 border rounded-xl"
+                className="w-full p-3 border rounded-xl border-pink-200 placeholder:text-[#fdf1e8]!"
                 placeholder="What do you want?"
                 value={data.foodTitle}
                 onChange={(e) => update({ foodTitle: e.target.value })}
@@ -124,7 +125,7 @@ export const CreateConfig = () => {
               </label>
               <input
                 id="dateTitle"
-                className="w-full rounded-2xl border border-pink-200 p-4 text-lg focus:border-pink-400 focus:outline-none"
+                className="w-full rounded-2xl border border-pink-200 p-4 text-lg placeholder:text-[#fdf1e8]!"
                 placeholder="When would it be convenient for you to meet? ❤️"
                 value={data.dateTitle}
                 onChange={(e) =>
@@ -146,11 +147,12 @@ export const CreateConfig = () => {
                 Step 4 - Additional Question
               </h2>
               <label htmlFor="questionTitle" className="text-2xl">
-                Enter your question or wish
+                Enter your question with answer yes or no. For example: "Will
+                you go on a date with me?"
               </label>
               <input
                 id="questionTitle"
-                className="w-full rounded-2xl border border-pink-200 p-4 text-lg focus:border-pink-400 focus:outline-none"
+                className="w-full rounded-2xl border border-pink-200 p-4 text-lg placeholder:text-[#fdf1e8]!"
                 placeholder="Write something nice or ask a question you want an answer to"
                 value={data.questionTitle}
                 onChange={(e) =>
@@ -166,7 +168,7 @@ export const CreateConfig = () => {
             <section className="flex flex-col gap-4 text-[14px]">
               <h2 className="text-4xl text-center">Preview</h2>
               <PhoneFrame>
-                <div className="is-preview h-full w-full">
+                <div className="is-preview flex flex-col gap-6 h-full w-full">
                   <Invite card={previewCard} />
                   <Food card={previewCard} selectedFood={data.foodOptions} />
                   <DatePage
@@ -196,7 +198,7 @@ export const CreateConfig = () => {
               <div className="p-4 rounded-xl bg-pink-50">
                 {data.inviteGif && (
                   <img
-                    src={data.inviteGif}
+                    src={getInviteGif(data.inviteGif)}
                     alt="Invite"
                     className="rounded-xl"
                   />

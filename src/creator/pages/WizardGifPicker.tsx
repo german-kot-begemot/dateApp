@@ -1,23 +1,24 @@
 import { motion } from 'framer-motion';
 import { inviteGifOptions } from '../../data/inviteGifOptions';
+import type { InviteGifId } from '../../shared/types';
 
 type gifProps = {
-  selected: string;
-  onSelect: (gif: string) => void;
+  selected: InviteGifId | '';
+  onSelect: (gif: InviteGifId | '') => void;
 };
 
 export const WizardGifPicker = ({ selected, onSelect }: gifProps) => {
   return (
     <div className="grid grid-cols-3 gap-5 sm:grid-cols-4 lg:grid-cols-5">
       {inviteGifOptions.map((gif) => {
-        const isCurrentSelected = selected === gif.src;
+        const isCurrentSelected = selected === gif.id;
 
         return (
           <motion.button
             key={gif.id}
             whileHover={{ y: -6, scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => onSelect(gif.src)}
+            onClick={() => onSelect(gif.id)}
             style={{
               boxShadow: isCurrentSelected
                 ? '0 0 40px rgba(189,40,97,0.5), 0 4px 16px rgba(0,0,0,0.4)'

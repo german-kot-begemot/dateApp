@@ -41,7 +41,9 @@ export const DatePage = ({
     <section className="content-block flex rounded-4xl flex-col items-center justify-center gap-8 shadow-2xl backdrop-blur-xl">
       <FloatingHearts />
       <div className="flex flex-col items-center gap-4 p-4 pt-0 ">
-        <h2 className="text-center text-5xl font-bold">{card.dateTitle}</h2>
+        <h2 className="text-center text-5xl font-bold in-[.is-preview]:text-[#531A2A]">
+          {card.dateTitle}
+        </h2>
       </div>
 
       <div className="flex justify-center gap-8">
@@ -110,7 +112,7 @@ export const DatePage = ({
       </div>
 
       <div className="mt-8 flex flex-col justify-center items-center gap-4">
-        <p className="text-3xl text-[#F93C96] in-[.is-preview]:text-[#F93C96]!">
+        <p className="text-3xl text-[#F93C96] in-[.is-preview]:text-[#531A2A]!">
           I want to go &nbsp;
           {selectedDate
             ? selectedDate.toLocaleDateString('ru-RU')

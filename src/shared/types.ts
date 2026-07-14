@@ -10,13 +10,20 @@ export type ScreenInvite = {
   inviteTitle: string;
 };
 
+export type InviteGifId =
+  | 'invite1'
+  | 'invite2'
+  | 'invite3'
+  | 'invite4'
+  | 'invite5';
+
 export type CardType = 'invite' | 'birthday' | 'custom';
 
 //data from Wizard to be stored in localStorage and sent to backend
 export type WizardData = {
   id?: string;
   type: CardType | null;
-  inviteGif: string;
+  inviteGif: InviteGifId | '';
   inviteTitle: string;
   foodTitle: string;
   foodOptions: FoodOption[];
@@ -30,7 +37,7 @@ export type Card = {
   _id: string;
   telegramChatId?: string | null;
   type: string;
-  inviteGif: string;
+  inviteGif: InviteGifId | '';
   inviteTitle: string;
   foodTitle: string;
   foodOptions: FoodOption[];
