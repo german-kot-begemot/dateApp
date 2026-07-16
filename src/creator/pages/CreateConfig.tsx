@@ -1,4 +1,5 @@
 import { WizardStep } from './WizardStep';
+import { motion } from 'framer-motion';
 import { WizardCardEventType } from './WizardCardEventType';
 import { useWizard } from '../../shared/hooks/useWizard';
 import { ProgressBar } from '../../shared/ui/ProgressBar';
@@ -15,10 +16,20 @@ import { createCard } from '../../api/cardApi';
 import { Final } from '../../recipient/pages/Final';
 import { AppBtn } from '../../shared/ui/AppBtn';
 import { getInviteGif } from '../../shared/lib/getInviteGif';
+import { WizardSection } from '../components/WizardSection';
+import { useTranslation } from 'react-i18next';
 
 export const CreateConfig = () => {
+  const { t } = useTranslation();
   const { step, data, update, next, back } = useWizard();
   const navigate = useNavigate();
+
+  const isNextDisabled =
+    (step === 0 && !data.type) ||
+    (step === 1 && (!data.inviteGif || !data.inviteTitle.trim())) ||
+    (step === 2 && data.foodOptions.length === 0) ||
+    (step === 3 && !data.dateTitle.trim()) ||
+    (step === 4 && !data.questionTitle.trim());
 
   const handleCreate = async () => {
     try {
@@ -46,29 +57,34 @@ export const CreateConfig = () => {
 
   return (
     <div className="creator-wrapper bg-love-gradient min-h-screen flex items-center justify-center px-6">
-      <div className="content-block w-full max-w-2xl rounded-3xl p-8 shadow-xl flex flex-col gap-8 max-h-150 overflow-auto">
+      <div className="content-block rounded-3xl p-8 shadow-xl flex flex-col gap-8 ">
         <ProgressBar step={step} total={8} />
 
         <WizardStep step={step}>
           {step === 0 && (
-            <section className="flex flex-col gap-10">
-              <h2
+            <WizardSection className="flex flex-col gap-10">
+              <motion.h2
                 id="step-0-title"
-                className="step-header text-center text-4xl"
+                className="step-header text-center text-4xl mb-7.5!"
               >
-                Choose the type of card
-              </h2>
+                {t('wizard.chooseType')}
+              </motion.h2>
               <WizardCardEventType
                 selected={data.type}
                 onSelect={(v) => update({ type: v as WizardData['type'] })}
               />
-            </section>
+            </WizardSection>
           )}
 
           {step === 1 && (
-            <section className="flex flex-col gap-4">
-              <h2 className="text-4xl text-center">Step 1 - Invitation</h2>
-              <p className="text-2xl">Choose a GIF for the invitation</p>
+            <WizardSection className="flex flex-col gap-4">
+              <motion.h2
+                className="text-4xl text-center mb-7.5!"
+                id="step-1-title"
+              >
+                {t('wizard.invitation')}
+              </motion.h2>
+              <motion.p className="text-2xl">{t('wizard.chooseGif')}</motion.p>
               <WizardGifPicker
                 selected={data.inviteGif}
                 onSelect={(gif) =>
@@ -77,13 +93,13 @@ export const CreateConfig = () => {
                   })
                 }
               />
-              <label htmlFor="inviteTitle" className="text-2xl">
-                Write a title
-              </label>
-              <input
+              <motion.label htmlFor="inviteTitle" className="text-2xl">
+                {t('wizard.writeTitle')}
+              </motion.label>
+              <motion.input
                 id="inviteTitle"
                 className="w-full p-3 border rounded-xl border-pink-200 placeholder:text-[#fdf1e8]!"
-                placeholder="Ты пойдешь со мной на свидание?"
+                placeholder={t('wizard.placeholderTitle')}
                 value={data.inviteTitle}
                 onChange={(e) =>
                   update({
@@ -91,42 +107,46 @@ export const CreateConfig = () => {
                   })
                 }
               />
-            </section>
+            </WizardSection>
           )}
 
           {step === 2 && (
-            <section className="flex flex-col gap-4">
-              <h2 className="text-4xl text-center">Step 2 - Food</h2>
-              <label htmlFor="foodTitle" className="text-2xl">
-                Title
-              </label>
-              <input
+            <WizardSection className="flex flex-col gap-4">
+              <motion.h2 className="text-4xl text-center mb-7.5!">
+                {t('wizard.food')}
+              </motion.h2>
+              <motion.label htmlFor="foodTitle" className="text-2xl">
+                {t('wizard.writeTitle')}
+              </motion.label>
+              <motion.input
                 id="foodTitle"
                 className="w-full p-3 border rounded-xl border-pink-200 placeholder:text-[#fdf1e8]!"
-                placeholder="What do you want?"
+                placeholder={t('wizard.placeholderFoodOption')}
                 value={data.foodTitle}
                 onChange={(e) => update({ foodTitle: e.target.value })}
               />
-              <p className="text-2xl">
-                Choose from which options the recipient will choose
-              </p>
+              <motion.p className="text-2xl">
+                {t('wizard.foodOptions')}
+              </motion.p>
               <FoodSelector
                 selected={data.foodOptions}
                 onChange={(foodOptions) => update({ foodOptions })}
               />
-            </section>
+            </WizardSection>
           )}
 
           {step === 3 && (
-            <section className="flex flex-col gap-5">
-              <h2 className="text-4xl text-center">Step 3 - Date and Time</h2>
-              <label htmlFor="dateTitle" className="text-2xl">
-                Title
-              </label>
-              <input
+            <WizardSection className="flex flex-col gap-5">
+              <motion.h2 className="text-4xl text-center mb-7.5!">
+                {t('wizard.date')}
+              </motion.h2>
+              <motion.label htmlFor="dateTitle" className="text-2xl">
+                {t('wizard.writeTitle')}
+              </motion.label>
+              <motion.input
                 id="dateTitle"
                 className="w-full rounded-2xl border border-pink-200 p-4 text-lg placeholder:text-[#fdf1e8]!"
-                placeholder="When would it be convenient for you to meet? ❤️"
+                placeholder={t('wizard.datePlaceholder')}
                 value={data.dateTitle}
                 onChange={(e) =>
                   update({
@@ -134,26 +154,24 @@ export const CreateConfig = () => {
                   })
                 }
               />
-              <p className="text-2xl">
-                This text will be seen by the recipient above the date and time
-                selection.
-              </p>
-            </section>
+              <motion.p className="text-2xl">
+                {t('wizard.dateDescription')}
+              </motion.p>
+            </WizardSection>
           )}
 
           {step === 4 && (
-            <section className="flex flex-col gap-4">
-              <h2 className="text-4xl text-center">
-                Step 4 - Additional Question
-              </h2>
-              <label htmlFor="questionTitle" className="text-2xl">
-                Enter your question with answer yes or no. For example: "Will
-                you go on a date with me?"
-              </label>
-              <input
+            <WizardSection className="flex flex-col gap-4">
+              <motion.h2 className="text-4xl text-center mb-7.5!">
+                {t('wizard.question')}
+              </motion.h2>
+              <motion.label htmlFor="questionTitle" className="text-2xl">
+                {t('wizard.questionDescription')}
+              </motion.label>
+              <motion.input
                 id="questionTitle"
                 className="w-full rounded-2xl border border-pink-200 p-4 text-lg placeholder:text-[#fdf1e8]!"
-                placeholder="Write something nice or ask a question you want an answer to"
+                placeholder={t('wizard.placeholderQuestion')}
                 value={data.questionTitle}
                 onChange={(e) =>
                   update({
@@ -161,16 +179,22 @@ export const CreateConfig = () => {
                   })
                 }
               />
-            </section>
+            </WizardSection>
           )}
 
           {step === 5 && (
-            <section className="flex flex-col gap-4 text-[14px]">
-              <h2 className="text-4xl text-center">Preview</h2>
+            <WizardSection className="flex flex-col gap-4 text-[14px]">
+              <motion.h2 className="text-4xl text-center mb-7.5!">
+                {t('wizard.preview')}
+              </motion.h2>
               <PhoneFrame>
-                <div className="is-preview flex flex-col gap-6 h-full w-full">
+                <motion.div className="is-preview flex flex-col gap-6 h-full w-full">
                   <Invite card={previewCard} />
-                  <Food card={previewCard} selectedFood={data.foodOptions} />
+                  <Food
+                    card={previewCard}
+                    selectedFood={data.foodOptions}
+                    // mode="preview"
+                  />
                   <DatePage
                     card={previewCard}
                     selectedDate={null}
@@ -186,16 +210,18 @@ export const CreateConfig = () => {
                       answer: '',
                     }}
                   />
-                </div>
+                </motion.div>
               </PhoneFrame>
-            </section>
+            </WizardSection>
           )}
 
           {step === 6 && (
-            <section className="flex flex-col gap-4">
-              <h2 className="text-4xl text-center"> Step 6 - Final Touches </h2>
-              <p className="text-2xl ">Check the entered data</p>
-              <div className="p-4 rounded-xl bg-pink-50">
+            <WizardSection className="flex flex-col gap-4">
+              <motion.h2 className="text-4xl text-center mb-7.5!">
+                {t('wizard.final')}
+              </motion.h2>
+              <motion.p className="text-2xl ">Check the entered data</motion.p>
+              <motion.div className="p-4 rounded-xl bg-pink-50">
                 {data.inviteGif && (
                   <img
                     src={getInviteGif(data.inviteGif)}
@@ -203,29 +229,36 @@ export const CreateConfig = () => {
                     className="rounded-xl"
                   />
                 )}
-                <p className="text-2xl text-[#531A2A]!">{data.inviteTitle}</p>
-                <p className="text-2xl text-[#531A2A]!">{data.foodTitle}</p>
-                <p className="text-2xl text-[#531A2A]!">{data.dateTitle}</p>
-                <p className="text-2xl text-[#531A2A]!">{data.questionTitle}</p>
-              </div>
-              <p className="text-2xl text-[#fdf1e8]!">
-                If everything is correct, click "Create" to generate a link to
-                the card.
-              </p>
-            </section>
+                <motion.p className="text-2xl text-[#531A2A]!">
+                  {data.inviteTitle}
+                </motion.p>
+                <motion.p className="text-2xl text-[#531A2A]!">
+                  {data.foodTitle}
+                </motion.p>
+                <motion.p className="text-2xl text-[#531A2A]!">
+                  {data.dateTitle}
+                </motion.p>
+                <motion.p className="text-2xl text-[#531A2A]!">
+                  {data.questionTitle}
+                </motion.p>
+              </motion.div>
+              <motion.p className="text-2xl text-[#fdf1e8]!">
+                {t('wizard.createHint')}
+              </motion.p>
+            </WizardSection>
           )}
 
           {step === 7 && (
-            <section className="flex flex-col items-center gap-6 text-center">
+            <WizardSection className="flex flex-col items-center gap-6 text-center">
               <div className="text-7xl">🎉</div>
-              <h2 className="text-4xl font-bold">The card has been created!</h2>
+              <h2 className="text-4xl font-bold">{t('wizard.createdCard')}</h2>
               <p className="text-[#fdf1e8]! text-2xl">
-                The link is ready and available for sharing
+                {t('wizard.sharingHint')}
               </p>
               <AppBtn
                 onClick={() => navigator.clipboard.writeText(data.link || '')}
               >
-                Copy link
+                {t('wizard.linkCopy')}
               </AppBtn>
 
               <div className="w-full p-4 rounded-xl bg-pink-50 break-all text-[#531A2A] text-2xl">
@@ -241,26 +274,34 @@ export const CreateConfig = () => {
                     );
                   }}
                 >
-                  Get a response in Telegram
+                  {t('wizard.telegramNotification')}
                 </AppBtn>
-                <AppBtn onClick={() => navigate('/')}>Main menu</AppBtn>
+                <AppBtn onClick={() => navigate('/')}>
+                  {t('buttons.mainMenu')}
+                </AppBtn>
               </div>
-            </section>
+            </WizardSection>
           )}
         </WizardStep>
 
         <div className="flex items-center justify-between mt-6 w-full">
           {step > 0 && step < 7 ? (
             <AppBtn onClick={back} active={false}>
-              Back
+              {t('buttons.back')}
             </AppBtn>
           ) : (
             <div />
           )}
 
-          {step < 6 && <AppBtn onClick={next}>Next</AppBtn>}
+          {step < 6 && (
+            <AppBtn onClick={next} disabled={isNextDisabled}>
+              {t('buttons.next')}
+            </AppBtn>
+          )}
 
-          {step === 6 && <AppBtn onClick={handleCreate}>Create</AppBtn>}
+          {step === 6 && (
+            <AppBtn onClick={handleCreate}>{t('buttons.create')}</AppBtn>
+          )}
         </div>
       </div>
     </div>

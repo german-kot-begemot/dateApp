@@ -39,7 +39,7 @@ export const Food = ({ card, selectedFood, onSelect }: FoodProps) => {
           {card.foodTitle}
         </h2>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 ">
+        <div className="food-cards-block grid gap-6 sm:grid-cols-2 lg:grid-cols-3 ">
           {card.foodOptions.map((food) => (
             <FoodCard
               key={food.id}

@@ -57,7 +57,7 @@ export const FoodCard = ({ food, selected, onSelect }: FoodCardProps) => {
         {food.title}
       </h3>
 
-      <p className="text-xl text-[#531A2A]! in-[.is-preview]:text-[#531A2A]! in-[.is-preview]:text-[12px]!">
+      <p className="text-[14px] text-[#531A2A]! in-[.is-preview]:text-[#531A2A]! in-[.is-preview]:text-[12px]!">
         {food.description}
       </p>
     </motion.button>

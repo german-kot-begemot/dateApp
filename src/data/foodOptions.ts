@@ -2,43 +2,43 @@ import type { FoodOption } from '../shared/types';
 
 export const foodOptions: FoodOption[] = [
   {
-    id: '1',
+    id: 'pizza',
     title: 'Пицца',
     emoji: '🍕',
     description: 'Классика. Неловкое молчание отлично заедается пиццей.',
   },
   {
-    id: '2',
+    id: 'sushi',
     title: 'Суши',
     emoji: '🍣',
     description: 'Если палочки упадут — сделаем вид, что так и было.',
   },
   {
-    id: '3',
+    id: 'burgers',
     title: 'Бургеры',
     emoji: '🍔',
     description: 'Романтика романтикой, а картошка фри — святое.',
   },
   {
-    id: '4',
+    id: 'pasta',
     title: 'Паста',
     emoji: '🍝',
     description: 'Почувствуем себя в Италии хотя бы на один вечер.',
   },
   {
-    id: '5',
+    id: 'steak',
     title: 'Стейк',
     emoji: '🥩',
     description: 'Для тех, кто пришел не только за романтикой.',
   },
   {
-    id: '6',
+    id: 'cocktail',
     title: 'Коктейль',
     emoji: '🍹',
     description: 'Идеально для легкого и непринужденного вечера.',
   },
   {
-    id: '7',
+    id: 'surprise',
     title: 'Сюрприз',
     emoji: '🎁',
     description: 'Доверяешь моему вкусу? Рискнем 😏',

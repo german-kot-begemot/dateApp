@@ -8,15 +8,27 @@ import { setTelegramWebhook } from './services/telegramWebhook.js';
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
 
-connectDB();
-setTelegramWebhook();
-
 app.use('/api', apiRoutes);
 
-app.listen(3001, () => {
-  console.log('Server running on http://localhost:3001');
-});
+const start = async () => {
+  try {
+    await Promise.all([
+      connectDB(),
+      setTelegramWebhook(),
+    ]);
+
+    app.listen(PORT, () => {
+      console.log(`Server listening on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+};
+
+start();

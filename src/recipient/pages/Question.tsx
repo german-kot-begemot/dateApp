@@ -33,7 +33,7 @@ export const Question = ({ card, value, onSelect }: QuestionProps) => {
           animate={value === 'yes' ? { scale: [1, 1.1, 1] } : {}}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex h-15 w-40 items-center justify-center rounded-2xl bg-pink-500 text-2xl text-white shadow-lg disabled:opacity-70 disabled:cursor-default! disabled:hover:scale-100 transition"
+          className="flex h-15 w-40 items-center justify-center rounded-2xl bg-[#CC476C] text-xl! text-white shadow-lg disabled:opacity-70 disabled:cursor-default! disabled:hover:scale-100 transition"
         >
           {value === 'yes' ? 'Yes ❤️' : 'Yes 💕'}
         </motion.button>
@@ -47,7 +47,7 @@ export const Question = ({ card, value, onSelect }: QuestionProps) => {
             {!hoveredNo ? (
               <motion.button
                 key="no"
-                className="h-full w-full rounded-2xl bg-gray-200 text-2xl font-semibold text-gray-600 shadow-lg"
+                className="h-full w-full rounded-2xl bg-gray-200 text-xl! font-semibold text-gray-600 shadow-lg"
               >
                 No 😢
               </motion.button>

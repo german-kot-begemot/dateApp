@@ -1,14 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import type React from 'react';
-
-const PHRASES = [
-  'No 😢',
-  'No 🙈',
-  'Are you sure? 😅',
-  'Try it 😎',
-  "You won't catch me 😂",
-  'Give up ❤️',
-] as const;
+import { useTranslation } from 'react-i18next';
 
 const SAFE_DISTANCE = 130;
 const PADDING = 12;
@@ -20,6 +12,7 @@ type Position = {
 };
 
 export const useAnswerNoButton = () => {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const noBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -94,12 +87,19 @@ export const useAnswerNoButton = () => {
     [dodge],
   );
 
+  const phrases =
+    (t('noPhrases.btnNo', {
+      returnObjects: true,
+    }) as string[]) ?? [];
+
+  const text = phrases.length > 0 ? phrases[attempts % phrases.length] : 'No';
+
   return {
     containerRef,
     noBtnRef: noBtnRef,
     position,
     isDodging: position !== null,
-    text: PHRASES[attempts % PHRASES.length],
+    text: text,
     handleMouseMove,
     handleTouchStart,
   };

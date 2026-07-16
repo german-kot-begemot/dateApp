@@ -1,12 +1,11 @@
 import { Answer } from '../models/Answer.js';
 
-// const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-
 export const sendTelegramNotification = async (
   targetChatId: string,
   data: Answer,
 ) => {
   const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+
   if (!TOKEN) {
     console.error('❌ Telegram Bot Token is missing in .env');
     return;
@@ -29,14 +28,10 @@ export const sendTelegramNotification = async (
 
   const text = `
 <b>❤️ На твое приглашение ответили!</b>
-
 <b>🍣 Еда:</b>
 ${data.selectedFood.map((f) => `${f.emoji} ${f.title}`).join(', ')}
-
 <b>📅 Дата:</b> ${data.selectedDate}
-
 <b>⏰ Время:</b> ${data.selectedTime}
-
 <b>Ответ:</b>
 <i>${data.answer} 😘</i>
   `.trim();
