@@ -3,25 +3,53 @@ import { CreateConfig } from './creator/pages/CreateConfig';
 import { CreatePreview } from './creator/pages/CreatePreview';
 import { Home } from './pages/Home';
 import { CardPage } from './recipient/pages/CardPage';
+import { Layout } from './shared/ui/Layout';
+
+// export const router = createBrowserRouter([
+//   // CREATOR FLOW
+//   {
+//     path: '/',
+//     element: <Home />,
+//   },
+//   {
+//     path: '/create',
+//     element: <CreateConfig />,
+//   },
+//   {
+//     path: '/create/preview',
+//     element: <CreatePreview />,
+//   },
+
+//   //RECIPIENT FLOW
+//   {
+//     path: '/card/:id',
+//     element: <CardPage />,
+//   },
+// ]);
 
 export const router = createBrowserRouter([
-  // CREATOR FLOW
   {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/create',
-    element: <CreateConfig />,
-  },
-  {
-    path: '/create/preview',
-    element: <CreatePreview />,
-  },
+    element: <Layout />,
+    children: [
+      // CREATOR FLOW
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/create',
+        element: <CreateConfig />,
+      },
+      {
+        path: '/create/preview',
+        element: <CreatePreview />,
+      },
 
-  //RECIPIENT FLOW
-  {
-    path: '/card/:id',
-    element: <CardPage />,
+      // RECIPIENT FLOW
+      {
+        path: '/card/:id',
+        element: <CardPage />,
+      },
+    ],
   },
 ]);

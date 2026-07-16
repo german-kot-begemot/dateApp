@@ -4,18 +4,13 @@ import { AppBtn } from '../shared/ui/AppBtn';
 import { motion } from 'framer-motion';
 import { fadeInContainer, fadeInUp } from '../shared/animations/variants';
 import { useTranslation } from 'react-i18next';
-import { LanguageSwitcher } from '../shared/ui/LanguageSwitcher';
 
 export const Home = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
-    <main
-      className="wrapper min-h-screen flex flex-col items-center justify-center bg-linear-to-br
-     from-pink-100 via-rose-50 to-fuchsia-100 px-6"
-    >
-      <LanguageSwitcher />
+    <main className="wrapper min-h-screen flex flex-col items-center justify-center">
       <motion.div
         variants={fadeInContainer()}
         initial="hidden"
@@ -31,7 +26,7 @@ export const Home = () => {
 
         <motion.p
           variants={fadeInUp}
-          className="text-[#F76D6D] text-3xl! max-w-md w-full"
+          className="text-[#F76D6D] text-3xl! max-w-3xl w-full"
         >
           {t('home.description')}
         </motion.p>

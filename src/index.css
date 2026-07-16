@@ -177,6 +177,16 @@ input:focus::placeholder {
   background: rgba(255, 255, 255, 0.4);
 }
 
+.bg-wrapper {
+  background: linear-gradient(
+    90deg,
+    #bd2861 1%,
+    #a11649 18%,
+    #6b1225 36%,
+    #17030c 51%,
+    #000 55% 100%
+  );
+}
 /* 
 @media (width: 1680px) {
   html {
