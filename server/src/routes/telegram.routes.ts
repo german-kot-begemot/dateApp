@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 const router = express.Router();
 
 router.post('/webhook', async (req, res) => {
+  console.log('TELEGRAM UPDATE:', JSON.stringify(req.body, null, 2));
   try {
     const message = req.body.message;
 

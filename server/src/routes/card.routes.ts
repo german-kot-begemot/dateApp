@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({
       id: card._id,
-      link: `/card/${card._id}`,
+      link: `${process.env.SERVER_URL}/card/${card._id}`,
     });
   } catch (error) {
     console.error('ERROR:', error);
