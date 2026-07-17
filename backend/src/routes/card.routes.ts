@@ -7,8 +7,13 @@ const router = express.Router();
 
 //create card
 router.post('/', async (req, res) => {
+  const expiresAt = new Date();
+  expiresAt.setDate(expiresAt.getDate() + 60);
   try {
-    const card = await Card.create(req.body);
+    const card = await Card.create({
+      ...req.body,
+      expiresAt,
+    });
 
     res.status(201).json({
       id: card._id,

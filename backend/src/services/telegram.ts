@@ -26,12 +26,29 @@ export const sendTelegramNotification = async (
     return;
   }
 
+  const formattedDate = new Date(data.selectedDate).toLocaleDateString(
+    'ru-RU',
+    {
+      day: 'numeric',
+      month: 'long',
+    },
+  );
+
+  const formattedTime = new Date(data.selectedTime).toLocaleTimeString(
+    'ru-RU',
+    {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    },
+  );
+
   const text = `
 <b>❤️ На твое приглашение ответили!</b>
 <b>🍣 Еда:</b>
 ${data.selectedFood.map((f) => `${f.emoji} ${f.title}`).join(', ')}
-<b>📅 Дата:</b> ${data.selectedDate}
-<b>⏰ Время:</b> ${data.selectedTime}
+<b>📅 Дата:</b> ${formattedDate}
+<b>⏰ Время:</b> ${formattedTime}
 <b>Ответ:</b>
 <i>${data.answer} 😘</i>
   `.trim();

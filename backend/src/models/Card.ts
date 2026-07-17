@@ -16,6 +16,7 @@ export interface CardDocument extends mongoose.Document {
   foodOptions: FoodOption[];
   dateTitle: string;
   questionTitle: string;
+  expiresAt: Date;
 }
 
 const cardSchema = new mongoose.Schema(
@@ -32,6 +33,7 @@ const cardSchema = new mongoose.Schema(
     },
     dateTitle: { type: String, required: true },
     questionTitle: { type: String, required: true },
+    expiresAt: { type: Date, required: true, index: true },
   },
   { timestamps: true },
 );

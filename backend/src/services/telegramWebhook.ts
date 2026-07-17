@@ -1,8 +1,8 @@
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 
-
 export const setTelegramWebhook = async () => {
   const url = `${process.env.SERVER_URL}/api/telegram/webhook`;
+  console.log('Webhook URL:', url);
 
   const response = await fetch(
     `https://api.telegram.org/bot${TOKEN}/setWebhook`,
