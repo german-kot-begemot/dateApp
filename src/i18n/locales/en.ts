@@ -25,9 +25,12 @@ export const en = {
       'This text will be seen by the recipient during date and time selection.',
 
     question: 'Step 4 - Additional Question',
+    questionOption: 'Choose your answer ❤️',
     questionDescription:
       'Ask a yes/no question you want an answer to. For example: "Do you love me?"',
     placeholderQuestion: 'Do you love me?',
+    noAnswer: 'No 😢',
+    greatPhrase: 'Great! 💖',
 
     preview: 'Preview',
     final: 'Final touches',
@@ -56,7 +59,9 @@ export const en = {
   },
 
   invite: {
-    yes: 'Yes ❤️',
+    yes: 'Yes',
+    yesHeart: 'Yes ❤️',
+    yesDoubleHeart: 'Yes 💕',
     no: 'No',
     promise:
       'I promise it will be delicious, fun, and free of boring conversations 😌',
@@ -84,13 +89,19 @@ export const en = {
   date: {
     chooseDate: 'Choose date',
     chooseTime: 'Choose time',
-    date: 'Date',
-    time: 'Time',
+    dateCaption: 'Date',
+    timeCaption: 'Time',
+    datePhrase: 'I want to go ',
+    timePhrase: 'at',
+    greatChoice: 'Great choice ❤️',
   },
 
   final: {
     title: 'Your card is ready!',
     share: 'Share this card with your loved one',
+    finalHint: "That's just great!",
+    finalHint2: 'The date is on!',
+    finalHint3: 'See you ',
   },
 
   errors: {

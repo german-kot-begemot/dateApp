@@ -81,7 +81,7 @@ export const CardPage = () => {
   return (
     <>
       <ProgressBar step={step} total={5} />
-      <div className="recipient-wrapper bg-love-gradient min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 px-6 gap-8">
+      <div className="recipient-wrapper bg-love-gradient min-h-screen flex flex-col items-center justify-center px-6 gap-8">
         <FloatingHearts />
         <WizardStep step={step}>
           {step === 0 && <Invite card={card} onNext={next} />}

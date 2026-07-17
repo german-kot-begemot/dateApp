@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Heart } from '../../shared/ui/Heart';
 import { ConfettiBlast } from '../../shared/ui/ConfettiBlast';
 import { useAnswerNoButton } from '../../shared/hooks/useAnswerNoButton';
 import { useConfettiBlast } from '../../shared/hooks/useConfettiBlast';
@@ -13,8 +12,7 @@ export type InviteProps = {
 };
 
 export const Invite = ({ card, onNext }: InviteProps) => {
-  const { t } = useTranslation(); // ИСПРАВЛЕНО: Инициализируем хук локализации
-
+  const { t } = useTranslation();
   const {
     containerRef,
     position,
@@ -27,10 +25,9 @@ export const Invite = ({ card, onNext }: InviteProps) => {
   const { trigger, confetti, yesBtnRef } = useConfettiBlast(onNext);
 
   return (
-    <section className="content-block flex rounded-4xl flex-col items-center justify-center gap-8 in-[.is-preview]:overflow-hidden shadow-2xl backdrop-blur-xl">
-      <Heart />
+    <section className="content-block items-center gap-4 in-[.is-preview]:overflow-hidden">
       <ConfettiBlast active={confetti.active} origin={confetti.origin} />
-      <div className="gif-container flex max-w-80 h-auto items-center justify-center rounded-2xl in-[.is-preview]:max-w-50 in-[.is-preview]:h-auto">
+      <div className="gif-container flex max-w-50 h-auto items-center justify-center rounded-2xl in-[.is-preview]:max-w-50 in-[.is-preview]:h-auto">
         <img src={getInviteGif(card.inviteGif)} alt="Invite GIF" />
       </div>
       <h2 className="text-center text-5xl in-[.is-preview]:text-[#531A2A]">

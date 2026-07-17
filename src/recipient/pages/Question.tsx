@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import FloatingHearts from '../../shared/ui/FloatingHearts';
 import type { Card } from '../../shared/types';
+import { useTranslation } from 'react-i18next';
 
 export type QuestionProps = {
   card: Card;
@@ -11,7 +12,7 @@ export type QuestionProps = {
 
 export const Question = ({ card, value, onSelect }: QuestionProps) => {
   const [hoveredNo, setHoveredNo] = useState(false);
-
+  const { t } = useTranslation();
   const handleYes = () => {
     onSelect?.('yes');
   };
@@ -23,7 +24,7 @@ export const Question = ({ card, value, onSelect }: QuestionProps) => {
         {card.questionTitle}
       </h1>
       <p className="text-2xl text-[#531A2A] in-[.is-preview]:text-[#531A2A]!">
-        Choose your answer ❤️
+        {t('wizard.questionOption')}
       </p>
 
       <div className="flex max-w-xl items-center justify-center gap-6 rounded-3xl">
@@ -35,7 +36,7 @@ export const Question = ({ card, value, onSelect }: QuestionProps) => {
           whileTap={{ scale: 0.95 }}
           className="flex h-15 w-40 items-center justify-center rounded-2xl bg-[#CC476C] text-xl! text-white shadow-lg disabled:opacity-70 disabled:cursor-default! disabled:hover:scale-100 transition"
         >
-          {value === 'yes' ? 'Yes ❤️' : 'Yes 💕'}
+          {value === 'yes' ? t('invite.yesHeart') : t('invite.yesDoubleHeart')}
         </motion.button>
 
         <div
@@ -49,7 +50,7 @@ export const Question = ({ card, value, onSelect }: QuestionProps) => {
                 key="no"
                 className="h-full w-full rounded-2xl bg-gray-200 text-xl! font-semibold text-gray-600 shadow-lg"
               >
-                No 😢
+                {t('wizard.noAnswer')}
               </motion.button>
             ) : (
               <motion.div
@@ -73,7 +74,7 @@ export const Question = ({ card, value, onSelect }: QuestionProps) => {
             animate={{ opacity: 1, y: 0 }}
             className="text-3xl "
           >
-            Great! 💖
+            {t('wizard.greatPhrase')}
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import type { FoodOption } from '../../shared/types';
 import { foodOptions } from '../../data/foodOptions';
+import { useTranslation } from 'react-i18next';
+import { getFoodTranslation } from '../../shared/lib/getFoodTranslation';
 
 type FoodSelectorProps = {
   selected: FoodOption[];
@@ -17,9 +19,12 @@ export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
     }
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="is-preview flex gap-4 gap-y-6 flex-wrap justify-between">
-      {foodOptions.map((food) => {
+      {foodOptions.map((option) => {
+        const food = getFoodTranslation(option, t);
         const isSelected = selected.some((item) => item.id === food.id);
         return (
           <motion.button

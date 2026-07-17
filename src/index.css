@@ -108,18 +108,6 @@ input:focus::placeholder {
   background: var(--love-gradient);
 }
 
-/* .content-block {
-  position: relative;
-  background: rgba(255, 245, 240, 0.1);
-  backdrop-filter: blur(28px) saturate(160%);
-  border-radius: 24px;
-  padding: 2rem;
-  color: #fdf1e8;
-  box-shadow:
-    0 0 60px rgba(189, 40, 97, 1.25),
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
-} */
 .content-block {
   position: relative;
   background: rgba(255, 245, 240, 0.1);
@@ -153,7 +141,6 @@ input:focus::placeholder {
     rgba(255, 255, 255, 0.05) 40%,
     rgba(189, 40, 97, 0.3)
   );
-
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -162,17 +149,18 @@ input:focus::placeholder {
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-
   pointer-events: none;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.4);
 }

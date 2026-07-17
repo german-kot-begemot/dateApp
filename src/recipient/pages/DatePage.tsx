@@ -4,6 +4,7 @@ import { CalendarDays, Clock3 } from 'lucide-react';
 import FloatingHearts from '../../shared/ui/FloatingHearts';
 import type { Card } from '../../shared/types';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export type DateProps = {
   card: Card;
@@ -20,6 +21,7 @@ export const DatePage = ({
   onDateSelect: onSelect,
   onTimeSelect,
 }: DateProps) => {
+  const { t } = useTranslation();
   const [selectedTimeState, setSelectedTimeState] = useState<Date | null>(
     selectedTime,
   );
@@ -63,12 +65,12 @@ export const DatePage = ({
               text-[#531A2A] shadow-lg transition-all duration-300 hover:border-pink-400 hover:shadow-pink-200/50 
               active:scale-95 focus:outline-none "
             >
-              <span className="flex items-center gap-3 text-2xl font-semibold">
+              <span className="flex items-center gap-3 text-2xl">
                 <CalendarDays size={28} className="text-[#BC2860]" />
 
                 {selectedDate
                   ? selectedDate.toLocaleDateString('ru-RU')
-                  : 'Date'}
+                  : t('date.dateCaption')}
               </span>
             </button>
           }
@@ -79,7 +81,7 @@ export const DatePage = ({
           showTimeSelect
           showTimeSelectOnly
           timeIntervals={30}
-          timeCaption="Время"
+          timeCaption={t('date.timeCaption')}
           timeFormat="HH:mm"
           dateFormat="HH:mm"
           placeholderText="Выбери время"
@@ -96,7 +98,7 @@ export const DatePage = ({
               text-[#531A2A] shadow-lg transition-all duration-300 hover:border-pink-400 hover:shadow-pink-200/50 
               active:scale-95 focus:outline-none "
             >
-              <span className="flex items-center gap-3 text-2xl font-semibold">
+              <span className="flex items-center gap-3 text-2xl">
                 <Clock3 size={28} className="text-[#BC2860]" />
 
                 {selectedTime
@@ -104,7 +106,7 @@ export const DatePage = ({
                       hour: '2-digit',
                       minute: '2-digit',
                     })
-                  : 'Time'}
+                  : t('date.timeCaption')}
               </span>
             </button>
           }
@@ -113,11 +115,11 @@ export const DatePage = ({
 
       <div className="mt-8 flex flex-col justify-center items-center gap-4">
         <p className="text-3xl text-[#F93C96] in-[.is-preview]:text-[#531A2A]!">
-          I want to go &nbsp;
+          {t('date.datePhrase')}&nbsp;
           {selectedDate
             ? selectedDate.toLocaleDateString('ru-RU')
             : '-----'}{' '}
-          &nbsp; at &nbsp;
+          &nbsp;{t('date.timePhrase')}&nbsp;
           {selectedTime
             ? selectedTime.toLocaleTimeString('ru-RU', {
                 hour: '2-digit',
@@ -127,7 +129,7 @@ export const DatePage = ({
         </p>
         {selectedDate && selectedTime && (
           <p className="text-center text-2xl text-[#F93C96] font-semibold in-[.is-preview]:text-[#F93C96]!">
-            Great choice ❤️
+            {t('date.greatChoice')}
           </p>
         )}
       </div>

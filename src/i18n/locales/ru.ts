@@ -25,9 +25,12 @@ export const ru = {
       'Этот текст будет виден получателю при выборе даты и времени.',
 
     question: 'Шаг 4 - Дополнительный вопрос',
+    questionOption: 'Выбери свой ответ ❤️',
     questionDescription:
       'Задай вопрос с ответом да/нет, на который хочешь получить ответ. Например: "Ты меня любишь?"',
     placeholderQuestion: 'Ты меня любишь?',
+    noAnswer: 'Нет 😢',
+    greatPhrase: 'Отлично! 💖',
 
     preview: 'Предпросмотр',
     final: 'Финальные настройки',
@@ -56,7 +59,9 @@ export const ru = {
   },
 
   invite: {
-    yes: 'Да ❤️',
+    yes: 'Да',
+    yesHeart: 'Да ❤️',
+    yesDoubleHeart: 'Да 💕',
     no: 'Нет',
     promise: 'Обещаю, будет вкусно, весело и без скучных разговоров 😌',
   },
@@ -84,13 +89,19 @@ export const ru = {
   date: {
     chooseDate: 'Выбери дату',
     chooseTime: 'Выбери время',
-    date: 'Дата',
-    time: 'Время',
+    dateCaption: 'Дата',
+    timeCaption: 'Время',
+    datePhrase: 'Я хочу пойти ',
+    timePhrase: 'в',
+    greatChoice: 'Отличный выбор ❤️',
   },
 
   final: {
     title: 'Твоя открытка готова!',
     share: 'Поделись открыткой с любимым человеком',
+    finalHint: 'Вот и чудненько!',
+    finalHint2: 'Свиданию быть!',
+    finalHint3: 'До встречи ',
   },
 
   errors: {
