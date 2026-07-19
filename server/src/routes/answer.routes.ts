@@ -7,11 +7,11 @@ const router = express.Router();
 
 // save recipient's answers in the database
 router.post('/', async (req, res) => {
-  const { cardId, selectedFood, selectedDate, selectedTime, answer } =
-    req.body;
+  const { cardId, selectedFood, selectedDate, selectedTime, answer } = req.body;
 
   try {
     const card = await Card.findById(cardId);
+    console.log('CARD FROM WEBHOOK:', card?._id);
 
     if (!card) {
       return res.status(404).json({ message: 'Card not found' });
@@ -33,17 +33,13 @@ router.post('/', async (req, res) => {
     const targetChatId = card.telegramChatId;
 
     if (targetChatId) {
-      await sendTelegramNotification(
-        targetChatId,
-        savedAnswer,
-      );
+      await sendTelegramNotification(targetChatId, savedAnswer);
     }
 
     res.status(201).json({
       id: savedAnswer._id,
       message: 'Ответы сохранены',
     });
-
   } catch (error) {
     console.error('ERROR saving answers:', error);
 

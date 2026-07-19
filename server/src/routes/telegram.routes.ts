@@ -27,6 +27,7 @@ router.post('/webhook', async (req, res) => {
     }
 
     const card = await Card.findById(cardId);
+    console.log('CARD FROM WEBHOOK:', card?._id);
 
     if (!card) {
       return res.sendStatus(200);
