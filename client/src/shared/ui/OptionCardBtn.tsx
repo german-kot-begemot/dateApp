@@ -39,7 +39,7 @@ export const OptionCardBtn = ({
         borderColor: { duration: 0.2 },
         boxShadow: { duration: 0.2 },
       }}
-      className={`relative flex flex-col items-center justify-center rounded-3xl p-6 px-4 text-center text-xl! border-2 backdrop-blur-[28px] max-w-50 saturate-150 ${className}`}
+      className={`relative flex w-full sm:w-auto max-w-full sm:max-w-50 flex-col lg:text-xl! items-center justify-center rounded-2xl sm:rounded-3xl border-2 p-4 sm:p-6 text-center text-base sm:text-xl backdrop-blur-[28px] saturate-150 ${className}`}
     >
       {children}
     </motion.button>

@@ -2,9 +2,10 @@ import { useCallback, useRef, useState } from 'react';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const SAFE_DISTANCE = 130;
+const SAFE_DISTANCE = 120;
 const PADDING = 12;
-const CANDIDATES = 12;
+const CANDIDATES = 15;
+const DODGE_DELAY = 700;
 
 type Position = {
   left: number;
@@ -13,15 +14,25 @@ type Position = {
 
 export const useAnswerNoButton = () => {
   const { t } = useTranslation();
+
   const containerRef = useRef<HTMLDivElement>(null);
   const noBtnRef = useRef<HTMLButtonElement>(null);
+
+  const lastDodgeTime = useRef(0);
 
   const [attempts, setAttempts] = useState(0);
   const [position, setPosition] = useState<Position | null>(null);
 
   const dodge = useCallback((clientX: number, clientY: number) => {
+    const now = Date.now();
+
+    if (now - lastDodgeTime.current < DODGE_DELAY) {
+      return;
+    }
+
     const container = containerRef.current;
     const button = noBtnRef.current;
+
     if (!container || !button) return;
 
     const containerRect = container.getBoundingClientRect();
@@ -30,45 +41,51 @@ export const useAnswerNoButton = () => {
     const buttonCenterX = buttonRect.left + buttonRect.width / 2;
     const buttonCenterY = buttonRect.top + buttonRect.height / 2;
 
-    const distanceToCursor = Math.hypot(
+    const distance = Math.hypot(
       buttonCenterX - clientX,
       buttonCenterY - clientY,
     );
 
-    if (distanceToCursor > SAFE_DISTANCE) return;
+    if (distance > SAFE_DISTANCE) return;
 
-    const maxLeft = containerRect.width - buttonRect.width - PADDING;
-    const maxTop = containerRect.height - buttonRect.height - PADDING;
+    lastDodgeTime.current = now;
 
-    const cursorLeft = clientX - containerRect.left;
-    const cursorTop = clientY - containerRect.top;
+    const maxLeft = Math.max(
+      containerRect.width - buttonRect.width - PADDING,
+      PADDING,
+    );
+
+    const maxTop = Math.max(
+      containerRect.height - buttonRect.height - PADDING,
+      PADDING,
+    );
+
+    const cursorX = clientX - containerRect.left;
+    const cursorY = clientY - containerRect.top;
 
     let bestLeft = PADDING;
     let bestTop = PADDING;
-    let bestDistance = -Infinity;
+    let bestDistance = 0;
 
     for (let i = 0; i < CANDIDATES; i++) {
-      const candidateLeft =
-        PADDING + Math.random() * Math.max(maxLeft - PADDING, 0);
-      const candidateTop =
-        PADDING + Math.random() * Math.max(maxTop - PADDING, 0);
+      const left = Math.random() * (maxLeft - PADDING) + PADDING;
 
-      const candidateCenterX = candidateLeft + buttonRect.width / 2;
-      const candidateCenterY = candidateTop + buttonRect.height / 2;
+      const top = Math.random() * (maxTop - PADDING) + PADDING;
 
-      const dist = Math.hypot(
-        candidateCenterX - cursorLeft,
-        candidateCenterY - cursorTop,
-      );
+      const distance = Math.hypot(left - cursorX, top - cursorY);
 
-      if (dist > bestDistance) {
-        bestDistance = dist;
-        bestLeft = candidateLeft;
-        bestTop = candidateTop;
+      if (distance > bestDistance) {
+        bestDistance = distance;
+        bestLeft = left;
+        bestTop = top;
       }
     }
 
-    setPosition({ left: bestLeft, top: bestTop });
+    setPosition({
+      left: bestLeft,
+      top: bestTop,
+    });
+
     setAttempts((prev) => prev + 1);
   }, []);
 
@@ -79,10 +96,24 @@ export const useAnswerNoButton = () => {
     [dodge],
   );
 
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => {
+      const touch = e.touches[0];
+
+      if (!touch) return;
+
+      dodge(touch.clientX, touch.clientY);
+    },
+    [dodge],
+  );
+
   const handleTouchStart = useCallback(
     (e: React.TouchEvent<HTMLButtonElement>) => {
       const touch = e.touches[0];
-      if (touch) dodge(touch.clientX, touch.clientY);
+
+      if (!touch) return;
+
+      dodge(touch.clientX, touch.clientY);
     },
     [dodge],
   );
@@ -96,11 +127,12 @@ export const useAnswerNoButton = () => {
 
   return {
     containerRef,
-    noBtnRef: noBtnRef,
+    noBtnRef,
     position,
     isDodging: position !== null,
-    text: text,
+    text,
     handleMouseMove,
     handleTouchStart,
+    handleTouchMove,
   };
 };

@@ -16,7 +16,7 @@ export const WizardSection = ({
       variants={fadeInContainer()}
       initial="hidden"
       animate="visible"
-      className={className}
+      className={`w-full min-w-0 ${className}`}
     >
       {children}
     </motion.section>

@@ -10,34 +10,32 @@ export const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <main className="wrapper min-h-screen flex flex-col items-center justify-center">
+    <main className="wrapper flex-1 px-4">
       <motion.div
         variants={fadeInContainer()}
         initial="hidden"
         animate="visible"
-        className="flex flex-col items-center gap-6 text-center min-w-100"
+        className="flex w-full max-w-5xl flex-col items-center gap-6 px-4 text-center"
       >
         <motion.h1
           variants={fadeInUp}
-          className="text-8xl font-bold text-[#F93C96]"
+          className="text-5xl sm:text-6xl lg:text-8xl font-bold text-[#F93C96]"
         >
           Moment Cards
         </motion.h1>
 
-        <motion.p
-          variants={fadeInUp}
-          className="text-[#F76D6D] text-3xl! max-w-3xl w-full"
-        >
+        <p className="text-[#F76D6D] text-lg sm:text-xl lg:text-3xl max-w-3xl">
           {t('home.description')}
-        </motion.p>
+        </p>
 
         <motion.div
           variants={fadeInUp}
-          className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
+          className="flex w-full flex-col sm:flex-row gap-4 justify-center mt-[40px]!"
         >
           <AppBtn onClick={() => navigate('/create')}>
             {t('home.createCard')}
           </AppBtn>
+
           <AppBtn
             onClick={() => {
               const id = prompt(t('home.enterCardCode'));

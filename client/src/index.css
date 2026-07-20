@@ -1,26 +1,20 @@
 @import 'tailwindcss';
 
 @font-face {
-  font-family: 'Goosberry';
-  src: url('./assets/fonts/goosberry_version_02.otf') format('opentype');
-  font-weight: 400;
-}
-
-@font-face {
   font-family: 'ZnikomitNo25';
   src: url('./assets/fonts/ZnikomitNo25.otf') format('opentype');
   font-weight: 700;
 }
+
 @font-face {
-  font-family: 'Erode-Regular';
-  src: url('./assets/fonts/Erode-Regular.otf') format('opentype');
+  font-family: 'Oranienbaum-Regular';
+  src: url('./assets/fonts/Oranienbaum-Regular.ttf') format('truetype');
   font-weight: 400;
 }
 
 @font-face {
-  font-family: 'BricolageGrotesque-Regular';
-  src: url('./assets/fonts/BricolageGrotesque-Regular-BF648bd5781d794.otf')
-    format('opentype');
+  font-family: 'ViaodaLibre-Regular';
+  src: url('./assets/fonts/ViaodaLibre-Regular.ttf') format('truetype');
   font-weight: 400;
 }
 
@@ -57,18 +51,37 @@ html,
 body,
 #root {
   min-height: 100vh;
-  font-family: 'ZnikomitNo25', sans-serif;
+  font-family: 'ViaodaLibre-Regular', sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
-p {
-  /* font-family: 'Erode-Regular', sans-serif; */
+body {
+  margin: 0;
+  min-height: 100vh;
+  /* background: #fff7fb; */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'ZnikomitNo25', sans-serif;
+}
+
+p,
+label {
+  font-family: 'ViaodaLibre-Regular', sans-serif;
   color: #fdf1e8;
 }
 
 ::placeholder {
-  color: #383333;
+  font-family: 'ViaodaLibre-Regular', sans-serif;
+  color: #fdf1e8;
 }
 
 img,
@@ -79,22 +92,16 @@ video {
   max-width: 100%;
 }
 
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
 button {
   cursor: pointer;
-  font-family: 'Erode-Regular', sans-serif;
+  font-family: 'Oranienbaum-Regular', sans-serif;
 }
 
 a {
   text-decoration: none;
   color: inherit;
 }
+
 ul,
 ol {
   list-style: none;
@@ -110,22 +117,18 @@ input:focus::placeholder {
 
 .content-block {
   position: relative;
+  width: 100%;
+  padding: 1rem;
   background: rgba(255, 245, 240, 0.1);
-  backdrop-filter: blur(28px) saturate(160%);
-  border-radius: 24px;
-  padding: 2rem;
+  backdrop-filter: blur(20px) saturate(160%);
+  border-radius: 18px;
   color: #fdf1e8;
   box-shadow:
-    0 0 60px rgba(189, 40, 97, 1.25),
-    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(189, 40, 97, 0.9),
+    0 8px 20px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
-
-  width: 100%;
-  max-width: 600px;
-  max-height: calc(100vh - 4rem);
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 4rem);
   overflow: auto;
 }
 
@@ -152,17 +155,52 @@ input:focus::placeholder {
   pointer-events: none;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+/* Firefox */
+.content-block {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(189, 40, 97, 0.8) transparent;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+/* Chrome, Edge, Safari */
+.content-block::-webkit-scrollbar {
+  width: 8px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
+.content-block::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content-block::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 182, 193, 0.9),
+    rgba(189, 40, 97, 0.9)
+  );
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.content-block::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgb(255, 170, 185), rgb(189, 40, 97));
+}
+
+.content-block::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.content-block {
+  scrollbar-width: thin;
+  scrollbar-color: #bd2861 transparent;
+}
+
+.content-block::-webkit-scrollbar {
+  width: 5px;
+}
+
+.content-block::-webkit-scrollbar-thumb {
+  background: #bd2861;
+  border-radius: 999px;
 }
 
 .bg-wrapper {
@@ -175,14 +213,12 @@ input:focus::placeholder {
     #000 55% 100%
   );
 }
-/* 
-@media (width: 1680px) {
-  html {
-    font-size: 24px;
+@media (min-width: 768px) {
+  .content-block {
+    max-height: calc(100vh - 10rem);
+    overflow: auto;
+    padding: 2rem;
+    border-radius: 24px;
+    max-height: calc(100vh - 10rem);
   }
-  h1,
-  h2,
-  p {
-    font-size: 24px;
-  }
-} */
+}

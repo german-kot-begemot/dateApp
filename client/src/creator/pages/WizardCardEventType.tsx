@@ -10,7 +10,7 @@ type Props = {
 export const WizardCardEventType = ({ selected, onSelect }: Props) => {
   const { t } = useTranslation();
   return (
-    <div className="wiz-btns-holder flex items-center gap-3 justify-between mt-6 w-full">
+    <div className="wiz-btns-holder flex flex-col sm:flex-row! items-center gap-3 justify-between mt-6 w-full ">
       {wizardOptions.map((opt) => (
         <OptionCardBtn
           key={opt.id}
