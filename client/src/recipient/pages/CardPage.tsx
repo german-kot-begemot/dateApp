@@ -16,8 +16,10 @@ import { AppBtn } from '../../shared/ui/AppBtn';
 export const CardPage = () => {
   const { id } = useParams();
   const { step, next, back } = useStep();
+
   const [card, setCard] = useState<Card | null>(null);
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>();
+
   const [response, setResponse] = useState<RecipientAnswers>({
     cardId: '',
     selectedFood: [],
@@ -29,11 +31,13 @@ export const CardPage = () => {
   useEffect(() => {
     const fetchCard = async () => {
       if (!id) return;
+
       try {
         const cardData = await getCard(id);
         setCard(cardData);
       } catch (error) {
         console.error('Ошибка при загрузке карточки:', error);
+
         setError(
           error instanceof Error
             ? error.message
@@ -41,6 +45,7 @@ export const CardPage = () => {
         );
       }
     };
+
     fetchCard();
   }, [id]);
 
@@ -54,12 +59,15 @@ export const CardPage = () => {
       alert('Пожалуйста, заполните все поля.');
       return;
     }
+
     if (!id) return;
+
     try {
       await sendAnswersResponse(id, response);
       next();
     } catch (error) {
       console.error('Ошибка при отправке ответов:', error);
+
       setError(
         error instanceof Error
           ? error.message
@@ -68,23 +76,34 @@ export const CardPage = () => {
     }
   };
 
-  if (error)
+  if (error) {
     return (
-      <div>
-        <p>Ошибка сервера. Попробуйте позже:</p>
-        {error}
+      <div className="flex min-h-screen items-center justify-center p-4 text-center">
+        <p className="text-lg text-red-500">{error}</p>
       </div>
     );
+  }
 
-  if (!card) return <div>Loading...</div>;
+  if (!card) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
 
   return (
-    <>
-      <ProgressBar step={step} total={5} />
-      <div className="recipient-wrapper bg-love-gradient min-h-screen flex flex-col items-center justify-center px-6 gap-8">
-        <FloatingHearts />
+    <main className="recipient-wrapper bg-love-gradient flex min-h-screen flex-col items-center gap-6 overflow-x-hidden px-3 py-4 sm:px-6 sm:py-6 md:justify-center">
+      <FloatingHearts />
+
+      <div className="w-full max-w-3xl">
+        <ProgressBar step={step} total={5} />
+      </div>
+
+      <div className="w-full max-w-3xl">
         <WizardStep step={step}>
           {step === 0 && <Invite card={card} onNext={next} />}
+
           {step === 1 && (
             <Food
               card={card}
@@ -97,19 +116,27 @@ export const CardPage = () => {
               }
             />
           )}
+
           {step === 2 && (
             <DatePage
               card={card}
               selectedDate={response.selectedDate}
               selectedTime={response.selectedTime}
               onDateSelect={(date) =>
-                setResponse((prev) => ({ ...prev, selectedDate: date }))
+                setResponse((prev) => ({
+                  ...prev,
+                  selectedDate: date,
+                }))
               }
               onTimeSelect={(time) =>
-                setResponse((prev) => ({ ...prev, selectedTime: time }))
+                setResponse((prev) => ({
+                  ...prev,
+                  selectedTime: time,
+                }))
               }
             />
           )}
+
           {step === 3 && (
             <Question
               card={card}
@@ -122,36 +149,35 @@ export const CardPage = () => {
               }
             />
           )}
+
           {step === 4 && <Final answers={response} />}
         </WizardStep>
-        <div className="btn-hol relative flex w-full max-w-xl justify-center gap-4">
-          {step > 0 && step < 4 && <AppBtn onClick={back}>Back</AppBtn>}
-
-          {step === 1 && (
-            <AppBtn
-              onClick={next}
-              disabled={response.selectedFood.length === 0}
-            >
-              Next
-            </AppBtn>
-          )}
-
-          {step === 2 && (
-            <AppBtn
-              onClick={next}
-              disabled={!response.selectedDate || !response.selectedTime}
-            >
-              Next
-            </AppBtn>
-          )}
-
-          {step === 3 && (
-            <AppBtn onClick={handleSubmit} disabled={!response.answer}>
-              Send answers
-            </AppBtn>
-          )}
-        </div>
       </div>
-    </>
+
+      <div className="btn-holder flex w-full max-w-3xl items-center justify-center gap-3 pb-6 sm:gap-4">
+        {step > 0 && step < 4 && <AppBtn onClick={back}>Back</AppBtn>}
+
+        {step === 1 && (
+          <AppBtn onClick={next} disabled={response.selectedFood.length === 0}>
+            Next
+          </AppBtn>
+        )}
+
+        {step === 2 && (
+          <AppBtn
+            onClick={next}
+            disabled={!response.selectedDate || !response.selectedTime}
+          >
+            Next
+          </AppBtn>
+        )}
+
+        {step === 3 && (
+          <AppBtn onClick={handleSubmit} disabled={!response.answer}>
+            Send answers
+          </AppBtn>
+        )}
+      </div>
+    </main>
   );
 };

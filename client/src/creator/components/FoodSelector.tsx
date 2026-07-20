@@ -10,8 +10,11 @@ type FoodSelectorProps = {
 };
 
 export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
+  const { t } = useTranslation();
+
   const handleToggle = (food: FoodOption) => {
     const exists = selected.some((item) => item.id === food.id);
+
     if (exists) {
       onChange(selected.filter((item) => item.id !== food.id));
     } else {
@@ -19,13 +22,12 @@ export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
     }
   };
 
-  const { t } = useTranslation();
-
   return (
-    <div className="is-preview flex gap-4 gap-y-6 flex-wrap justify-between">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
       {foodOptions.map((option) => {
         const food = getFoodTranslation(option, t);
         const isSelected = selected.some((item) => item.id === food.id);
+
         return (
           <motion.button
             key={food.id}
@@ -37,7 +39,7 @@ export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
                 ? '0 0 15px rgba(189,40,97,0.9), 0 0 45px rgba(189,40,97,0.6)'
                 : '0 10px 25px rgba(0,0,0,0.15)',
             }}
-            className={`relative flex flex-col items-center gap-3 rounded-3xl text-center transition-all max-w-37.5 h-auto p-2 cursor-pointer ${
+            className={`relative flex min-h-32 w-full flex-col items-center justify-center gap-2 rounded-2xl p-2 text-center transition-all sm:min-h-40 sm:rounded-3xl sm:gap-3 ${
               isSelected
                 ? 'border-2 border-[#bd2861] bg-white ring-4 ring-pink-500/10 scale-105'
                 : 'border border-gray-200/60 bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 opacity-80'
@@ -49,21 +51,26 @@ export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0, opacity: 0 }}
-                  className="absolute -top-1.5 -right-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#bd2861] text-white text-xs font-bold shadow-md"
+                  className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#bd2861] text-xs font-bold text-white shadow-md"
                 >
                   ✓
                 </motion.div>
               )}
             </AnimatePresence>
+
             <span
-              className={`text-4xl transition-transform duration-300 ${isSelected ? 'scale-110' : ''}`}
+              className={`text-3xl transition-transform duration-300 sm:text-4xl ${
+                isSelected ? 'scale-110' : ''
+              }`}
             >
               {food.emoji}
             </span>
-            <h3 className="text-xl font-bold text-[#531A2A] in-[.is-preview]:text-[#531A2A]">
+
+            <h3 className="text-sm font-bold text-[#531A2A] sm:text-xl">
               {food.title}
             </h3>
-            <p className="text-sm text-[#531A2A]! in-[.is-preview]:text-[#531A2A]! in-[.is-preview]:text-[12px]!">
+
+            <p className="text-xs text-[#531A2A]! sm:text-sm">
               {food.description}
             </p>
           </motion.button>

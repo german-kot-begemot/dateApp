@@ -115,15 +115,6 @@ export const en = {
     error: 'Something went wrong',
   },
 
-  //   noPhrases: {
-  //     no: 'No 😢',
-  //     nope: 'Nope 🙈',
-  //     sure: 'Are you sure? 😅',
-  //     try: 'Try it 😎',
-  //     catch: "You won't catch me 😂",
-  //     give: 'Give up ❤️',
-  //   },
-
   noPhrases: {
     btnNo: [
       'No 😢',

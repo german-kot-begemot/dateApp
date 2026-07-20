@@ -4,7 +4,7 @@ import { useAnswerNoButton } from '../../shared/hooks/useAnswerNoButton';
 import { useConfettiBlast } from '../../shared/hooks/useConfettiBlast';
 import type { Card } from '../../shared/types';
 import { getInviteGif } from '../../shared/lib/getInviteGif';
-import { useTranslation } from 'react-i18next'; // ИСПРАВЛЕНО: Импортируем хук
+import { useTranslation } from 'react-i18next';
 
 export type InviteProps = {
   card: Card;
@@ -13,47 +13,54 @@ export type InviteProps = {
 
 export const Invite = ({ card, onNext }: InviteProps) => {
   const { t } = useTranslation();
+
   const {
     containerRef,
     position,
     text,
     noBtnRef,
     handleMouseMove,
+    handleTouchMove,
     handleTouchStart,
   } = useAnswerNoButton();
-
   const { trigger, confetti, yesBtnRef } = useConfettiBlast(onNext);
 
   return (
-    <section className="content-block items-center gap-4 in-[.is-preview]:overflow-hidden">
+    <section className="content-block flex w-full flex-col items-center gap-4 rounded-3xl p-5 text-center sm:p-8 in-[.is-preview]:gap-2 in-[.is-preview]:rounded-xl in-[.is-preview]:p-2">
       <ConfettiBlast active={confetti.active} origin={confetti.origin} />
-      <div className="gif-container flex max-w-50 h-auto items-center justify-center rounded-2xl in-[.is-preview]:max-w-50 in-[.is-preview]:h-auto">
-        <img src={getInviteGif(card.inviteGif)} alt="Invite GIF" />
+
+      <div className="flex h-auto w-full max-w-50 items-center justify-center overflow-hidden rounded-2xl sm:max-w-60 in-[.is-preview]:max-w-24 in-[.is-preview]:rounded-lg">
+        <img
+          src={getInviteGif(card.inviteGif)}
+          alt="Invite GIF"
+          className="h-full w-full object-cover"
+        />
       </div>
-      <h2 className="text-center text-5xl in-[.is-preview]:text-[#531A2A]">
+
+      <h2 className="text-3xl font-bold text-center text-[#fdf1e8] sm:text-5xl in-[.is-preview]:text-xl in-[.is-preview]:text-[#531A2A]">
         {card.inviteTitle}
       </h2>
-      <p className="text-center text-2xl text-[#531A2A] in-[.is-preview]:text-[#531A2A]!">
+
+      <p className="text-lg text-center text-[#fdf1e8] sm:text-2xl in-[.is-preview]:text-xs in-[.is-preview]:text-[#531A2A]!">
         {t('invite.promise')}
       </p>
 
       <div
         ref={containerRef}
         onMouseMove={handleMouseMove}
-        className="relative block-content flex h-52 w-full items-center justify-center rounded-2xl gap-6"
+        onTouchMove={handleTouchMove}
+        className="relative flex flex-col sm:flex-row h-44 w-full items-center justify-center gap-4 rounded-2xl sm:h-52 in-[.is-preview]:h-40 sm:gap-6 in-[.is-preview]:h-20 in-[.is-preview]:gap-2 in-[.is-preview]:rounded-lg"
       >
-        {/* YES BUTTON */}
         <motion.button
           onClick={trigger}
           ref={yesBtnRef}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="rounded-xl bg-[#CC476C] px-8 py-4 text-xl! text-white shadow-lg"
+          className="flex w-40 items-center justify-center rounded-2xl border-2 border-[#CC476C] bg-[#CC476C] px-6 py-3 text-base text-white shadow-lg backdrop-blur-[28px] saturate-150 sm:w-48 sm:text-xl in-[.is-preview]:w-28 in-[.is-preview]:px-3 in-[.is-preview]:py-2 in-[.is-preview]:text-xs"
         >
           {t('invite.yes')}
         </motion.button>
 
-        {/* NO BUTTON */}
         <motion.button
           ref={noBtnRef}
           onTouchStart={handleTouchStart}
@@ -64,7 +71,7 @@ export const Invite = ({ card, onNext }: InviteProps) => {
             position ? { x: position.left, y: position.top } : { x: 0, y: 0 }
           }
           transition={{ type: 'spring', stiffness: 500, damping: 28 }}
-          className="select-none rounded-xl bg-gray-300 px-8 py-4 text-xl! font-semibold text-gray-700 shadow-lg"
+          className="select-none rounded-xl flex w-40 items-center justify-center bg-gray-300 px-6 py-3 text-base text-gray-700 shadow-lg sm:px-8 sm:py-4 sm:text-xl in-[.is-preview]:rounded-lg in-[.is-preview]:px-3 in-[.is-preview]:w-28 in-[.is-preview]:py-2 in-[.is-preview]:py-1 in-[.is-preview]:text-xs"
         >
           {text}
         </motion.button>

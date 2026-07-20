@@ -24,11 +24,10 @@ export const FoodCard = ({ food, selected, onSelect }: FoodCardProps) => {
           : '0 10px 25px rgba(0,0,0,0.15)',
       }}
       className={`relative flex flex-col items-center gap-3 rounded-3xl 
-        text-center transition-all max-w-75 p-2 cursor-pointer in-[.is-preview]:max-w-37.5 
-        in-[.is-preview]:p-2 in-[.is-preview]:gap-2     
+        text-center transition-all max-w-75 p-2 cursor-pointer in-[.is-preview]:p-2 in-[.is-preview]:gap-2     
         ${
           selected
-            ? 'border-2 border-[#bd2861] bg-white ring-4 ring-pink-500/10 scale-105'
+            ? 'border-2 border-[#bd2861] bg-white ring-4 ring-pink-500/10'
             : 'border border-gray-200/60 bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 '
         }
       `}
