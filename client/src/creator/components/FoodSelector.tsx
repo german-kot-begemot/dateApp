@@ -23,7 +23,7 @@ export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-6">
       {foodOptions.map((option) => {
         const food = getFoodTranslation(option, t);
         const isSelected = selected.some((item) => item.id === food.id);
@@ -31,17 +31,27 @@ export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
         return (
           <motion.button
             key={food.id}
-            whileHover={{ scale: 1.03, y: -4 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{
+              scale: 1.05,
+              y: -6,
+              boxShadow:
+                '0 0 25px rgba(189,40,97,0.65), 0 8px 25px rgba(0,0,0,0.2)',
+            }}
+            whileTap={{ scale: 0.97 }}
+            transition={{
+              type: 'spring',
+              stiffness: 500,
+              damping: 25,
+            }}
             onClick={() => handleToggle(food)}
             style={{
               boxShadow: isSelected
                 ? '0 0 15px rgba(189,40,97,0.9), 0 0 45px rgba(189,40,97,0.6)'
                 : '0 10px 25px rgba(0,0,0,0.15)',
             }}
-            className={`relative flex min-h-32 w-full flex-col items-center justify-center gap-2 rounded-2xl p-2 text-center transition-all sm:min-h-40 sm:rounded-3xl sm:gap-3 ${
+            className={`relative flex min-h-32 w-full flex-col items-center justify-center gap-2 rounded-2xl p-2 text-center sm:min-h-40 sm:rounded-3xl sm:gap-3 ${
               isSelected
-                ? 'border-2 border-[#bd2861] bg-white ring-4 ring-pink-500/10 scale-105'
+                ? 'scale-105 border-2 border-[#bd2861] bg-white ring-4 ring-pink-500/10'
                 : 'border border-gray-200/60 bg-linear-to-br from-pink-100 via-rose-50 to-fuchsia-100 opacity-80'
             }`}
           >

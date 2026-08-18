@@ -59,7 +59,7 @@ export const CreateConfig = () => {
 
   return (
     <div className="creator-wrapper bg-love-gradient flex-1 flex justify-center items-start px-3 py-4 sm:px-4 sm:py-6">
-      <div className="content-block rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl flex flex-col gap-5 sm:gap-8">
+      <div className="content-block w-full sm:max-w-[50%] rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl flex flex-col gap-5 sm:gap-8">
         <ProgressBar step={step} total={8} />
 
         <WizardStep step={step}>

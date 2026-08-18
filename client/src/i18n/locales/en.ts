@@ -6,6 +6,23 @@ export const en = {
     createCard: 'Create Card',
     openCard: 'Open Card',
     enterCardCode: 'Enter card code',
+    howItWorks: 'How it works',
+    howItWorksSteps: {
+      create: {
+        title: 'Create a card',
+        description:
+          'Create a card or invitation for a special moment in just a few simple steps.',
+      },
+      share: {
+        title: 'Share the card',
+        description:
+          'Send a link to your loved one. The recipient will receive a beautiful card or invitation.',
+      },
+      response: {
+        title: 'Get a response',
+        description: 'Get a response directly in Telegram.',
+      },
+    },
   },
 
   wizard: {
@@ -53,7 +70,7 @@ export const en = {
     copy: 'Copy link',
     telegram: 'Get Telegram notifications',
     mainMenu: 'Main menu',
-    invite: 'Date invitation ❤️',
+    invite: 'Date invitation',
     birthday: 'Birthday greeting',
     custom: 'Custom card',
   },
@@ -82,6 +99,18 @@ export const en = {
     steakDescription: 'A well-cooked steak can melt hearts.',
     cocktail: 'Cocktail',
     cocktailDescription: 'Cheers to a night of fun and laughter.',
+    dessert: 'Dessert',
+    dessertDescription: 'Skip dinner and go straight to the good stuff.',
+    iceCream: 'IceCream',
+    iceCreamDescription: "Because ice cream doesn't need a special occasion.",
+    coffee: 'Coffee',
+    coffeeDescription: 'Coffee, conversation, and see where it leads.',
+    wine: 'Wine',
+    wineDescription: 'Chill evening, good conversation, and no rush.',
+    tacos: 'Tacos',
+    tacosDescription: 'A little spice never hurt anyone.',
+    ramen: 'Ramen',
+    ramenDescription: 'Warm evening, big bowl, and no complicated decisions.',
     surprise: 'Surprise',
     surpriseDescription: 'An unexpected delight awaits you.',
   },

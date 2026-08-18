@@ -4,6 +4,7 @@ import { AppBtn } from '../shared/ui/AppBtn';
 import { motion } from 'framer-motion';
 import { fadeInContainer, fadeInUp } from '../shared/animations/variants';
 import { useTranslation } from 'react-i18next';
+import { HowItWorksAccordion } from '../shared/ui/HowItWorksAccordion';
 
 export const Home = () => {
   const { t } = useTranslation();
@@ -45,6 +46,7 @@ export const Home = () => {
             {t('home.openCard')}
           </AppBtn>
         </motion.div>
+        <HowItWorksAccordion />
       </motion.div>
     </main>
   );
