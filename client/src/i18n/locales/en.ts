@@ -6,6 +6,29 @@ export const en = {
     createCard: 'Create Card',
     openCard: 'Open Card',
     enterCardCode: 'Enter card code',
+    howItWorks: 'How it works',
+    howItWorksSteps: {
+      create: {
+        title: 'Create a card',
+        description:
+          'Create a card or invitation for a special moment in just a few simple steps.',
+      },
+      share: {
+        title: 'Share the card',
+        description:
+          'Send a link to your loved one. The recipient will receive a beautiful card or invitation.',
+      },
+      response: {
+        title: 'Get a response',
+        description: 'Get a response directly in Telegram.',
+      },
+    },
+    modalOpenCard: {
+      title: 'Open card',
+      description: 'Enter card code',
+      placeholder: 'Enter card code',
+      button: 'Open card',
+    },
   },
 
   wizard: {
@@ -19,12 +42,16 @@ export const en = {
     foodOptions: 'Choose from which options the recipient will choose',
     placeholderFoodOption: 'What do you want?',
 
-    date: 'Step 3 - Date and Time',
+    activity: 'Step 3 - Activity',
+    activityOptions: 'Choose from which options the recipient will choose',
+    placeholderActivityOption: 'What do you want to do?',
+
+    date: 'Step 4 - Date and Time',
     datePlaceholder: 'When would it be convenient for you to meet? ❤️',
     dateDescription:
       'This text will be seen by the recipient during date and time selection.',
 
-    question: 'Step 4 - Additional Question',
+    question: 'Step 5 - Additional Question',
     questionOption: 'Choose your answer ❤️',
     questionDescription:
       'Ask a yes/no question you want an answer to. For example: "Do you love me?"',
@@ -53,7 +80,7 @@ export const en = {
     copy: 'Copy link',
     telegram: 'Get Telegram notifications',
     mainMenu: 'Main menu',
-    invite: 'Date invitation ❤️',
+    invite: 'Date invitation',
     birthday: 'Birthday greeting',
     custom: 'Custom card',
   },
@@ -82,6 +109,18 @@ export const en = {
     steakDescription: 'A well-cooked steak can melt hearts.',
     cocktail: 'Cocktail',
     cocktailDescription: 'Cheers to a night of fun and laughter.',
+    dessert: 'Dessert',
+    dessertDescription: 'Skip dinner and go straight to the good stuff.',
+    iceCream: 'IceCream',
+    iceCreamDescription: "Because ice cream doesn't need a special occasion.",
+    coffee: 'Coffee',
+    coffeeDescription: 'Coffee, conversation, and see where it leads.',
+    wine: 'Wine',
+    wineDescription: 'Chill evening, good conversation, and no rush.',
+    tacos: 'Tacos',
+    tacosDescription: 'A little spice never hurt anyone.',
+    ramen: 'Ramen',
+    ramenDescription: 'Warm evening, big bowl, and no complicated decisions.',
     surprise: 'Surprise',
     surpriseDescription: 'An unexpected delight awaits you.',
   },
@@ -124,5 +163,28 @@ export const en = {
       "You won't catch me 😂",
       'Give up ❤️',
     ],
+  },
+
+  activity: {
+    title: 'Choose your activity',
+    movie: 'Movie',
+    movieDescription: 'Comfortably sit down and watch something good.',
+    walk: 'Walk',
+    walkDescription: "Let's walk, talk and not rush anywhere.",
+    bowling: 'Bowling',
+    bowlingDescription: 'A little competition never hurt anyone.',
+    games: 'Games',
+    gamesDescription: "Let's see who will be the best player.",
+    museum: 'Museum',
+    museumDescription: 'A little art, impressions and conversations.',
+    picnic: 'Picnic',
+    picnicDescription: 'Blanket, good food and time only for us.',
+    karaoke: 'Karaoke',
+    karaokeDescription:
+      "Let's check how ready we are to sing in front of witnesses.",
+    relax: 'Relax',
+    relaxDescription: 'Just relax and enjoy the moment.',
+    surprise: 'Surprise',
+    surpriseDescription: 'Trust my choice? Then leave it to me.',
   },
 } as const;

@@ -1,36 +1,39 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import type { FoodOption } from '../../shared/types';
-import { foodOptions } from '../../data/foodOptions';
 import { useTranslation } from 'react-i18next';
-import { getFoodTranslation } from '../../shared/lib/getFoodTranslation';
+import type { ActivityOption } from '../../shared/types';
+import { AnimatePresence, motion } from 'framer-motion';
+import { activityOptions } from '../../data/activityOptions';
+import { getActivityTranslation } from '../../shared/lib/getActivityTranslation';
 
-type FoodSelectorProps = {
-  selected: FoodOption[];
-  onChange: (value: FoodOption[]) => void;
+type ActivitySelectorProps = {
+  selected: ActivityOption[];
+  onChange: (value: ActivityOption[]) => void;
 };
 
-export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
+export const ActivitySelector = ({
+  selected,
+  onChange,
+}: ActivitySelectorProps) => {
   const { t } = useTranslation();
 
-  const handleToggle = (food: FoodOption) => {
-    const exists = selected.some((item) => item.id === food.id);
+  const handleToggle = (activity: ActivityOption) => {
+    const exists = selected.some((item) => item.id === activity.id);
 
     if (exists) {
-      onChange(selected.filter((item) => item.id !== food.id));
+      onChange(selected.filter((item) => item.id !== activity.id));
     } else {
-      onChange([...selected, food]);
+      onChange([...selected, activity]);
     }
   };
 
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-6">
-      {foodOptions.map((option) => {
-        const food = getFoodTranslation(option, t);
-        const isSelected = selected.some((item) => item.id === food.id);
+      {activityOptions.map((option) => {
+        const activity = getActivityTranslation(option, t);
+        const isSelected = selected.some((item) => item.id === activity.id);
 
         return (
           <motion.button
-            key={food.id}
+            key={activity.id}
             whileHover={{
               scale: 1.05,
               y: -6,
@@ -43,7 +46,7 @@ export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
               stiffness: 500,
               damping: 25,
             }}
-            onClick={() => handleToggle(food)}
+            onClick={() => handleToggle(activity)}
             style={{
               boxShadow: isSelected
                 ? '0 0 15px rgba(189,40,97,0.9), 0 0 45px rgba(189,40,97,0.6)'
@@ -67,21 +70,18 @@ export const FoodSelector = ({ selected, onChange }: FoodSelectorProps) => {
                 </motion.div>
               )}
             </AnimatePresence>
-
             <span
               className={`text-3xl transition-transform duration-300 sm:text-4xl ${
                 isSelected ? 'scale-110' : ''
               }`}
             >
-              {food.emoji}
+              {activity.emoji}
             </span>
-
             <h3 className="text-sm font-bold text-[#531A2A] sm:text-xl">
-              {food.title}
+              {activity.title}
             </h3>
-
             <p className="text-xs text-[#531A2A]! sm:text-sm">
-              {food.description}
+              {activity.description}
             </p>
           </motion.button>
         );

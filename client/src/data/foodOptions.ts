@@ -38,6 +38,42 @@ export const foodOptions: FoodOption[] = [
     description: 'Идеально для легкого и непринужденного вечера.',
   },
   {
+    id: 'dessert',
+    title: 'Десерт',
+    emoji: '🍰',
+    description: 'Можно пропустить ужин и сразу перейти к приятному.',
+  },
+  {
+    id: 'iceCream',
+    title: 'Мороженое',
+    emoji: '🍦',
+    description: 'Потому что для мороженого не нужен особый повод.',
+  },
+  {
+    id: 'coffee',
+    title: 'Кофе',
+    emoji: '☕',
+    description: 'Кофе, разговоры и посмотреть, куда нас занесет.',
+  },
+  {
+    id: 'wine',
+    title: 'Вино',
+    emoji: '🍷',
+    description: 'Спокойный вечер, хороший разговор и никуда не спешим.',
+  },
+  {
+    id: 'tacos',
+    title: 'Тако',
+    emoji: '🌮',
+    description: 'Немного остроты никогда не помешает.',
+  },
+  {
+    id: 'ramen',
+    title: 'Рамен',
+    emoji: '🍜',
+    description: 'Теплый вечер, большая миска и никаких сложных решений.',
+  },
+  {
     id: 'surprise',
     title: 'Сюрприз',
     emoji: '🎁',

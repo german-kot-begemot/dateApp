@@ -12,6 +12,7 @@ import { getCard, sendAnswersResponse } from '../../api/cardApi';
 import { Final } from './Final';
 import FloatingHearts from '../../shared/ui/FloatingHearts';
 import { AppBtn } from '../../shared/ui/AppBtn';
+import { Activity } from './Activity';
 
 export const CardPage = () => {
   const { id } = useParams();
@@ -23,6 +24,7 @@ export const CardPage = () => {
   const [response, setResponse] = useState<RecipientAnswers>({
     cardId: '',
     selectedFood: [],
+    selectedActivity: [],
     selectedDate: null,
     selectedTime: null,
     answer: '',
@@ -52,6 +54,7 @@ export const CardPage = () => {
   const handleSubmit = async () => {
     if (
       !response.selectedFood.length ||
+      !response.selectedActivity.length ||
       !response.selectedDate ||
       !response.selectedTime ||
       !response.answer
@@ -97,7 +100,7 @@ export const CardPage = () => {
       <FloatingHearts />
 
       <div className="w-full max-w-3xl">
-        <ProgressBar step={step} total={5} />
+        <ProgressBar step={step} total={6} />
       </div>
 
       <div className="w-full max-w-3xl">
@@ -118,6 +121,19 @@ export const CardPage = () => {
           )}
 
           {step === 2 && (
+            <Activity
+              card={card}
+              selectedActivity={response.selectedActivity}
+              onSelect={(activities) =>
+                setResponse((prev) => ({
+                  ...prev,
+                  selectedActivity: activities,
+                }))
+              }
+            />
+          )}
+
+          {step === 3 && (
             <DatePage
               card={card}
               selectedDate={response.selectedDate}
@@ -137,7 +153,7 @@ export const CardPage = () => {
             />
           )}
 
-          {step === 3 && (
+          {step === 4 && (
             <Question
               card={card}
               value={response.answer}
@@ -150,20 +166,28 @@ export const CardPage = () => {
             />
           )}
 
-          {step === 4 && <Final answers={response} />}
+          {step === 5 && <Final answers={response} />}
         </WizardStep>
       </div>
 
       <div className="btn-holder flex w-full max-w-3xl items-center justify-center gap-3 pb-6 sm:gap-4">
-        {step > 0 && step < 4 && <AppBtn onClick={back}>Back</AppBtn>}
+        {step > 0 && step < 5 && <AppBtn onClick={back}>Back</AppBtn>}
 
         {step === 1 && (
           <AppBtn onClick={next} disabled={response.selectedFood.length === 0}>
             Next
           </AppBtn>
         )}
-
         {step === 2 && (
+          <AppBtn
+            onClick={next}
+            disabled={response.selectedActivity.length === 0}
+          >
+            Next
+          </AppBtn>
+        )}
+
+        {step === 3 && (
           <AppBtn
             onClick={next}
             disabled={!response.selectedDate || !response.selectedTime}
@@ -172,7 +196,7 @@ export const CardPage = () => {
           </AppBtn>
         )}
 
-        {step === 3 && (
+        {step === 4 && (
           <AppBtn onClick={handleSubmit} disabled={!response.answer}>
             Send answers
           </AppBtn>

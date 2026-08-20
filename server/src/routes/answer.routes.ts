@@ -7,7 +7,14 @@ const router = express.Router();
 
 // save recipient's answers in the database
 router.post('/', async (req, res) => {
-  const { cardId, selectedFood, selectedDate, selectedTime, answer } = req.body;
+  const {
+    cardId,
+    selectedFood,
+    selectedActivity,
+    selectedDate,
+    selectedTime,
+    answer,
+  } = req.body;
 
   try {
     const card = await Card.findById(cardId);
@@ -17,13 +24,20 @@ router.post('/', async (req, res) => {
       return res.status(404).json({ message: 'Card not found' });
     }
 
-    if (!selectedFood?.length || !selectedDate || !selectedTime || !answer) {
+    if (
+      !selectedFood?.length ||
+      !selectedActivity?.length ||
+      !selectedDate ||
+      !selectedTime ||
+      !answer
+    ) {
       return res.status(400).json({ message: 'Не все поля заполнены' });
     }
 
     const savedAnswer = await AnswerModel.create({
       cardId,
       selectedFood,
+      selectedActivity,
       selectedDate,
       selectedTime,
       answer,

@@ -5,6 +5,13 @@ export type FoodOption = {
   description?: string;
 };
 
+export type ActivityOption = {
+  id: string;
+  title: string;
+  emoji: string;
+  description: string;
+};
+
 export type ScreenInvite = {
   inviteGif: string;
   inviteTitle: string;
@@ -27,6 +34,8 @@ export type WizardData = {
   inviteTitle: string;
   foodTitle: string;
   foodOptions: FoodOption[];
+  activityTitle: string;
+  activityOptions: ActivityOption[];
   dateTitle: string;
   questionTitle: string;
   link?: string;
@@ -41,6 +50,8 @@ export type Card = {
   inviteTitle: string;
   foodTitle: string;
   foodOptions: FoodOption[];
+  activityTitle: string;
+  activityOptions: ActivityOption[];
   dateTitle: string;
   questionTitle: string;
 };
@@ -49,6 +60,7 @@ export type Card = {
 export type RecipientAnswers = {
   cardId: string;
   selectedFood: FoodOption[];
+  selectedActivity: ActivityOption[];
   selectedDate: Date | null;
   selectedTime: Date | null;
   answer: string;

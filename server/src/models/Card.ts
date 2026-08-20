@@ -7,6 +7,13 @@ export interface FoodOption {
   description: string;
 }
 
+export interface ActivityOption {
+  id: string;
+  title: string;
+  emoji: string;
+  description: string;
+}
+
 export interface CardDocument extends mongoose.Document {
   telegramChatId: string | null;
   type: string;
@@ -14,6 +21,8 @@ export interface CardDocument extends mongoose.Document {
   inviteTitle: string;
   foodTitle: string;
   foodOptions: FoodOption[];
+  activityTitle: string;
+  activityOptions: ActivityOption[];
   dateTitle: string;
   questionTitle: string;
   expiresAt: Date;
@@ -27,6 +36,12 @@ const cardSchema = new mongoose.Schema(
     inviteTitle: { type: String, required: true },
     foodTitle: { type: String, required: true },
     foodOptions: {
+      type: [{ id: String, title: String, emoji: String, description: String }],
+      required: true,
+      default: [],
+    },
+    activityTitle: { type: String, required: true },
+    activityOptions: {
       type: [{ id: String, title: String, emoji: String, description: String }],
       required: true,
       default: [],
