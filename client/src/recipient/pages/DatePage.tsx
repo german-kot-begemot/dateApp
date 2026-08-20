@@ -56,7 +56,7 @@ export const DatePage = ({
           dateFormat="dd.MM.yyyy"
           placeholderText={t('date.dateCaption')}
           portalId="datepicker-portal"
-          filterDate={(date) => ![0, 1, 2, 3].includes(date.getDay())}
+          // filterDate={(date) => ![0, 1, 2, 3].includes(date.getDay())}
           customInput={
             <button
               type="button"
@@ -83,10 +83,10 @@ export const DatePage = ({
           dateFormat="HH:mm"
           placeholderText={t('date.timeCaption')}
           portalId="datepicker-portal"
-          filterTime={(time) => {
-            const hours = time.getHours();
-            return hours >= 17 && hours <= 23;
-          }}
+          // filterTime={(time) => {
+          //   const hours = time.getHours();
+          //   return hours >= 17 && hours <= 23;
+          // }}
           customInput={
             <button
               type="button"

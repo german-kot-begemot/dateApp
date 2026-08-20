@@ -23,6 +23,12 @@ export const en = {
         description: 'Get a response directly in Telegram.',
       },
     },
+    modalOpenCard: {
+      title: 'Open card',
+      description: 'Enter card code',
+      placeholder: 'Enter card code',
+      button: 'Open card',
+    },
   },
 
   wizard: {
@@ -36,12 +42,16 @@ export const en = {
     foodOptions: 'Choose from which options the recipient will choose',
     placeholderFoodOption: 'What do you want?',
 
-    date: 'Step 3 - Date and Time',
+    activity: 'Step 3 - Activity',
+    activityOptions: 'Choose from which options the recipient will choose',
+    placeholderActivityOption: 'What do you want to do?',
+
+    date: 'Step 4 - Date and Time',
     datePlaceholder: 'When would it be convenient for you to meet? ❤️',
     dateDescription:
       'This text will be seen by the recipient during date and time selection.',
 
-    question: 'Step 4 - Additional Question',
+    question: 'Step 5 - Additional Question',
     questionOption: 'Choose your answer ❤️',
     questionDescription:
       'Ask a yes/no question you want an answer to. For example: "Do you love me?"',
@@ -153,5 +163,28 @@ export const en = {
       "You won't catch me 😂",
       'Give up ❤️',
     ],
+  },
+
+  activity: {
+    title: 'Choose your activity',
+    movie: 'Movie',
+    movieDescription: 'Comfortably sit down and watch something good.',
+    walk: 'Walk',
+    walkDescription: "Let's walk, talk and not rush anywhere.",
+    bowling: 'Bowling',
+    bowlingDescription: 'A little competition never hurt anyone.',
+    games: 'Games',
+    gamesDescription: "Let's see who will be the best player.",
+    museum: 'Museum',
+    museumDescription: 'A little art, impressions and conversations.',
+    picnic: 'Picnic',
+    picnicDescription: 'Blanket, good food and time only for us.',
+    karaoke: 'Karaoke',
+    karaokeDescription:
+      "Let's check how ready we are to sing in front of witnesses.",
+    relax: 'Relax',
+    relaxDescription: 'Just relax and enjoy the moment.',
+    surprise: 'Surprise',
+    surpriseDescription: 'Trust my choice? Then leave it to me.',
   },
 } as const;

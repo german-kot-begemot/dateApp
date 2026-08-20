@@ -5,10 +5,17 @@ import { motion } from 'framer-motion';
 import { fadeInContainer, fadeInUp } from '../shared/animations/variants';
 import { useTranslation } from 'react-i18next';
 import { HowItWorksAccordion } from '../shared/ui/HowItWorksAccordion';
+import { useState } from 'react';
+import { OpenCardModal } from '../shared/ui/OpenCardModal';
 
 export const Home = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [isOpenCardModalOpen, setIsOpenCardModalOpen] = useState(false);
+
+  const handleOpenCard = (cardId: string) => {
+    navigate(`/card/${cardId}`);
+  };
 
   return (
     <main className="wrapper flex-1 px-4">
@@ -31,23 +38,23 @@ export const Home = () => {
 
         <motion.div
           variants={fadeInUp}
-          className="flex w-full flex-col sm:flex-row gap-4 justify-center mt-[40px]!"
+          className="flex w-full flex-col sm:flex-row gap-4 justify-center mt-10!"
         >
           <AppBtn onClick={() => navigate('/create')}>
             {t('home.createCard')}
           </AppBtn>
 
-          <AppBtn
-            onClick={() => {
-              const id = prompt(t('home.enterCardCode'));
-              if (id) navigate(`/card/${id}`);
-            }}
-          >
+          <AppBtn onClick={() => setIsOpenCardModalOpen(true)}>
             {t('home.openCard')}
           </AppBtn>
         </motion.div>
         <HowItWorksAccordion />
       </motion.div>
+      <OpenCardModal
+        isOpen={isOpenCardModalOpen}
+        onClose={() => setIsOpenCardModalOpen(false)}
+        onOpenCard={handleOpenCard}
+      />
     </main>
   );
 };

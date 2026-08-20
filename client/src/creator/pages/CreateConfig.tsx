@@ -18,18 +18,30 @@ import { AppBtn } from '../../shared/ui/AppBtn';
 import { getInviteGif } from '../../shared/lib/getInviteGif';
 import { WizardSection } from '../components/WizardSection';
 import { useTranslation } from 'react-i18next';
+import { ActivitySelector } from '../components/ActivitySelector';
+import { Activity } from '../../recipient/pages/Activity';
 
 export const CreateConfig = () => {
   const { t } = useTranslation();
   const { step, data, update, next, back } = useWizard();
   const navigate = useNavigate();
 
+  // const isNextDisabled =
+  //   (step === 0 && !data.type) ||
+  //   (step === 1 && (!data.inviteGif || !data.inviteTitle.trim())) ||
+  //   (step === 2 && data.foodOptions.length === 0) ||
+  //   (step === 3 && data.activityOptions.length === 0) ||
+  //   (step === 4 && !data.dateTitle.trim()) ||
+  //   (step === 5 && !data.questionTitle.trim());
+
   const isNextDisabled =
     (step === 0 && !data.type) ||
     (step === 1 && (!data.inviteGif || !data.inviteTitle.trim())) ||
-    (step === 2 && data.foodOptions.length === 0) ||
-    (step === 3 && !data.dateTitle.trim()) ||
-    (step === 4 && !data.questionTitle.trim());
+    (step === 2 && (!data.foodTitle.trim() || data.foodOptions.length === 0)) ||
+    (step === 3 &&
+      (!data.activityTitle.trim() || data.activityOptions.length === 0)) ||
+    (step === 4 && !data.dateTitle.trim()) ||
+    (step === 5 && !data.questionTitle.trim());
 
   const handleCreate = async () => {
     try {
@@ -53,6 +65,8 @@ export const CreateConfig = () => {
     inviteTitle: data.inviteTitle,
     foodTitle: data.foodTitle,
     foodOptions: data.foodOptions,
+    activityTitle: data.activityTitle,
+    activityOptions: data.activityOptions,
     dateTitle: data.dateTitle,
     questionTitle: data.questionTitle,
   };
@@ -150,6 +164,38 @@ export const CreateConfig = () => {
 
           {step === 3 && (
             <WizardSection className="flex flex-col gap-4 sm:gap-5">
+              <motion.h2 className="text-center text-2xl sm:text-4xl">
+                {t('wizard.activity')}
+              </motion.h2>
+
+              <motion.label
+                htmlFor="activityTitle"
+                className="text-base sm:text-2xl"
+              >
+                {t('wizard.writeTitle')}
+              </motion.label>
+
+              <motion.input
+                id="activityTitle"
+                className="w-full rounded-xl border border-pink-200 p-3 text-base placeholder:text-[#fdf1e8]! sm:p-4 sm:text-lg"
+                placeholder={t('wizard.placeholderActivityOption')}
+                value={data.activityTitle}
+                onChange={(e) => update({ activityTitle: e.target.value })}
+              />
+
+              <motion.p className="text-base sm:text-2xl">
+                {t('wizard.activityOptions')}
+              </motion.p>
+
+              <ActivitySelector
+                selected={data.activityOptions}
+                onChange={(activityOptions) => update({ activityOptions })}
+              />
+            </WizardSection>
+          )}
+
+          {step === 4 && (
+            <WizardSection className="flex flex-col gap-4 sm:gap-5">
               <motion.h2 className="text-2xl sm:text-4xl text-center mb-4 sm:mb-7">
                 {t('wizard.date')}
               </motion.h2>
@@ -179,7 +225,7 @@ export const CreateConfig = () => {
             </WizardSection>
           )}
 
-          {step === 4 && (
+          {step === 5 && (
             <WizardSection className="flex flex-col gap-4">
               <motion.h2 className="text-2xl sm:text-4xl text-center mb-4 sm:mb-7">
                 {t('wizard.question')}
@@ -206,7 +252,7 @@ export const CreateConfig = () => {
             </WizardSection>
           )}
 
-          {step === 5 && (
+          {step === 6 && (
             <WizardSection className="flex flex-col gap-4 text-sm">
               <motion.h2 className="text-2xl sm:text-4xl text-center mb-4 sm:mb-7">
                 {t('wizard.preview')}
@@ -216,6 +262,10 @@ export const CreateConfig = () => {
                 <motion.div className="is-preview flex flex-col gap-4 sm:gap-6 h-full w-full overflow-hidden">
                   <Invite card={previewCard} />
                   <Food card={previewCard} selectedFood={data.foodOptions} />
+                  <Activity
+                    card={previewCard}
+                    selectedActivity={data.activityOptions}
+                  />
                   <DatePage
                     card={previewCard}
                     selectedDate={null}
@@ -226,6 +276,7 @@ export const CreateConfig = () => {
                     answers={{
                       cardId: '',
                       selectedFood: [],
+                      selectedActivity: [],
                       selectedDate: null,
                       selectedTime: null,
                       answer: '',
@@ -236,7 +287,7 @@ export const CreateConfig = () => {
             </WizardSection>
           )}
 
-          {step === 6 && (
+          {step === 7 && (
             <WizardSection className="flex flex-col gap-4">
               <motion.h2 className="text-2xl sm:text-4xl text-center mb-4 sm:mb-7">
                 {t('wizard.final')}
@@ -264,6 +315,10 @@ export const CreateConfig = () => {
                 </p>
 
                 <p className="text-lg text-[#531A2A]! sm:text-2xl">
+                  {data.activityTitle}
+                </p>
+
+                <p className="text-lg text-[#531A2A]! sm:text-2xl">
                   {data.dateTitle}
                 </p>
 
@@ -278,7 +333,7 @@ export const CreateConfig = () => {
             </WizardSection>
           )}
 
-          {step === 7 && (
+          {step === 8 && (
             <WizardSection className="flex flex-col items-center gap-5 text-center">
               <div className="text-6xl sm:text-7xl">🎉</div>
 
@@ -320,8 +375,8 @@ export const CreateConfig = () => {
           )}
         </WizardStep>
 
-        <div className="pt-[30px] flex w-full flex-col-reverse items-center gap-3 sm:flex-row sm:justify-between">
-          {step > 0 && step < 7 ? (
+        <div className="pt-7.5 flex w-full flex-col-reverse items-center gap-3 sm:flex-row sm:justify-between">
+          {step > 0 && step < 8 ? (
             <AppBtn onClick={back} active={false}>
               {t('buttons.back')}
             </AppBtn>
@@ -329,13 +384,13 @@ export const CreateConfig = () => {
             <div />
           )}
 
-          {step < 6 && (
+          {step < 7 && (
             <AppBtn onClick={next} disabled={isNextDisabled}>
               {t('buttons.next')}
             </AppBtn>
           )}
 
-          {step === 6 && (
+          {step === 7 && (
             <AppBtn onClick={handleCreate}>{t('buttons.create')}</AppBtn>
           )}
         </div>

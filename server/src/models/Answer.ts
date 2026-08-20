@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
 import { FoodOption } from './Card.js';
+import { ActivityOption } from './Card.js';
 
 export interface Answer extends mongoose.Document {
   cardId: mongoose.Types.ObjectId;
   selectedFood: FoodOption[];
+  selectedActivity: ActivityOption[];
   selectedDate: string;
   selectedTime: string;
   answer: string;
@@ -16,6 +18,14 @@ const answerSchema = new mongoose.Schema({
     required: true,
   },
   selectedFood: [
+    {
+      id: String,
+      title: String,
+      emoji: String,
+      description: String,
+    },
+  ],
+  selectedActivity: [
     {
       id: String,
       title: String,

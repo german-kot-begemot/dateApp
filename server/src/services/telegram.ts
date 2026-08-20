@@ -18,6 +18,7 @@ export const sendTelegramNotification = async (
 
   if (
     !data.selectedFood ||
+    !data.selectedActivity ||
     !data.selectedDate ||
     !data.selectedTime ||
     !data.answer
@@ -43,14 +44,18 @@ export const sendTelegramNotification = async (
     },
   );
 
+  console.log('TELEGRAM DATA:', {
+    selectedFood: data.selectedFood,
+    selectedActivity: data.selectedActivity,
+  });
+
   const text = `
 <b>❤️ На твое приглашение ответили!</b>
-<b>🍣 Еда:</b>
-${data.selectedFood.map((f) => `${f.emoji} ${f.title}`).join(', ')}
+<b>🍣 Еда:</b> ${data.selectedFood.map((f) => `${f.title}`).join(', ')}
+<b>🎉 Активность:</b> ${data.selectedActivity.map((a) => `${a.title}`).join(', ')}
 <b>📅 Дата:</b> ${formattedDate}
 <b>⏰ Время:</b> ${formattedTime}
-<b>Ответ:</b>
-<i>${data.answer} 😘</i>
+<b>Ответ:</b> <i>${data.answer} 😘</i>
   `.trim();
 
   try {

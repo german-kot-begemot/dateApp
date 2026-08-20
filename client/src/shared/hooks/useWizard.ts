@@ -8,6 +8,8 @@ const initial: WizardData = {
   inviteTitle: '',
   foodTitle: '',
   foodOptions: [],
+  activityTitle: '',
+  activityOptions: [],
   dateTitle: '',
   questionTitle: '',
   link: '',
