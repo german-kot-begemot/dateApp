@@ -37,9 +37,10 @@ export const CreateConfig = () => {
   const isNextDisabled =
     (step === 0 && !data.type) ||
     (step === 1 && (!data.inviteGif || !data.inviteTitle.trim())) ||
-    (step === 2 && (!data.foodTitle.trim() || data.foodOptions.length === 0)) ||
+    (step === 2 &&
+      (!data.foodTitle?.trim() || data.foodOptions.length === 0)) ||
     (step === 3 &&
-      (!data.activityTitle.trim() || data.activityOptions.length === 0)) ||
+      (!data.activityTitle?.trim() || data.activityOptions.length === 0)) ||
     (step === 4 && !data.dateTitle.trim()) ||
     (step === 5 && !data.questionTitle.trim());
 
