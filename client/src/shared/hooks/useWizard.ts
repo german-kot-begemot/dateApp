@@ -18,7 +18,9 @@ const initial: WizardData = {
 export const useWizard = () => {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<WizardData>(() => {
-    return wizardStorage.load<WizardData>() ?? initial;
+    const saved = wizardStorage.load<Partial<WizardData>>();
+
+    return saved ? { ...initial, ...saved } : initial;
   });
 
   const update = (patch: Partial<WizardData>) => {
